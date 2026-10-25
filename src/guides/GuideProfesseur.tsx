@@ -22,17 +22,17 @@ export function GuideProfesseur() {
         </p>
       </GuideSection>
 
-      <GuideSection id="cours" title="Structure des deux cours de la semaine">
+      <GuideSection id="cours" title="Structure des deux cours de la fin de semaine">
         <ul className="list-disc space-y-2 pl-6">
           <li>
-            <strong>Cours 1 (lundi, 1 h)</strong> : 10 min de retour sur la semaine (podcasts écoutés, mots notés), 30 min sur le bloc de
-            grammaire du Module 0 en cours, 20 min d’exercice guidé appliqué à un thème (médecine, crêperie, MUHC, SAAQ).
+            <strong>Cours 1 (samedi, 1 h)</strong> : 10 min de retour sur la semaine (extraits Mauril, podcasts, mots cherchés), 30 min sur le bloc de
+            grammaire du Module 0 en cours, 20 min d’exercice guidé appliqué aux thèmes (médecine, crêperie, MUHC, SAAQ).
           </li>
           <li>
-            <strong>Cours 2 (mercredi, 1 h)</strong> : une production — simulation orale chronométrée ou production écrite — puis
-            correction avec la grille DELF.
+            <strong>Cours 2 (dimanche, 1 h)</strong> : une production ciblée — simulation orale chronométrée (20 min de préparation, 5-7 min de monologue, 10 min de débat comme la leçon 1.0 sur la télémédecine en semaine 1) ou production écrite — puis
+            correction détaillée avec la grille DELF B2.
           </li>
-          <li>Entre les cours, l’élève fait les quiz et pratique avec Gemini ; vérifiez ses résultats dans le tableau de suivi.</li>
+          <li>Du lundi au vendredi, Mikael s’immerge pendant ses trajets et son divertissement, fait les quiz et pratique avec Gemini TA.</li>
         </ul>
       </GuideSection>
 

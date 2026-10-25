@@ -206,13 +206,13 @@ gantt
 
 | Jour | Durée | Activité | Thème | Mode |
 |---|---|---|---|---|
-| **Lundi** (cours) | 1h | Grammaire + exercice guidé | Fondations + Médecine | Professeur |
-| **Mardi** (trajet) | 30 min | Podcast Radio-Canada OHdio | Médecine | Immersion autonome |
-| **Mercredi** (cours) | 1h | Simulation orale ou production écrite | MUHC ou Crêperie | Professeur |
-| **Jeudi** (maison) | 30 min | Pratique vocabulaire avec Gemini | SAAQ | TA Gemini |
-| **Vendredi** (trajet) | 30 min | Écoute : émission ICI TOU.TV ou anime VF | Immersion libre | Autonome |
-| **Samedi** (dédié) | 1h30 | Quiz interactifs + production écrite | Mixte (2-3 thèmes) | TA + autonome |
-| **Dimanche** (dédié) | 1h30 | Examen blanc partiel ou révision ciblée | DELF simulation | TA + autonome |
+| **Lundi** (trajet) | 30 min | Mauril (défis d’écoute) + Radio-Canada OHdio | Compréhension orale | Immersion autonome |
+| **Mardi** (trajet) | 30 min | YouTube Music (listes québécoises / francophones) | Immersion passive | Autonome |
+| **Mercredi** (maison) | 30 min | Pratique interactive & vocabulaire avec Gemini TA | Pratique guidée | TA Gemini |
+| **Jeudi** (trajet) | 30 min | Mauril ou reportage santé / société | Médecine & Société | Immersion autonome |
+| **Vendredi** (trajet/soir) | 45 min | Émission ICI TOU.TV ou anime en VF | Immersion libre | Autonome |
+| **Samedi** (cours + pratique) | 1h30 | Cours 1 (1 h avec le professeur) + Quiz interactifs & vocabulaire (30 min) | Fondations + Crêperie / Médecine | Professeur + TA |
+| **Dimanche** (cours + production) | 1h30 | Cours 2 (1 h avec le professeur : oral/écrit) + Devoir & examens blancs (30 min) | Production DELF B2 | Professeur + TA |
 
 ---
 
@@ -233,7 +233,7 @@ Compétences transversales réparties sur tout le parcours, intégrées dans les
 
 ---
 
-### Module 1 — Radio-Canada : Médecine & Système de Santé (Semaines 2–22)
+### Module 1 — Radio-Canada : Médecine & Système de Santé (Semaines 1–22)
 
 **Immersion** : Écouter des extraits réels de Radio-Canada sur la santé au Québec. Lire des articles sur la
 pénurie de médecins, les IPS, les réformes. Préparer sa propre candidature Med-P en français.
@@ -245,6 +245,7 @@ pénurie de médecins, les IPS, les réformes. Préparer sa propre candidature M
 
 | # | Leçon | Compétence DELF | Quiz |
 |---|---|---|---|
+| 1.0 | Section 4 : Production orale — La télémédecine | Production orale | Simulation orale B2 |
 | 1.1 | Vocabulaire des professions médicales | Lecture | QCM + appariement |
 | 1.2 | Écoute : reportage sur la pénurie de médecins | Écoute | QCM audio |
 | 1.3 | Lecture : article sur les infirmières praticiennes (IPS) | Lecture | Compréhension écrite style DELF |
@@ -254,20 +255,15 @@ pénurie de médecins, les IPS, les réformes. Préparer sa propre candidature M
 | 1.7 | Écoute : podcast sur l'IA en médecine | Écoute | QCM + vrai/faux |
 | 1.8 | Lecture : texte argumentatif sur la médecine privée vs publique | Lecture | Analyse d'argumentation |
 
-**Prompt TA exemple** (1.2) :
-> *Tu es un assistant d'apprentissage du français pour un étudiant de niveau A2/B1 qui veut
-> devenir médecin. Après qu'il a écouté un reportage Radio-Canada sur la pénurie de médecins,
-> pose-lui 5 questions de compréhension en français simple. Commence par des questions factuelles
-> (qui, quoi, où) puis passe à des questions d'opinion. Corrige ses erreurs gentiment en
-> reformulant la phrase correcte. Vocabulaire cible : pénurie, médecin de famille, urgences,
-> soins de première ligne, CLSC.*
+**Prompt TA exemple** (1.0 — Mikael) :
+> *Tu es l'assistant TA de Mikael. Il prépare la Section 4 (Production orale) du DELF B2 sur l'énoncé : « La télémédecine (les consultations médicales par vidéo) devrait remplacer les consultations en personne pour tous les problèmes de santé mineurs. » Écoute son monologue de 5 à 7 minutes sans l'interrompre. Puis engage un débat de 10 minutes en posant des questions exigeant qu'il défende sa position (ex. : limites pour les patients sans compétences informatiques, risque de rater une affection grave sans examen clinique physique). Évalue-le ensuite avec la grille DELF B2 de production orale.*
 
 ---
 
-### Module 2 — Crêperie Maison Bagatelle : Service Client (Semaines 3–18)
+### Module 2 — Crêperie Maison Bagatelle : Service Client (Semaines 1–18)
 
 **Immersion** : Simuler le travail en service client dans une crêperie francophone du
-Vieux-Montréal. Apprendre à interagir avec des clients, gérer des réclamations, décrire
+Vieux-Montréal dès la semaine 1. Apprendre à interagir avec des clients, gérer des réclamations, décrire
 des plats — des compétences directement utiles pour un vrai emploi.
 
 **Sources** : creperiemaisonbagatelle.shop (menu, ambiance, descriptions)
@@ -344,21 +340,22 @@ l'autonomie — conduire au Québec.
 | App | Usage | Pourquoi |
 |---|---|---|
 | **Google Gemini** (Android) | TA — pratiquer la conversation, vocabulaire, exercices | Assistant principal du cours |
+| **Mauril (CBC / Radio-Canada)** | Défis d’écoute gradués avec extraits réels canadiens | Compréhension orale progressive pendant les trajets |
 | **Radio-Canada OHdio** | Podcasts authentiques en français québécois | Compréhension orale — trajet |
 | **ICI TOU.TV** | Séries, documentaires, émissions en VF | Immersion divertissement |
 | **Crunchyroll** (sous-titres FR) | Anime avec sous-titres français | Motivation + écoute naturelle |
 | **YouTube** (changer langue → FR) | Contenu francophone, émissions de vulgarisation | Immersion libre |
-| **Linguee** (pas Google Translate) | Dictionnaire contextuel EN↔FR | Comprendre en contexte, pas traduire |
+| **Linguee** | Dictionnaire contextuel EN↔FR | Comprendre en contexte, pas traduire mot à mot |
 | **Le Conjugueur** | Conjugaison française rapide | Référence grammaire |
-| **Google Keep** | Carnet de vocabulaire personnel | Noter les mots nouveaux du quotidien |
+| **Google Traduction (Historique)** | Carnet de vocabulaire personnel | Enregistrer les mots cherchés au quotidien pour les réviser |
 | **TalkBack** (Android) | Lecteur d'écran en français | Pratiquer l'écoute en lisant le cours |
-| **Spotify** (playlists FR) | Musique francophone québécoise et internationale | Immersion musicale passive |
+| **YouTube Music** (playlists FR) | Musique francophone québécoise et internationale | Immersion musicale passive pendant les trajets |
 
 ### Principes d'immersion
 1. **Changer la langue du téléphone en français** — interface, notifications, menus
 2. **Écouter avant de lire** — ne pas lire la traduction, deviner le sens par le contexte
-3. **20 minutes minimum par jour** — podcasts, musique, ou série en français
-4. **Noter 3 mots nouveaux par jour** dans Google Keep — les réviser avec Gemini le week-end
+3. **20 minutes minimum par jour** — Mauril, podcasts, YouTube Music, ou série en français
+4. **Noter 3 mots nouveaux par jour** dans l'historique Google Traduction — les réviser avec Gemini le week-end
 
 ---
 

@@ -2,15 +2,16 @@ import { GuideLayout, GuideSection } from './GuideLayout'
 
 const APPS = [
   { app: 'Google Gemini', usage: 'TA — pratiquer la conversation, le vocabulaire, les exercices', why: 'Assistant principal du cours' },
+  { app: 'Mauril (CBC / Radio-Canada)', usage: 'Défis d’écoute gradués avec extraits réels canadiens', why: 'Compréhension orale progressive pendant les trajets' },
   { app: 'Radio-Canada OHdio', usage: 'Podcasts authentiques en français québécois', why: 'Compréhension orale pendant le trajet' },
   { app: 'ICI TOU.TV', usage: 'Séries, documentaires, émissions en français', why: 'Immersion par le divertissement' },
   { app: 'Crunchyroll (sous-titres FR)', usage: 'Anime avec sous-titres français', why: 'Motivation + écoute naturelle' },
   { app: 'YouTube (langue → FR)', usage: 'Contenu francophone, vulgarisation scientifique', why: 'Immersion libre' },
-  { app: 'Linguee (pas Google Traduction)', usage: 'Dictionnaire contextuel anglais ↔ français', why: 'Comprendre en contexte, pas traduire' },
+  { app: 'Linguee', usage: 'Dictionnaire contextuel anglais ↔ français', why: 'Comprendre en contexte sans traduction automatique intégrale' },
   { app: 'Le Conjugueur', usage: 'Conjugaison rapide', why: 'Référence de grammaire' },
-  { app: 'Google Keep', usage: 'Carnet de vocabulaire personnel', why: 'Noter les mots nouveaux du quotidien' },
+  { app: 'Google Traduction (Historique)', usage: 'Carnet de vocabulaire personnel', why: 'Retrouver les mots cherchés au quotidien pour les réviser' },
   { app: 'TalkBack (Android)', usage: 'Lecteur d’écran en français', why: 'Écouter le cours tout en lisant' },
-  { app: 'Spotify (listes FR)', usage: 'Musique francophone québécoise et internationale', why: 'Immersion musicale passive' },
+  { app: 'YouTube Music (listes FR)', usage: 'Musique francophone québécoise et internationale', why: 'Immersion musicale passive pendant les trajets' },
 ]
 
 export function GuideEtudiant() {
@@ -34,11 +35,10 @@ export function GuideEtudiant() {
             <strong>Écoute avant de lire</strong> : ne lis pas la traduction. Devine le sens par le contexte, puis vérifie.
           </li>
           <li>
-            <strong>20 minutes minimum par jour</strong> : podcast, musique ou série en français — le trajet en métro ou en autobus suffit.
+            <strong>20 minutes minimum par jour</strong> : Mauril, podcast, musique sur YouTube Music ou série en français — le trajet en métro ou en autobus suffit.
           </li>
           <li>
-            <strong>3 mots nouveaux par jour</strong> dans Google Keep. Le week-end, colle ta liste dans Gemini pour les réviser (page
-            Vocabulaire).
+            <strong>3 mots nouveaux par jour</strong> dans l’historique Google Traduction. Le week-end, colle ta liste dans Gemini pour les réviser (page Vocabulaire).
           </li>
         </ol>
       </GuideSection>
@@ -72,16 +72,16 @@ export function GuideEtudiant() {
       <GuideSection id="semaine" title="Ta semaine type">
         <ul className="list-disc space-y-2 pl-6">
           <li>
-            <strong>En classe (2 × 1 h)</strong> : grammaire, productions écrites et simulations orales avec ton professeur.
+            <strong>En classe (samedi et dimanche, 2 × 1 h)</strong> : grammaire, productions écrites et simulations orales chronométrées avec ton professeur.
           </li>
           <li>
-            <strong>Trajets</strong> : Radio-Canada OHdio (Moteur de recherche, Les années lumière), musique, anime en VF.
+            <strong>Trajets en semaine</strong> : Mauril, Radio-Canada OHdio (Moteur de recherche, Les années lumière), YouTube Music (listes québécoises), anime en VF.
           </li>
           <li>
-            <strong>Jeudi soir (30 min)</strong> : vocabulaire avec Gemini — ouvre la leçon, passe en mode TA et copie le prompt.
+            <strong>Mercredi soir (30 min)</strong> : pratique avec Gemini TA — ouvre la leçon, passe en mode TA et copie le prompt pour échanger à l’oral (Live).
           </li>
           <li>
-            <strong>Week-end (3 h)</strong> : quiz du site, production écrite, et à partir de la semaine 20, examens blancs.
+            <strong>Week-end (3 h dédiées)</strong> : cours avec le professeur (samedi 1 h, dimanche 1 h) + quiz du site, révision de vocabulaire et examens blancs.
           </li>
         </ul>
       </GuideSection>

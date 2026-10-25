@@ -6,7 +6,7 @@ export const m2: Module = {
   slug: 'm2-creperie',
   title: 'Crêperie Maison Bagatelle : Service client',
   subtitle: 'Accueillir, conseiller, régler un problème — dans le Vieux-Montréal',
-  weeks: [3, 18],
+  weeks: [1, 18],
   immersion:
     'Tu fais tes premiers quarts de travail dans une crêperie francophone du Vieux-Montréal. Les clients sont des Montréalais, des touristes français, des familles anglophones : à toi de les servir en français, avec le bon ton.',
   sources: [
@@ -23,7 +23,7 @@ export const m2: Module = {
       moduleId: 'm2',
       title: 'Accueillir un client et prendre une commande',
       skill: 'PO',
-      week: 3,
+      week: 1,
       quizLabel: 'Jeu de rôle guidé',
       objectives: [
         'Accueillir un client poliment et le placer',

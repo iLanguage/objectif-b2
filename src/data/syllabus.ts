@@ -109,13 +109,13 @@ export function allWeeks(): WeekPlan[] {
   return Array.from({ length: TOTAL_WEEKS }, (_, i) => weekPlan(i + 1))
 }
 
-/** Semaine type (Phase 2), telle que décrite dans le plan pédagogique. */
+/** Semaine type, telle que décrite dans le plan pédagogique (cours samedi et dimanche). */
 export const TYPICAL_WEEK = [
-  { day: 'Lundi', where: 'Cours', minutes: 60, activity: 'Grammaire + exercice guidé', theme: 'Fondations + Médecine', mode: 'Professeur' },
-  { day: 'Mardi', where: 'Trajet', minutes: 30, activity: 'Podcast Radio-Canada OHdio', theme: 'Médecine', mode: 'Immersion autonome' },
-  { day: 'Mercredi', where: 'Cours', minutes: 60, activity: 'Simulation orale ou production écrite', theme: 'MUHC ou Crêperie', mode: 'Professeur' },
-  { day: 'Jeudi', where: 'Maison', minutes: 30, activity: 'Pratique du vocabulaire avec Gemini', theme: 'SAAQ', mode: 'TA Gemini' },
-  { day: 'Vendredi', where: 'Trajet', minutes: 30, activity: 'Émission ICI TOU.TV ou anime en VF', theme: 'Immersion libre', mode: 'Autonome' },
-  { day: 'Samedi', where: 'Dédié', minutes: 90, activity: 'Quiz interactifs + production écrite', theme: 'Mixte (2–3 thèmes)', mode: 'TA + autonome' },
-  { day: 'Dimanche', where: 'Dédié', minutes: 90, activity: 'Examen blanc partiel ou révision ciblée', theme: 'Simulation DELF', mode: 'TA + autonome' },
+  { day: 'Lundi', where: 'Trajet', minutes: 30, activity: 'Mauril (défis d’écoute) & Radio-Canada OHdio', theme: 'Compréhension orale', mode: 'Immersion autonome' },
+  { day: 'Mardi', where: 'Trajet', minutes: 30, activity: 'YouTube Music (artistes francophones / québécois)', theme: 'Immersion passive', mode: 'Autonome' },
+  { day: 'Mercredi', where: 'Maison', minutes: 30, activity: 'Pratique de conversation et vocabulaire avec Gemini TA', theme: 'Pratique guidée', mode: 'TA Gemini' },
+  { day: 'Jeudi', where: 'Trajet', minutes: 30, activity: 'Mauril ou reportage santé / société', theme: 'Médecine & Société', mode: 'Immersion autonome' },
+  { day: 'Vendredi', where: 'Divertissement', minutes: 45, activity: 'Émission ICI TOU.TV ou anime en VF', theme: 'Immersion libre', mode: 'Autonome' },
+  { day: 'Samedi', where: 'Cours 1 + Pratique', minutes: 90, activity: 'Cours 1 (1 h avec le professeur) + Quiz interactifs et vocabulaire (30 min)', theme: 'Fondations + Thèmes (Crêperie / Médecine)', mode: 'Professeur + TA' },
+  { day: 'Dimanche', where: 'Cours 2 + Production', minutes: 90, activity: 'Cours 2 (1 h avec le professeur : oral ou écrit) + Devoir et examens blancs (30 min)', theme: 'Production DELF B2', mode: 'Professeur + TA' },
 ]

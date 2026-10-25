@@ -34,7 +34,7 @@ describe('contenu des modules', () => {
   it('contient les modules 0 à 5 et toutes les leçons du plan', () => {
     expect(modules.map((m) => m.number)).toEqual([0, 1, 2, 3, 4, 5])
     const counts = Object.fromEntries(modules.map((m) => [m.id, m.lessons.length]))
-    expect(counts).toEqual({ m0: 6, m1: 8, m2: 6, m3: 6, m4: 5, m5: 0 })
+    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 0 })
     expect(mockExams).toHaveLength(3)
   })
 

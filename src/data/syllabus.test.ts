@@ -23,6 +23,10 @@ describe('syllabus', () => {
   })
 
   it('propose un bloc de fondations et des leçons thématiques', () => {
+    const plan1 = weekPlan(1)
+    expect(plan1.foundations.map((l) => l.id)).toEqual(['0.A'])
+    expect(plan1.lessons.map((l) => l.id)).toEqual(expect.arrayContaining(['1.0', '2.1']))
+
     const plan = weekPlan(5)
     expect(plan.foundations.map((l) => l.id)).toEqual(['0.B'])
     expect(plan.lessons.map((l) => l.id)).toEqual(expect.arrayContaining(['1.3', '4.1']))

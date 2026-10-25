@@ -6,7 +6,7 @@ export const m1: Module = {
   slug: 'm1-medecine',
   title: 'Radio-Canada : Médecine & Système de santé',
   subtitle: 'Cardiologie, pénurie de médecins, Med-P',
-  weeks: [2, 22],
+  weeks: [1, 22],
   immersion:
     'Écouter et lire l’actualité de la santé au Québec, comme un futur médecin. Chaque leçon te rapproche de ta candidature Med-P — en français.',
   sources: [
@@ -17,6 +17,92 @@ export const m1: Module = {
   ],
   accent: 'bg-rose-700',
   lessons: [
+    // -----------------------------------------------------------------------
+    {
+      id: '1.0',
+      moduleId: 'm1',
+      title: 'Section 4 : Production orale — La télémédecine',
+      skill: 'PO',
+      week: 1,
+      quizLabel: 'Simulation orale B2',
+      objectives: [
+        'Dégager la problématique d’un énoncé médical controversé',
+        'Formuler une opinion claire (pour, contre ou nuancée) et la défendre avec des arguments logiques (monologue de 5 à 7 minutes)',
+        'Défendre sa position lors d’un débat de 10 minutes avec l’évaluateur en répondant aux objections',
+      ],
+      sections: [
+        {
+          kind: 'reading',
+          title: 'Énoncé déclencheur',
+          source: 'Format officiel DELF B2 — Épreuve de production orale (Section 4).',
+          paragraphs: [
+            '« La télémédecine (les consultations médicales par vidéo) devrait remplacer les consultations en personne pour tous les problèmes de santé mineurs. »',
+          ],
+        },
+        {
+          kind: 'text',
+          title: 'Format standard : 20 min de préparation, monologue de 5 à 7 min, débat de 10 min',
+          paragraphs: [
+            '**Préparation (20 min)** : Mikael dégage la problématique, prend des notes synthétiques et structure son plan (ne pas rédiger de texte continu).',
+            '**Monologue (5 à 7 min)** : Présentation fluide et structurée (problématique, prise de position claire, au moins deux arguments logiques avec exemples concrets, conclusion nuancée).',
+            '**Débat (10 min)** : Échange contradictoire avec l’évaluateur (professeur ou Gemini TA en mode vocal). Défendre sa position avec calme, conviction et nuance.',
+          ],
+        },
+        {
+          kind: 'vocab',
+          title: 'Vocabulaire utile pour le débat',
+          items: [
+            { fr: 'la télémédecine / la téléconsultation', en: 'telemedicine / virtual consultation' },
+            { fr: 'une consultation en personne (en présentiel)', en: 'in-person appointment' },
+            { fr: 'un problème de santé mineur', en: 'minor health issue' },
+            { fr: 'la fracture numérique', en: 'digital divide' },
+            { fr: 'l’examen clinique / la palpation', en: 'physical / clinical exam, palpation' },
+            { fr: 'désengorger les urgences et les cliniques', en: 'relieve clinic and ER congestion' },
+            { fr: 'le dossier médical électronique', en: 'electronic medical record' },
+            { fr: 'la relation thérapeutique', en: 'doctor-patient relationship' },
+          ],
+        },
+        {
+          kind: 'tip',
+          text: 'Conseil pour Mikael : commence ton monologue par une question problématique : « Dans quelle mesure la télémédecine peut-elle améliorer l’accès aux soins sans compromettre la qualité du diagnostic ni créer de nouvelles inégalités ? »',
+        },
+      ],
+      speaking: {
+        id: '1.0-po',
+        title: 'Production orale : La télémédecine',
+        prepMinutes: 20,
+        speakMinutes: 17,
+        instructions: [
+          'Format standard : 20 minutes de préparation, suivies d’un monologue de 5 à 7 minutes et d’un débat de 10 minutes avec l’évaluateur.',
+          'Instructions d’évaluation : Mikael prépare une présentation orale basée sur un court énoncé, puis répond à des questions.',
+          'Énoncé : « La télémédecine (les consultations médicales par vidéo) devrait remplacer les consultations en personne pour tous les problèmes de santé mineurs. »',
+          'Exigences du monologue : Dégager la problématique de l’énoncé, formuler une opinion claire (pour, contre, ou nuancée), et la défendre avec des arguments logiques.',
+          'Exigences du débat : Posez des questions exigeant que Mikael défende sa position.',
+        ],
+        followUps: [
+          'Quelles sont les limites de cette technologie pour les patients qui ne possèdent pas les compétences informatiques requises ?',
+          'Comment le médecin peut-il s’assurer qu’un problème en apparence mineur ne cache pas une affection plus grave sans examen physique ?',
+          'La télémédecine ne risque-t-elle pas de déshumaniser la relation de soin, particulièrement pour les aînés ?',
+          'Pensez-vous que les cliniques virtuelles privées menacent l’universalité du réseau de santé québécois ?',
+          'Si vous étiez médecin, dans quelles situations refuseriez-vous catégoriquement une téléconsultation ?',
+        ],
+        checklist: [
+          'J’ai dégagé la problématique centrale de l’énoncé dès mon introduction.',
+          'J’ai formulé une prise de position claire (pour, contre ou nuancée).',
+          'J’ai soutenu mon propos avec au moins deux arguments logiques accompagnés d’exemples concrets.',
+          'Mon monologue a duré entre 5 et 7 minutes sans interruption.',
+          'Pendant le débat de 10 minutes, j’ai défendu ma position avec sang-froid et nuance.',
+          'J’ai employé des connecteurs variés (certes, néanmoins, par conséquent, en outre).',
+        ],
+      },
+      teacherNotes: [
+        'Instructions d’évaluation : Mikael prépare une présentation orale basée sur un court énoncé, puis répond à des questions.',
+        'Format standard : 20 minutes de préparation, suivies d’un monologue de 5 à 7 minutes et d’un débat de 10 minutes avec l’évaluateur.',
+        'Exigences du monologue : Dégager la problématique de l’énoncé, formuler une opinion claire (pour, contre, ou nuancée), et la défendre avec des arguments logiques.',
+        'Exigences du débat : Posez des questions exigeant que Mikael défende sa position (ex. : « Quelles sont les limites de cette technologie pour les patients qui ne possèdent pas les compétences informatiques requises ? »).',
+        'Évaluer avec la grille officielle DELF B2 de production orale (notée sur 25).',
+      ],
+    },
     // -----------------------------------------------------------------------
     {
       id: '1.1',
