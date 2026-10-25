@@ -38,12 +38,12 @@ export const MEDIA_SOURCES = {
   },
   moteurDeRecherche: {
     name: 'Moteur de recherche — Radio-Canada OHdio',
-    url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/moteur-de-recherche',
+    url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/6056/moteur-de-recherche',
     action: 'Écouter sur OHdio',
   },
   anneesLumiere: {
     name: 'Les années lumière — Radio-Canada OHdio',
-    url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/les-annees-lumiere',
+    url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/52/les-annees-lumiere',
     action: 'Écouter sur OHdio',
   },
   caSexplique: {
