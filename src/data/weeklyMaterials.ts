@@ -66,6 +66,11 @@ export const MEDIA_SOURCES = {
     url: 'https://ici.tou.tv/',
     action: 'Regarder sur ICI TOU.TV',
   },
+  crunchyRollVF: {
+    name: 'Les anime disponibles en VF sur Crunchyroll',
+    url: 'https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
+    action: 'Regarder sur Crunchyroll',
+  },
   saaqSimulator: {
     name: 'Test de connaissances — SAAQ',
     url: 'https://testdeconnaissances.saaq.gouv.qc.ca/',
@@ -257,10 +262,10 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
         category: 'video',
         categoryLabel: 'Vidéo & Séries',
         title: 'ICI TOU.TV (Séries québécoises) ou Anime VF',
-        platform: MEDIA_SOURCES.iciTouTv.name,
+        platform: MEDIA_SOURCES.crunchyRollVF.name,
         url: 'https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
-        actionLabel: MEDIA_SOURCES.iciTouTv.action,
-        tip: 'Recommandation : une série médicale québécoise comme Stat ou un documentaire santé, ou une série que tu connaais bien sur https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
+        actionLabel: MEDIA_SOURCES.crunchyRollVF.action,
+        tip: 'Recommandation : une série que tu connais bien, assez bien que tu puex suive tres biens le context, ou une série que tu connais pas du tout https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
       },
     },
     {
