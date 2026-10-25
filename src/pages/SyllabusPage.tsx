@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { GuideLayout } from '../guides/GuideLayout'
 import { MILESTONES, PHASES, TYPICAL_WEEK, allWeeks, formatDate, weekNumber } from '../data/syllabus'
 import { WeekPlanView } from '../components/WeekPlanView'
@@ -98,10 +99,18 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
           {allWeeks().map((plan) => (
             <li
               key={plan.week}
-              className={`card ${plan.week === current ? 'border-2 border-blue-700' : ''}`}
+              className={`card flex flex-col justify-between ${plan.week === current ? 'border-2 border-blue-700' : ''}`}
               aria-current={plan.week === current ? 'date' : undefined}
             >
               <WeekPlanView plan={plan} />
+              <div className="mt-3 border-t border-slate-100 pt-2 text-right">
+                <Link
+                  to={`/planning?semaine=${plan.week}`}
+                  className="text-sm font-semibold text-blue-800 underline hover:text-blue-950"
+                >
+                  Médias & devoirs de la semaine →
+                </Link>
+              </div>
             </li>
           ))}
         </ol>

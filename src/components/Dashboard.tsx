@@ -8,6 +8,7 @@ import { WeekPlanView } from './WeekPlanView'
 import { ProgressOverview } from './ProgressOverview'
 
 const GUIDE_LINKS = [
+  { to: '/planning', icon: '🎧', label: 'Planning & Médias', text: 'Devoirs, audios et vidéos jour par jour' },
   { to: '/guides/etudiant', icon: '📱', label: 'Guide étudiant', text: 'Applications Android et immersion' },
   { to: '/guides/oral', icon: '🎤', label: 'Guide de l’oral', text: 'Fiches pour l’exposé B2' },
   { to: '/vocabulaire', icon: '📚', label: 'Vocabulaire', text: 'Toutes les banques de mots' },
@@ -64,9 +65,18 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
           </h2>
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-600">Cette semaine</p>
           <WeekPlanView plan={weekPlan(currentWeek)} />
-          <Link to="/syllabus" className="mt-4 inline-block font-semibold text-blue-800 underline">
-            Voir tout le syllabus
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-4 pt-2 border-t border-slate-100">
+            <Link
+              to={`/planning?semaine=${currentWeek}`}
+              className="inline-flex items-center gap-1.5 font-bold text-blue-900 hover:text-blue-700"
+            >
+              <span>🎧 Planning détaillé de la semaine (médias & devoirs)</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link to="/syllabus" className="font-semibold text-slate-600 hover:text-slate-900 underline text-sm">
+              Voir tout le syllabus
+            </Link>
+          </div>
         </section>
         <section aria-labelledby="progression" className="card space-y-4">
           <h2 id="progression" className="text-lg font-bold">

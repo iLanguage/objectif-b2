@@ -18,6 +18,7 @@ function renderAt(path: string) {
 describe('pages', () => {
   const paths = [
     '/',
+    '/planning',
     '/syllabus',
     '/vocabulaire',
     '/grilles',

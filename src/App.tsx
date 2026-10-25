@@ -15,11 +15,13 @@ import { GuideOral } from './guides/GuideOral'
 import { GrillesPage } from './pages/GrillesPage'
 import { VocabularyPage } from './pages/VocabularyPage'
 import { SyllabusPage } from './pages/SyllabusPage'
+import { WeeklySchedulePage } from './pages/WeeklySchedulePage'
 import { useMode } from './lib/progress'
 import { trackPageView } from './lib/newrelic'
 
 const NAV = [
   { to: '/', label: 'Tableau de bord', end: true },
+  { to: '/planning', label: 'Planning & Médias' },
   { to: '/syllabus', label: 'Syllabus' },
   { to: '/vocabulaire', label: 'Vocabulaire' },
   { to: '/guides/etudiant', label: 'Guide étudiant' },
@@ -122,6 +124,7 @@ export function AppRoutes() {
       <Route path="/lecon/:lessonId" element={<LessonView />} />
       <Route path="/examen/:examId" element={<ExamView />} />
       <Route path="/progression" element={<ProgressOverview />} />
+      <Route path="/planning" element={<WeeklySchedulePage />} />
       <Route path="/syllabus" element={<SyllabusPage />} />
       <Route path="/vocabulaire" element={<VocabularyPage />} />
       <Route path="/grilles" element={<GrillesPage />} />
