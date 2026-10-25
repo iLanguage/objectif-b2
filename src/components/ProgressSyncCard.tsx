@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import {
   exportProgress,
+  getProgress,
   importProgress,
   resetProgress,
   useProgress,
@@ -35,12 +36,10 @@ async function copyToClipboard(text: string): Promise<boolean> {
 
 interface ProgressSyncCardProps {
   title?: string
-  defaultOpenPaste?: boolean
 }
 
 export function ProgressSyncCard({
   title = 'Transférer et synchroniser la progression',
-  defaultOpenPaste = false,
 }: ProgressSyncCardProps) {
   const state = useProgress()
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle')
@@ -72,8 +71,7 @@ export function ProgressSyncCard({
 
     const ok = importProgress(pasteText)
     if (ok) {
-      const updated = useProgress.getState ? useProgress.getState() : state
-      const count = Object.keys(updated.lessons).length
+      const count = Object.keys(getProgress().lessons).length
       setImportStatus({
         ok: true,
         message: `Progression importée avec succès ! (${count} leçon${count > 1 ? 's' : ''} enregistrée${count > 1 ? 's' : ''}).`,
