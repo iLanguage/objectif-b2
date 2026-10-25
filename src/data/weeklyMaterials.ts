@@ -258,9 +258,9 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
         categoryLabel: 'Vidéo & Séries',
         title: 'ICI TOU.TV (Séries québécoises) ou Anime VF',
         platform: MEDIA_SOURCES.iciTouTv.name,
-        url: MEDIA_SOURCES.iciTouTv.url,
+        url: 'https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
         actionLabel: MEDIA_SOURCES.iciTouTv.action,
-        tip: 'Recommandation : une série médicale québécoise comme Stat ou un documentaire santé.',
+        tip: 'Recommandation : une série médicale québécoise comme Stat ou un documentaire santé, ou une série que tu connaais bien sur https://www.crunchyroll.com/fr/news/guides/2022/3/4/crunchyroll-vf-anime',
       },
     },
     {
