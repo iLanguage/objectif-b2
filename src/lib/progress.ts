@@ -229,19 +229,32 @@ export function completionPercent(lessons: Lesson[], state: ProgressState): numb
 
 // --- Export / import ----------------------------------------------------------
 
-export function exportProgress(): string {
-  return JSON.stringify({ ...getProgress(), exportedAt: new Date().toISOString() }, null, 2)
+export function exportProgress(compact = false): string {
+  const payload = { ...getProgress(), exportedAt: new Date().toISOString() }
+  return compact ? JSON.stringify(payload) : JSON.stringify(payload, null, 2)
 }
 
-/** Remplace la progression par celle d'un fichier exporté. Renvoie false si le fichier est invalide. */
-export function importProgress(json: string): boolean {
+/** Remplace la progression par celle d'un texte/fichier exporté. Renvoie false si le contenu est invalide. */
+export function importProgress(input: string): boolean {
+  if (!input || typeof input !== 'string') return false
+  let clean = input.trim()
+  if (clean.startsWith('```')) {
+    clean = clean.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+  }
   try {
-    const data = JSON.parse(json) as Partial<ProgressState>
-    if (data.version !== 1 || typeof data.lessons !== 'object' || typeof data.exams !== 'object') return false
+    const data = JSON.parse(clean) as Partial<ProgressState>
+    if (!data || typeof data !== 'object') return false
+    if (data.version !== 1) return false
+    if (
+      (data.lessons !== undefined && typeof data.lessons !== 'object') ||
+      (data.exams !== undefined && typeof data.exams !== 'object')
+    ) {
+      return false
+    }
   } catch {
     return false
   }
-  const parsed = parse(json)
+  const parsed = parse(clean)
   commit({ ...parsed, mode: getProgress().mode })
   return true
 }

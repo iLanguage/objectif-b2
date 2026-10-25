@@ -1,74 +1,15 @@
-import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { modules, mockExams } from '../modules'
 import {
   bestAttempt,
-  exportProgress,
-  importProgress,
   lessonStatus,
-  resetProgress,
   useProgress,
 } from '../lib/progress'
 import { examScores } from '../lib/exam'
 import { evaluateDelf, PASSING_PERCENT } from '../lib/scoring'
 import { GRILLES, grilleTotal } from '../data/grilles-delf'
 import { STATUS_LABELS } from './labels'
-
-function download(filename: string, content: string) {
-  const url = URL.createObjectURL(new Blob([content], { type: 'application/json' }))
-  const a = document.createElement('a')
-  a.href = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
-function ExportImport() {
-  const input = useRef<HTMLInputElement>(null)
-  const [message, setMessage] = useState('')
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <button
-        type="button"
-        className="btn-primary"
-        onClick={() => download(`objectif-b2-progression-${new Date().toISOString().slice(0, 10)}.json`, exportProgress())}
-      >
-        Exporter la progression
-      </button>
-      <label className="btn-secondary cursor-pointer has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-blue-600">
-        Importer un fichier
-        <input
-          ref={input}
-          type="file"
-          accept="application/json,.json"
-          className="sr-only"
-          onChange={async (e) => {
-            const file = e.target.files?.[0]
-            if (!file) return
-            const ok = importProgress(await file.text())
-            setMessage(ok ? 'Progression importée.' : 'Fichier invalide : rien n’a été modifié.')
-            if (input.current) input.current.value = ''
-          }}
-        />
-      </label>
-      <button
-        type="button"
-        className="btn-secondary"
-        onClick={() => {
-          if (window.confirm('Effacer toute la progression enregistrée sur cet appareil ? Pense à exporter avant.')) {
-            resetProgress()
-            setMessage('Progression effacée.')
-          }
-        }}
-      >
-        Tout effacer
-      </button>
-      <span role="status" className="text-slate-800">
-        {message}
-      </span>
-    </div>
-  )
-}
+import { ProgressSyncCard } from './ProgressSyncCard'
 
 /** Vue d'ensemble pour le professeur : chaque leçon, son statut, ses scores et ses notes. */
 export function ProgressOverview({ compact = false }: { compact?: boolean }) {
@@ -119,14 +60,7 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
         </p>
       </header>
 
-      <section aria-labelledby="sauvegarde" className="card">
-        <h2 id="sauvegarde" className="text-xl font-bold">
-          Sauvegarde
-        </h2>
-        <div className="mt-3">
-          <ExportImport />
-        </div>
-      </section>
+      <ProgressSyncCard title="Synchronisation de la progression (Copier / Coller)" />
 
       <section aria-labelledby="lecons" className="card overflow-x-auto">
         <h2 id="lecons" className="text-xl font-bold">

@@ -45,8 +45,7 @@ export function GuideProfesseur() {
           </li>
           <li>
             Le <Link to="/progression" className="text-blue-800 underline">tableau de suivi</Link> résume toutes les leçons et les
-            examens blancs. La progression vit dans le navigateur de l’élève : demandez-lui d’exporter un fichier si vous corrigez sur
-            un autre appareil, puis importez-le.
+            examens blancs. La progression vit dans le navigateur de l’élève : demandez-lui simplement de cliquer sur « Copier ma progression » et de vous coller le texte par message ou courriel. Vous n’avez qu’à coller ce texte dans la section « Charger la progression » pour voir son travail sur votre ordinateur.
           </li>
         </ul>
       </GuideSection>

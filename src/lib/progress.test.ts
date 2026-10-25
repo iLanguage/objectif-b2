@@ -66,12 +66,25 @@ describe('progress', () => {
     expect(exam.submitted.CO).toBe(true)
   })
 
-  it('exporte et réimporte la progression', () => {
+  it('exporte et réimporte la progression (y compris format compact et blocs markdown)', () => {
     recordQuizAttempt('2.1', result(80))
     const json = exportProgress()
     resetProgress()
     expect(getProgress().lessons['2.1']).toBeUndefined()
     expect(importProgress(json)).toBe(true)
+    expect(getProgress().lessons['2.1'].attempts[0].percent).toBe(80)
+
+    // Test compact
+    const compact = exportProgress(true)
+    expect(compact).not.toContain('\n')
+    resetProgress()
+    expect(importProgress(compact)).toBe(true)
+    expect(getProgress().lessons['2.1'].attempts[0].percent).toBe(80)
+
+    // Test enveloppé dans des blocs markdown (comme dans Discord / Slack / Chat)
+    resetProgress()
+    const wrapped = `\`\`\`json\n${compact}\n\`\`\``
+    expect(importProgress(wrapped)).toBe(true)
     expect(getProgress().lessons['2.1'].attempts[0].percent).toBe(80)
   })
 

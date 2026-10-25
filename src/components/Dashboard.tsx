@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { allLessons, modules } from '../modules'
 import { MILESTONES, TOTAL_WEEKS, daysUntil, formatDate, phaseForWeek, weekNumber, weekPlan } from '../data/syllabus'
@@ -6,6 +7,7 @@ import { ModuleCard } from './ModuleCard'
 import { ProgressBar } from './ProgressBar'
 import { WeekPlanView } from './WeekPlanView'
 import { ProgressOverview } from './ProgressOverview'
+import { ProgressSyncCard } from './ProgressSyncCard'
 
 const GUIDE_LINKS = [
   { to: '/planning', icon: '🎧', label: 'Planning & Médias', text: 'Devoirs, audios et vidéos jour par jour' },
@@ -20,6 +22,7 @@ const GUIDE_LINKS = [
 
 export function Dashboard({ today = new Date() }: { today?: Date }) {
   const state = useProgress()
+  const [showSync, setShowSync] = useState(false)
   const week = weekNumber(today)
   const currentWeek = Math.min(Math.max(week, 1), TOTAL_WEEKS)
   const phase = phaseForWeek(currentWeek)
@@ -88,8 +91,25 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
             .map((m) => (
               <ProgressBar key={m.id} value={completionPercent(m.lessons, state)} label={`Module ${m.number}`} color={m.accent} />
             ))}
+
+          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => setShowSync((v) => !v)}
+              className="text-xs font-bold text-blue-900 underline hover:text-blue-700 text-left"
+            >
+              {showSync ? '▲ Masquer la synchronisation' : '📋 Envoyer ma progression au professeur →'}
+            </button>
+            <Link to="/progression" className="text-xs text-slate-600 hover:text-slate-900 underline">
+              Voir le tableau de suivi complet
+            </Link>
+          </div>
         </section>
       </div>
+
+      {showSync && (
+        <ProgressSyncCard title="Transférer et synchroniser ma progression" />
+      )}
 
       {state.mode === 'professeur' && <ProgressOverview compact />}
 

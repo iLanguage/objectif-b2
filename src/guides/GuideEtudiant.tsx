@@ -94,8 +94,7 @@ export function GuideEtudiant() {
           </li>
           <li>Les documents audio sont lus par la voix française de ton appareil. Écoute d’abord sans la transcription.</li>
           <li>
-            Ta progression est enregistrée sur ton appareil. Avant de changer de téléphone ou d’ordinateur, exporte-la (mode Professeur
-            → Suivi).
+            Ta progression est enregistrée sur ton appareil. Pour la partager avec ton professeur, clique sur « Copier ma progression » sur le tableau de bord ou dans la page de suivi, puis colle-la dans un message pour lui.
           </li>
           <li>Avec TalkBack, le site se navigue par titres : glisse vers le haut puis vers le bas pour choisir « Titres ».</li>
         </ul>
