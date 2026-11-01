@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { RichText } from './RichText'
+import { claimAudio, ownsAudio, releaseAudio } from '../lib/audioFocus'
 import { frenchVoices } from '../lib/speech'
 
 interface AudioPlayerProps {
@@ -12,6 +13,8 @@ interface AudioPlayerProps {
   transcriptOpen?: boolean
   /** Remplace la transcription par défaut ; reçoit la ligne lue en ce moment. */
   written?: (current: number | null) => ReactNode
+  /** Sans cadre ni titre visible, pour s'intégrer à une carte existante. */
+  bare?: boolean
   children?: ReactNode
 }
 
@@ -26,7 +29,7 @@ function splitSpeaker(line: string): { speaker?: string; text: string } {
  * Lecteur « audio » basé sur la synthèse vocale du navigateur (voix fr-CA si
  * disponible). Les dialogues « Nom : texte » alternent les voix et les hauteurs.
  */
-export function AudioPlayer({ title, paragraphs, description, transcriptLocked = false, transcriptOpen = false, written, children }: AudioPlayerProps) {
+export function AudioPlayer({ title, paragraphs, description, transcriptLocked = false, transcriptOpen = false, written, bare = false, children }: AudioPlayerProps) {
   const supported = typeof window !== 'undefined' && 'speechSynthesis' in window
   const [state, setState] = useState<'idle' | 'playing' | 'paused'>('idle')
   const [current, setCurrent] = useState<number | null>(null)
@@ -35,15 +38,25 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
   const [showTranscript, setShowTranscript] = useState(transcriptOpen)
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const cancelled = useRef(false)
+  // Fonction stable : c'est elle qui détient l'audio de la page.
+  const stopRef = useRef(() => {
+    cancelled.current = true
+    window.speechSynthesis.cancel()
+    setState('idle')
+    setCurrent(null)
+    releaseAudio(stopRef.current)
+  })
+  const stop = stopRef.current
 
   useEffect(() => {
     if (!supported) return
+    const stopOnUnmount = stopRef.current
     const load = () => setVoices(frenchVoices())
     load()
     window.speechSynthesis.addEventListener('voiceschanged', load)
     return () => {
       window.speechSynthesis.removeEventListener('voiceschanged', load)
-      window.speechSynthesis.cancel()
+      if (ownsAudio(stopOnUnmount)) stopOnUnmount()
     }
   }, [supported])
 
@@ -55,6 +68,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
       setState('playing')
       return
     }
+    claimAudio(stop)
     synth.cancel()
     cancelled.current = false
     const speakers: string[] = []
@@ -78,6 +92,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
           if (cancelled.current) return
           setState('idle')
           setCurrent(null)
+          releaseAudio(stop)
         }
       }
       synth.speak(utterance)
@@ -91,21 +106,14 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
     setState('paused')
   }
 
-  const stop = () => {
-    cancelled.current = true
-    window.speechSynthesis.cancel()
-    setState('idle')
-    setCurrent(null)
-  }
-
   const canShowTranscript = !transcriptLocked
   return (
-    <section className="card" aria-label={`Document audio : ${title}`}>
-      <h3 className="text-lg font-bold">🎧 {title}</h3>
+    <section className={bare ? undefined : 'card'} aria-label={`Document audio : ${title}`}>
+      {!bare && <h3 className="text-lg font-bold">🎧 {title}</h3>}
       {description && <p className="mt-1 text-ink-soft">{description}</p>}
 
       {supported ? (
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className={`flex flex-wrap items-center gap-3 ${bare ? '' : 'mt-4'}`}>
           {state === 'playing' ? (
             <button type="button" className="btn-primary" onClick={pause}>
               ⏸ Pause

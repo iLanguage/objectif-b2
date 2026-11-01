@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { AutoQuestion } from '../types'
 import { allLessons, examPrepTasks, getLesson, mockExams, modules } from '../modules'
 import { lessonDrills } from '../modules/m6-expressions'
+import { personaModel } from '../modules/m7-conversation'
 import { parseMarkdown, spokenLines } from '../lib/markdown'
 import {
   buildExamPrepPrompt,
@@ -226,23 +227,34 @@ describe('leçon 1.0 : le débat par morceaux', () => {
 })
 
 describe('un modèle avant chaque production', () => {
-  const productionLessons = allLessons.filter((l) => l.id !== '1.0' && (l.writing || l.speaking))
-  const productionPrep = examPrepTasks.filter((t) => t.writing || t.speaking)
+  // La leçon 1.0 a ses propres modèles, et chaque personne du Module 7 a le sien dans sa carte.
+  const productionLessons = allLessons.filter((l) => l.id !== '1.0' && l.moduleId !== 'm7' && (l.writing || l.speaking))
+  const productionPrep = examPrepTasks.filter((t) => t.writing || t.speaking || t.skill === 'CO' || t.week === 21 || t.week === 23)
 
   it('fait lire et écouter un modèle avant chaque tâche d’une leçon', () => {
-    expect(productionLessons.length).toBeGreaterThanOrEqual(15)
+    expect(productionLessons.length).toBeGreaterThanOrEqual(10)
     for (const l of productionLessons) expect(spokenLines(parseMarkdown(l.model?.markdown ?? '')).length, l.id).toBeGreaterThan(0)
   })
 
   it('fait lire et écouter un modèle avant chaque tâche de préparation', () => {
-    expect(productionPrep).toHaveLength(10)
+    expect(productionPrep).toHaveLength(16)
     for (const t of productionPrep) expect(spokenLines(parseMarkdown(t.model?.markdown ?? '')).length, `${t.week}`).toBeGreaterThan(0)
+  })
+
+  it('donne à chaque personne du Module 7 son propre modèle, à son nom', () => {
+    const personas = allLessons.flatMap((l) => l.sections).flatMap((s) => (s.kind === 'personas' ? s.personas : []))
+    for (const p of personas) {
+      const lines = spokenLines(parseMarkdown(personaModel(p)))
+      expect(lines, p.id).toHaveLength(6)
+      expect(lines[0], p.id).toContain('Mikael')
+      expect(lines.join(' '), p.id).not.toContain('[ton prénom]')
+    }
   })
 
   it('ne lit pas les notes d’un plan comme le nom d’une personne', () => {
     const speaker = /^[A-ZÉÈÀÂÎÔÇ][\p{L} -]{1,24} : /u
     const known = new Set(['Alex', 'Cliente', 'Coordonnatrice', 'Examinatrice', 'Mikael', 'Serveur', 'Touriste'])
-    const models = [...productionLessons.filter((l) => l.moduleId !== 'm7'), ...productionPrep].map((t) => t.model!.markdown)
+    const models = [...productionLessons, ...productionPrep].map((t) => t.model!.markdown)
     for (const line of models.flatMap((m) => spokenLines(parseMarkdown(m)))) {
       const name = line.match(speaker)?.[0].slice(0, -3)
       if (name) expect(known, line).toContain(name)

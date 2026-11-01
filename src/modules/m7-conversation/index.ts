@@ -1,4 +1,4 @@
-import type { Lesson, ModelSection, Module, Persona } from '../../types'
+import type { Lesson, Module, Persona } from '../../types'
 
 // Avec les gérants : aucune consigne à comprendre, donc aucun risque si tout n'est pas clair.
 const SMALL_TALK =
@@ -7,16 +7,14 @@ const SMALL_TALK =
 const HOMEWORK =
   'Choisis une personne par séance : copie son prompt, joue la scène avec Gemini Live, et pose tes 5 questions. Recommence avec une autre personne la fois suivante.'
 
-/** Les présentations et les questions des personnes, à écouter avant la scène. */
-function personasModel(personas: Persona[]): ModelSection {
-  return {
-    kind: 'model',
-    title: 'Modèle : te présenter et poser tes questions',
-    description: 'Écoute et lis chaque présentation, puis ses cinq questions. Adapte ensuite la présentation à ta façon de parler.',
-    markdown: personas
-      .flatMap((p) => [`# ${p.title}`, p.modelIntro.replace('[ton prénom]', 'Mikael'), ...p.questions.map((q) => `* ${q}`)])
-      .join('\n'),
-  }
+/** La présentation et les questions d'une personne, à lire et à écouter avant la scène. */
+export function personaModel(persona: Persona): string {
+  return [
+    '# Exemple dans ta propre voix (à adapter)',
+    persona.modelIntro.replace('[ton prénom]', 'Mikael'),
+    '# Cinq questions pour faire parler cette personne',
+    ...persona.questions.map((q) => `* ${q}`),
+  ].join('\n')
 }
 
 function lesson(
@@ -54,7 +52,6 @@ function lesson(
       },
       { kind: 'personas', title: 'Les personnes', personas },
     ],
-    model: personasModel(personas),
     speaking: {
       id: `${id}-po`,
       title: 'Me présenter et faire parler l’autre',

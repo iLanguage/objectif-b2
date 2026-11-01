@@ -6,6 +6,17 @@ import type { ExamPrepTask, Lesson, ModelSection, WritingTask } from '../../type
  * les documents restent inconnus le jour de la simulation.
  */
 
+const PARAGRAPH_REWRITE = `
+  # Avant
+  Le cours est bon pour les élèves. Par exemple, pour les accidents.
+  # Après
+  **Tout d’abord,** ce cours serait très utile aux élèves, parce qu’il leur apprendrait à réagir vite. **Par exemple, un élève qui** sait arrêter un saignement peut aider un ami blessé en attendant l’ambulance.
+  # Ma méthode
+  * Je commence par un connecteur.
+  * J’explique mon idée avec « parce que ».
+  * Je remplace la phrase sans verbe par un exemple en phrase complète.
+`
+
 const LETTER_CHECKLIST = [
   'J’ai mis le lieu, la date, l’objet et « Madame, Monsieur, ».',
   'Ma position est claire dès le premier paragraphe.',
@@ -76,7 +87,7 @@ const po = (week: number, title: string, question: string, markdown: string): Ex
   speaking: true,
 })
 
-const co = (week: number, title: string, topic: string): ExamPrepTask => ({
+const co = (week: number, title: string, topic: string, markdown: string): ExamPrepTask => ({
   week,
   skill: 'CO',
   title,
@@ -85,6 +96,12 @@ const co = (week: number, title: string, topic: string): ExamPrepTask => ({
     `Écoute 5 minutes d’un balado sur ${topic}, sans lire de transcription.`,
     'Prends des notes : qui, quoi, combien, pourquoi. Écoute une deuxième fois, puis résume ce que tu as compris à Gemini en quatre phrases.',
   ],
+  model: {
+    kind: 'model',
+    title: 'Modèle : des notes et un résumé',
+    description: 'Lis en écoutant. Ce balado est un exemple inventé : le tien dira autre chose. Garde la même forme, quatre notes puis quatre phrases.',
+    markdown,
+  },
   lessonId: '0.F',
   link: { label: 'Ouvrir Moteur de recherche', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/moteur-de-recherche' },
 })
@@ -132,7 +149,18 @@ export const examPrepTasks: ExamPrepTask[] = [
     # Conclusion
     **En conclusion,** je suis d’accord, mais les jeunes doivent suivre des règles strictes, comme zéro alcool au volant.
   `),
-  co(5, 'Écouter : le cœur', 'le cœur'),
+  co(5, 'Écouter : le cœur', 'le cœur', `
+    # Mes notes
+    * **Qui :** une cardiologue.
+    * **Quoi :** comment fonctionne le cœur.
+    * **Combien :** environ 100 000 battements par jour.
+    * **Pourquoi :** le cœur envoie le sang dans tout le corps.
+    # Mon résumé en quatre phrases
+    Dans ce balado, une cardiologue explique comment fonctionne le cœur.
+    Elle dit que le cœur bat environ 100 000 fois par jour.
+    Il bat pour envoyer le sang dans tout le corps.
+    À mon avis, le plus intéressant, c’est ce chiffre.
+  `),
   pe(6, 'Lettre : des cours de premiers soins', 'Écris à la direction de ton école pour proposer un cours de premiers soins pour tous les élèves.', letterModel(`
     # Début
     Montréal, le 1er décembre 2026
@@ -165,7 +193,18 @@ export const examPrepTasks: ExamPrepTask[] = [
     # Conclusion
     **En conclusion,** les grandes chaînes doivent montrer les calories, mais les petits restaurants doivent rester libres.
   `),
-  co(9, 'Écouter : le cerveau', 'le cerveau'),
+  co(9, 'Écouter : le cerveau', 'le cerveau', `
+    # Mes notes
+    * **Qui :** une chercheuse en neurosciences.
+    * **Quoi :** le sommeil et la mémoire.
+    * **Combien :** au moins huit heures de sommeil pour un ado.
+    * **Pourquoi :** pendant le sommeil, le cerveau garde ce qu’on a appris.
+    # Mon résumé en quatre phrases
+    Dans ce balado, une chercheuse parle du sommeil et de la mémoire.
+    Elle dit qu’un ado a besoin d’au moins huit heures de sommeil.
+    Pendant le sommeil, le cerveau garde ce qu’on a appris.
+    À mon avis, c’est une bonne raison de ne pas étudier toute la nuit.
+  `),
   pe(10, 'Lettre : des pistes cyclables', 'Écris à ta Ville pour demander une piste cyclable sécuritaire près de ton école.', letterModel(`
     # Début
     Montréal, le 4 janvier 2027
@@ -198,7 +237,18 @@ export const examPrepTasks: ExamPrepTask[] = [
     # Conclusion
     **En conclusion,** c’est une bonne idée si le jeune reste à sa place et s’il part avec un organisme sérieux.
   `),
-  co(13, 'Écouter : les médicaments', 'les médicaments'),
+  co(13, 'Écouter : les médicaments', 'les médicaments', `
+    # Mes notes
+    * **Qui :** une pharmacienne.
+    * **Quoi :** comment utiliser les antibiotiques.
+    * **Combien :** une ordonnance de sept jours, par exemple.
+    * **Pourquoi :** les antibiotiques agissent sur les bactéries, pas sur les virus.
+    # Mon résumé en quatre phrases
+    Dans ce balado, une pharmacienne explique comment utiliser les antibiotiques.
+    Elle dit qu’il faut suivre l’ordonnance, par exemple pendant sept jours.
+    Les antibiotiques agissent sur les bactéries, mais pas sur les virus.
+    À mon avis, beaucoup de gens ne savent pas ça.
+  `),
   pe(14, 'Lettre : plus de médecins de famille', 'Écris au ministre de la Santé pour proposer une solution au manque de médecins de famille.', letterModel(`
     # Début
     Montréal, le 25 janvier 2027
@@ -231,7 +281,18 @@ export const examPrepTasks: ExamPrepTask[] = [
     # Conclusion
     **En conclusion,** l’IA est un bon outil, mais c’est le médecin qui doit décider.
   `),
-  co(17, 'Écouter : la génétique', 'la génétique'),
+  co(17, 'Écouter : la génétique', 'la génétique', `
+    # Mes notes
+    * **Qui :** une généticienne.
+    * **Quoi :** comment l’ADN passe des parents aux enfants.
+    * **Combien :** 23 paires de chromosomes.
+    * **Pourquoi :** chaque parent donne la moitié de ses chromosomes.
+    # Mon résumé en quatre phrases
+    Dans ce balado, une généticienne explique comment l’ADN passe des parents aux enfants.
+    Elle dit qu’une personne a 23 paires de chromosomes.
+    Chaque parent donne la moitié de ses chromosomes à son enfant.
+    À mon avis, c’est pour ça qu’on ressemble à ses deux parents.
+  `),
   pe(18, 'Lettre : une salle pour les familles', 'Écris à la direction d’un hôpital pour proposer une salle de repos pour les familles des patients.', letterModel(`
     # Début
     Montréal, le 22 février 2027
@@ -263,6 +324,18 @@ export const examPrepTasks: ExamPrepTask[] = [
     title: 'Corriger mes erreurs de l’examen blanc 1',
     minutes: 45,
     instructions: ['Relis tes erreurs dans l’examen blanc 1. Pour chaque erreur, explique pourquoi la bonne réponse est la bonne.', 'Réécris le paragraphe le plus faible de ta production écrite.'],
+    model: {
+      kind: 'model',
+      title: 'Modèle : expliquer une erreur et réécrire un paragraphe',
+      description: 'Lis en écoutant. Ces exemples sont inventés : ils ne viennent pas de ton examen. Fais la même chose pour tes erreurs et ton paragraphe.',
+      markdown: `
+        # Expliquer une erreur
+        * **J’ai répondu :** Vrai.
+        * **La bonne réponse est :** Faux.
+        * **Pourquoi :** le texte dit « certains patients », pas « tous les patients ». J’ai mal lu un petit mot.
+        ${PARAGRAPH_REWRITE}
+      `,
+    },
     examId: 'blanc-1',
   },
   { week: 22, title: 'Examen blanc 2', minutes: 200, instructions: ['Fais l’examen blanc 2 en conditions réelles, avec le chronomètre.'], examId: 'blanc-2' },
@@ -271,6 +344,24 @@ export const examPrepTasks: ExamPrepTask[] = [
     title: 'Dernière révision avant la tentative 2',
     minutes: 45,
     instructions: ['Relis ta trousse de phrases et ton guide de l’oral.', 'Écris de mémoire ta formule d’ouverture, tes connecteurs et ta formule de fin.'],
+    model: {
+      kind: 'model',
+      title: 'Modèle : ta trousse de phrases',
+      description: 'Lis en écoutant, deux fois. Clique ensuite sur « Masquer la transcription », puis écris tout de mémoire.',
+      markdown: `
+        # Ma formule d’ouverture
+        Madame, Monsieur,
+        Je vous écris concernant…
+        # Mes connecteurs
+        * Tout d’abord,
+        * Ensuite,
+        * Par exemple,
+        * Certes…, mais…
+        * En conclusion,
+        # Ma formule de fin
+        Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.
+      `,
+    },
     lessonId: '5.1',
   },
   { week: 24, title: 'Examen blanc 3', minutes: 200, instructions: ['Fais l’examen blanc 3, la simulation complète, en conditions réelles.'], examId: 'blanc-3' },
@@ -285,16 +376,7 @@ export const examPrepTasks: ExamPrepTask[] = [
     kind: 'model',
     title: 'Modèle : réécrire un paragraphe faible',
     description: 'Lis en écoutant. Voici un paragraphe faible, sa nouvelle version et la méthode. Fais la même chose pour chaque paragraphe de ta lettre.',
-    markdown: `
-      # Avant
-      Le cours est bon pour les élèves. Par exemple, pour les accidents.
-      # Après
-      **Tout d’abord,** ce cours serait très utile aux élèves, parce qu’il leur apprendrait à réagir vite. **Par exemple, un élève qui** sait arrêter un saignement peut aider un ami blessé en attendant l’ambulance.
-      # Ma méthode
-      * Je commence par un connecteur.
-      * J’explique mon idée avec « parce que ».
-      * Je remplace la phrase sans verbe par un exemple en phrase complète.
-    `,
+    markdown: PARAGRAPH_REWRITE,
   }),
   {
     week: 27,
