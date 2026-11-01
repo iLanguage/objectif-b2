@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { claimAudio, ownsAudio, releaseAudio } from '../lib/audioFocus'
 import { speechSupported } from '../lib/speech'
 import { recordingFileName } from '../lib/text'
+import { uploadRecording } from '../lib/upload'
 
 export const MAX_RECORDING_SECONDS = 30
 
@@ -26,8 +27,8 @@ function formatSeconds(seconds: number): string {
 
 /**
  * Enregistre la voix de l'élève et la fait réécouter. L'enregistrement reste en
- * mémoire : il n'est pas envoyé, et il disparaît quand on quitte la page, sauf si
- * l'élève le sauvegarde sur son appareil.
+ * mémoire et disparaît quand on quitte la page, sauf si l'élève le sauvegarde sur
+ * son appareil ou l'envoie au prof.
  */
 export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { label: string; maxSeconds?: number }) {
   const [status, setStatus] = useState<Status>('idle')
@@ -35,7 +36,10 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
   const [mimeType, setMimeType] = useState('')
   const [seconds, setSeconds] = useState(0)
   const [error, setError] = useState<string | null>(null)
+  const [upload, setUpload] = useState<'idle' | 'sending' | 'sent'>('idle')
   const session = useRef(0)
+  const blobRef = useRef<Blob | null>(null)
+  const uploadRun = useRef(0)
   const mounted = useRef(false)
   const urlRef = useRef<string | null>(null)
   const recorderRef = useRef<MediaRecorder | null>(null)
@@ -118,9 +122,12 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
       if (!mounted.current) return
       if (chunks.length > 0) {
         if (urlRef.current) URL.revokeObjectURL(urlRef.current)
-        urlRef.current = URL.createObjectURL(new Blob(chunks, { type: recorder.mimeType }))
+        blobRef.current = new Blob(chunks, { type: recorder.mimeType })
+        urlRef.current = URL.createObjectURL(blobRef.current)
         setUrl(urlRef.current)
         setMimeType(recorder.mimeType)
+        uploadRun.current += 1
+        setUpload('idle')
       } else {
         setError('L’enregistrement est vide. Réessaie.')
       }
@@ -152,6 +159,22 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
       setStatus('idle')
       releaseAudio(stop)
     })
+  }
+
+  const send = async () => {
+    if (!blobRef.current) return
+    const run = ++uploadRun.current
+    setError(null)
+    setUpload('sending')
+    try {
+      await uploadRecording(blobRef.current, recordingFileName(label, mimeType))
+      // Un nouvel enregistrement entre-temps : ce résultat ne le concerne pas.
+      if (run === uploadRun.current) setUpload('sent')
+    } catch {
+      if (run !== uploadRun.current) return
+      setUpload('idle')
+      setError('L’envoi n’a pas fonctionné. Vérifie ta connexion et réessaie.')
+    }
   }
 
   if (!recordingSupported()) {
@@ -189,6 +212,17 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
             💾 Sauvegarder sur l’appareil
           </a>
         )}
+        {url &&
+          !recording &&
+          (upload === 'sent' ? (
+            <span role="status" className="font-semibold">
+              ✓ Envoyé au prof
+            </span>
+          ) : (
+            <button type="button" className="btn-secondary" disabled={upload === 'sending'} onClick={() => void send()}>
+              {upload === 'sending' ? '☁️ Envoi en cours…' : '☁️ Envoyer au prof'}
+            </button>
+          ))}
         {status === 'requesting' && <span className="text-ink-muted">Autorise le micro si ton navigateur te le demande…</span>}
         {recording && (
           <span className="font-semibold text-danger-ink">
@@ -202,7 +236,9 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
           {error}
         </p>
       )}
-      <p className="text-sm text-ink-muted">Ton enregistrement reste sur cet appareil. Il disparaît quand tu quittes la page, sauf si tu le sauvegardes.</p>
+      <p className="text-sm text-ink-muted">
+        Ton enregistrement reste sur cet appareil. Il disparaît quand tu quittes la page, sauf si tu le sauvegardes.
+      </p>
     </div>
   )
 }

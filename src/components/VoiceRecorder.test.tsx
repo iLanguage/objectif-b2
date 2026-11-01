@@ -2,7 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { claimAudio } from '../lib/audioFocus'
 import { recordingFileName } from '../lib/text'
+import { uploadRecording } from '../lib/upload'
 import { MAX_RECORDING_SECONDS, VoiceRecorder } from './VoiceRecorder'
+
+vi.mock('../lib/upload', () => ({ uploadRecording: vi.fn(() => Promise.resolve()) }))
 
 const trackStop = vi.fn()
 const stream = { getTracks: () => [{ stop: trackStop }] }
@@ -135,6 +138,62 @@ describe('VoiceRecorder', () => {
     expect(recordingFileName('Bonjour', 'audio/ogg')).toBe('bonjour.ogg')
     expect(recordingFileName('Je m’appelle Élodie !', '')).toBe('je-m-appelle-elodie.webm')
     expect(recordingFileName('···', 'audio/mp4')).toBe('enregistrement.m4a')
+  })
+
+  describe('envoi au prof', () => {
+    const send = () => click(/Envoyer au prof/)
+
+    it('n’envoie rien sans un clic, puis confirme l’envoi', async () => {
+      render(<VoiceRecorder label="Défi 1" />)
+      expect(screen.queryByRole('button', { name: /Envoyer au prof/ })).not.toBeInTheDocument()
+      await recordOnce()
+      expect(uploadRecording).not.toHaveBeenCalled()
+
+      send()
+      expect(screen.getByRole('button', { name: /Envoi en cours/ })).toBeDisabled()
+      await flush()
+      expect(uploadRecording).toHaveBeenCalledTimes(1)
+      const [blob, name] = vi.mocked(uploadRecording).mock.calls[0]
+      expect(blob.type).toBe('audio/webm')
+      expect(name).toBe('defi-1.webm')
+      expect(screen.getByRole('status')).toHaveTextContent('Envoyé au prof')
+      expect(screen.queryByRole('button', { name: /Envoyer au prof/ })).not.toBeInTheDocument()
+    })
+
+    it('explique l’échec et permet de réessayer', async () => {
+      vi.mocked(uploadRecording).mockRejectedValueOnce(new Error('413'))
+      render(<VoiceRecorder label="Défi 1" />)
+      await recordOnce()
+      send()
+      await flush()
+      expect(screen.getByRole('alert')).toHaveTextContent('L’envoi n’a pas fonctionné')
+
+      send()
+      await flush()
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+      expect(uploadRecording).toHaveBeenCalledTimes(2)
+    })
+
+    it('propose d’envoyer de nouveau après un nouvel enregistrement', async () => {
+      render(<VoiceRecorder label="Défi 1" />)
+      await recordOnce()
+      send()
+      await flush()
+      await recordOnce()
+      expect(screen.getByRole('button', { name: /Envoyer au prof/ })).toBeEnabled()
+    })
+
+    it('ignore le résultat d’un envoi quand un nouvel enregistrement l’a remplacé', async () => {
+      let finish: () => void = () => {}
+      vi.mocked(uploadRecording).mockReturnValueOnce(new Promise((resolve) => (finish = resolve)))
+      render(<VoiceRecorder label="Défi 1" />)
+      await recordOnce()
+      send()
+      await recordOnce()
+      await act(async () => finish())
+      expect(screen.queryByRole('status')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Envoyer au prof/ })).toBeEnabled()
+    })
   })
 
   it('garde l’ancien enregistrement si le nouveau échoue', async () => {
