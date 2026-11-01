@@ -33,8 +33,8 @@ describe('syllabus', () => {
   })
 
   it('commence les Modules 6 et 7 en semaine 1, comme devoirs avec le TA', () => {
-    expect(weekPlan(1).taHomework.map((l) => l.id)).toEqual(['6.1', '7.1'])
-    expect(weekPlan(2).taHomework.map((l) => l.id)).toEqual(['6.1', '6.2', '7.1', '7.2'])
+    expect(weekPlan(1).taHomework.map((l) => l.id)).toEqual(['6.0', '7.1'])
+    expect(weekPlan(2).taHomework.map((l) => l.id)).toEqual(['6.0', '6.1', '7.1', '7.2'])
   })
 
   it('garde les devoirs TA hors des leçons du cours', () => {

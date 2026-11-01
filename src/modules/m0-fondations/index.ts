@@ -176,7 +176,7 @@ export const m0: Module = {
           examples: [
             'Il faut que je **finisse** mon dossier de candidature.',
             'Le médecin veut que le patient **prenne** ses médicaments.',
-            'Il faut que tu **sois** à l’heure pour ton quart de bénévolat.',
+            'Il faut que tu **sois** à l’heure pour ton horaire de bénévolat.',
           ],
         },
         {

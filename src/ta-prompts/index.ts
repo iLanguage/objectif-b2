@@ -112,6 +112,7 @@ export function buildPersonaPrompt(persona: Persona): string {
     `# Jeu de rôle : ${persona.title}`,
     '',
     `Joue cette personne : ${persona.about} Tu me parles en disant « ${persona.address} », et je te parle de la même façon.`,
+    ...(persona.guidance ? ['', persona.guidance] : []),
     '',
     '## Déroulement',
     '1. Reste dans ton rôle, salue-moi et laisse-moi me présenter comme je le fais d’habitude. Ne me corrige pas encore.',

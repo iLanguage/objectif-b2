@@ -8,7 +8,7 @@ export const m2: Module = {
   subtitle: 'Accueillir, conseiller, régler un problème — dans le Vieux-Montréal',
   weeks: [1, 18],
   immersion:
-    'Tu fais tes premiers quarts de travail dans une crêperie francophone du Vieux-Montréal. Les clients sont des Montréalais, des touristes français, des familles anglophones : à toi de les servir en français, avec le bon ton.',
+    'Tu fais tes premiers horaires dans une crêperie francophone du Vieux-Montréal. Les clients sont des Montréalais, des touristes français, des familles anglophones : à toi de les servir en français, avec le bon ton.',
   sources: [
     {
       label: 'Crêperie Maison Bagatelle — menu et ambiance',
@@ -388,7 +388,7 @@ export const m2: Module = {
             { fr: 'C’est le rush !', en: 'It’s the rush (busy time)!' },
             { fr: 'Inquiète-toi pas.', en: 'Don’t worry.', note: 'Négation sans « ne », typique de l’oral' },
             { fr: 'Je vais checker.', en: 'I’ll check.', note: 'Anglicisme familier ; standard : vérifier' },
-            { fr: 'un quart de travail / un shift', en: 'a work shift' },
+            { fr: 'un horaire / un shift', en: 'a work shift' },
             { fr: 'Ça marche !', en: 'Okay! / Sounds good!' },
             { fr: 'être dans le jus', en: 'to be swamped', note: 'Expression de restaurant' },
           ],
@@ -455,7 +455,7 @@ export const m2: Module = {
           prompt: 'Qu’est-ce que Karim demande en échange ?',
           options: [
             'De l’argent',
-            'Qu’Émilie prenne son quart du dimanche matin',
+            'Qu’Émilie prenne son horaire du dimanche matin',
             'Une crêpe gratuite',
             'Qu’elle parle au patron',
           ],

@@ -43,7 +43,7 @@ describe('contenu des modules', () => {
   it('contient les modules 0 à 5 et toutes les leçons du plan', () => {
     expect(modules.map((m) => m.number)).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
     const counts = Object.fromEntries(modules.map((m) => [m.id, m.lessons.length]))
-    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 0, m6: 4, m7: 5 })
+    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 0, m6: 5, m7: 5 })
     expect(mockExams).toHaveLength(3)
   })
 
@@ -92,8 +92,22 @@ describe('expressions du Module 6', () => {
   const clean = (text: string) => text.toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' ').trim()
 
   it('couvre toutes les expressions demandées, sans doublon', () => {
-    expect(drills).toHaveLength(23)
+    expect(drills).toHaveLength(31)
     expect(new Set(drills.map((d) => d.id)).size).toBe(drills.length)
+  })
+
+  it('commence par les phrases de clarification, avant celles de l’épisode', () => {
+    const lessons = modules.find((m) => m.id === 'm6')!.lessons
+    expect(lessons.map((l) => l.id)).toEqual(['6.0', '6.1', '6.2', '6.3', '6.4'])
+    expect(lessons[0].week).toBe(1)
+    expect(lessons[1].week).toBeGreaterThan(lessons[0].week)
+    expect(lessons[0].sections.flatMap((s) => (s.kind === 'drills' ? s.drills : []))).toHaveLength(8)
+  })
+
+  it('garde les phrases de travail hors des suggestions pour l’oral du DELF', () => {
+    const prompt = buildExamPrompt(mockExams[0])
+    expect(prompt).not.toContain('Tu peux me montrer')
+    expect(prompt).not.toContain('Je me suis mélangé')
   })
 
   it('garde chaque expression dans sa phrase en contexte', () => {
@@ -123,6 +137,19 @@ describe('personnes du Module 7', () => {
 
   it('présente toujours un ado anglophone arrivé au Québec il y a un an', () => {
     for (const p of personas) expect(p.modelIntro, p.id).toMatch(/\[ton prénom\]/)
+  })
+
+  it('garde les gérants de la crêperie hors du travail, sans consigne à comprendre', () => {
+    const managers = personas.filter((p) => p.id === 'gerant-matin' || p.id === 'gerante-soir')
+    expect(managers).toHaveLength(2)
+    for (const p of managers) {
+      for (const text of [...p.questions, p.modelIntro]) {
+        expect(text).not.toMatch(/service|client|horaire|\bplats?\b|gér|restauration|travail/i)
+      }
+      const prompt = buildPersonaPrompt(p)
+      expect(prompt).toContain('aucune consigne')
+      expect(prompt).toContain('Je n’ai pas besoin de tout comprendre')
+    }
   })
 
   it('prépare le jeu de rôle en deux temps, avec les cinq questions', () => {

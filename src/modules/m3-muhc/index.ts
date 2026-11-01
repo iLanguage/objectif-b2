@@ -310,7 +310,7 @@ export const m3: Module = {
             'Annonce 1 : Votre attention, s’il vous plaît. En raison de travaux, l’entrée principale de l’avenue des Pins sera fermée de 18 h à 22 h ce soir. Les visiteurs sont priés d’utiliser l’entrée du stationnement, au niveau B.',
             'Annonce 2 : Rappel aux visiteurs : par mesure de prévention, le port du masque est obligatoire à l’unité des soins intensifs. Des masques sont disponibles au poste d’accueil du quatrième étage.',
             'Annonce 3 : Le patient dont le numéro est 57 est attendu au comptoir 3 des prélèvements sanguins. Numéro 57, comptoir 3.',
-            'Coordonnatrice : Bonjour Alex ! Pour ton premier quart, tu vas commencer à l’accueil du hall principal. Tu vas aider les visiteurs à trouver leur chemin. Si quelqu’un te pose une question médicale, tu ne réponds pas : tu l’envoies au poste des infirmières. À 11 h, tu iras en pédiatrie, au deuxième étage, pour aider à l’activité de bricolage avec les enfants. Ta pause est à midi trente, pendant trente minutes. Et n’oublie pas de porter ton badge en tout temps !',
+            'Coordonnatrice : Bonjour Alex ! Pour ton premier horaire, tu vas commencer à l’accueil du hall principal. Tu vas aider les visiteurs à trouver leur chemin. Si quelqu’un te pose une question médicale, tu ne réponds pas : tu l’envoies au poste des infirmières. À 11 h, tu iras en pédiatrie, au deuxième étage, pour aider à l’activité de bricolage avec les enfants. Ta pause est à midi trente, pendant trente minutes. Et n’oublie pas de porter ton badge en tout temps !',
           ],
         },
       ],
@@ -344,7 +344,7 @@ export const m3: Module = {
         {
           id: '3.4-q4',
           type: 'mcq',
-          prompt: 'Où Alex commence-t-il son quart ?',
+          prompt: 'Où Alex commence-t-il son horaire ?',
           options: ['En pédiatrie', 'À l’accueil du hall principal', 'À l’urgence', 'Au stationnement'],
           answer: 1,
         },

@@ -573,7 +573,7 @@ const exam2: MockExam = {
         paragraphs: [
           'Au Québec, une grande partie des élèves de la fin du secondaire et des cégépiens occupe un emploi pendant l’année scolaire. Caissiers, plongeurs, moniteurs de natation : ces jeunes travailleurs sont devenus indispensables à de nombreux commerces.',
           'Pour Léa, 17 ans, qui travaille dix heures par semaine dans une pharmacie, l’expérience est positive. « J’ai appris à gérer mon argent et à parler à des inconnus. Et je me sens plus responsable. » Son employeur confirme : « Les jeunes ont souvent une énergie et une capacité d’adaptation remarquables. »',
-          'Mais la médaille a son revers. Des chercheurs observent qu’au-delà d’un certain nombre d’heures, les résultats scolaires diminuent et la fatigue s’installe. Le problème est d’autant plus préoccupant que certains employeurs, faute de personnel, demandent aux jeunes de faire des quarts de dernière minute, parfois tard le soir de semaine.',
+          'Mais la médaille a son revers. Des chercheurs observent qu’au-delà d’un certain nombre d’heures, les résultats scolaires diminuent et la fatigue s’installe. Le problème est d’autant plus préoccupant que certains employeurs, faute de personnel, demandent aux jeunes de faire des horaires de dernière minute, parfois tard le soir de semaine.',
           'Plusieurs cégeps ont donc lancé des campagnes de sensibilisation. Le message est simple : un emploi étudiant doit rester un complément, pas une priorité. Certaines entreprises se sont engagées à respecter les horaires d’examen de leurs jeunes employés et à ne pas les faire travailler après 22 heures en semaine.',
           'Pour les parents, l’enjeu est de trouver le bon dialogue. Interdire tout emploi priverait le jeune d’une expérience formatrice ; le laisser travailler sans limite pourrait compromettre son avenir. Entre les deux, il y a la discussion, et un calendrier bien organisé.',
         ],
@@ -620,7 +620,7 @@ const exam2: MockExam = {
             prompt: 'Pourquoi le problème est-il « d’autant plus préoccupant » ?',
             options: [
               'Parce que les jeunes refusent de travailler',
-              'Parce que certains employeurs demandent des quarts de dernière minute, tard le soir',
+              'Parce que certains employeurs demandent des horaires de dernière minute, tard le soir',
               'Parce que les écoles ferment',
               'Parce que les salaires baissent',
             ],

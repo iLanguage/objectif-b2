@@ -108,6 +108,8 @@ export interface Persona {
   /** Qui est cette personne, pour le jeu de rôle. */
   about: string
   address: 'tu' | 'vous'
+  /** Consigne de jeu de rôle pour Gemini, propre à cette personne. */
+  guidance?: string
   /** Exemple de présentation dans ta propre voix. */
   modelIntro: string
   /** Cinq questions pour faire parler la personne. */

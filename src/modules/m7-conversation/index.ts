@@ -1,5 +1,9 @@
 import type { Lesson, Module, Persona } from '../../types'
 
+// Avec les gérants : aucune consigne à comprendre, donc aucun risque si tout n'est pas clair.
+const SMALL_TALK =
+  'Ne parle pas du travail et ne me donne aucune consigne : c’est seulement une petite jasette. Mon niveau est A2 : utilise des phrases courtes et des mots simples. Je n’ai pas besoin de tout comprendre. Si je demande de répéter, reformule plus simplement.'
+
 const HOMEWORK =
   'Choisis une personne par séance : copie son prompt, joue la scène avec Gemini Live, et pose tes 5 questions. Recommence avec une autre personne la fois suivante.'
 
@@ -78,31 +82,33 @@ const creperie: Persona[] = [
   {
     id: 'gerant-matin',
     title: 'Le gérant du matin, 35 ans',
-    about: 'Un gérant de 35 ans qui s’occupe du quart du matin à la crêperie.',
+    about: 'Un gérant de 35 ans, qui a l’horaire du matin à la crêperie. Vous jasez pendant une pause, sans parler du travail.',
     address: 'vous',
+    guidance: SMALL_TALK,
     modelIntro:
-      'Bonjour, je suis [ton prénom], je commence au service. Je suis anglophone, je vis au Québec depuis un an, et je veux vraiment améliorer mon français. N’hésitez pas à me corriger !',
+      'Bonjour, je suis [ton prénom]. Je suis anglophone, je vis au Québec depuis un an, et je veux vraiment améliorer mon français. N’hésitez pas à me parler en français !',
     questions: [
-      'Qu’est-ce qui est le plus important pour bien réussir un quart du matin ?',
-      'Comment avez-vous commencé dans la restauration ?',
-      'Quels sont les clients les plus fidèles le matin ?',
-      'Qu’est-ce que je devrais améliorer en priorité ?',
-      'Qu’est-ce que vous aimez le plus dans votre travail ?',
+      'Avez-vous passé une belle fin de semaine ?',
+      'Avez-vous vu le match du Canadien ?',
+      'Vous aimez le café ou le thé ?',
+      'Quelle musique écoutez-vous ?',
+      'Où aimeriez-vous aller en vacances ?',
     ],
   },
   {
     id: 'gerante-soir',
     title: 'La gérante du soir, 35 ans',
-    about: 'Une gérante de 35 ans qui s’occupe du quart du soir à la crêperie.',
+    about: 'Une gérante de 35 ans, qui a l’horaire du soir à la crêperie. Vous jasez pendant une pause, sans parler du travail.',
     address: 'vous',
+    guidance: SMALL_TALK,
     modelIntro:
-      'Bonsoir, je m’appelle [ton prénom]. Je suis nouveau au service et je suis anglophone : je suis arrivé au Québec il y a un an. Je pratique mon français ici, alors merci de votre patience !',
+      'Bonsoir, je m’appelle [ton prénom]. Je suis anglophone et je suis arrivé au Québec il y a un an. Je pratique mon français ici, alors merci de votre patience !',
     questions: [
-      'En quoi le service du soir est-il différent de celui du matin ?',
-      'Comment gérez-vous un client mécontent ?',
-      'Quel plat recommandez-vous aux touristes ?',
-      'Comment êtes-vous devenue gérante ?',
-      'Quels sont vos conseils pour un soir très occupé ?',
+      'Avez-vous un animal à la maison ?',
+      'Quelle série regardez-vous en ce moment ?',
+      'Aimez-vous l’hiver à Montréal ?',
+      'Quel est votre quartier préféré ?',
+      'Qu’est-ce que vous aimez faire pendant votre temps libre ?',
     ],
   },
   {
@@ -168,7 +174,7 @@ const hopital: Persona[] = [
       'Qu’est-ce qui est le plus difficile pour un nouveau bénévole ?',
       'Quelles qualités recherchez-vous ?',
       'Comment les patients vivent-ils cette période à l’hôpital ?',
-      'Comment puis-je me préparer avant mon premier quart ?',
+      'Comment puis-je me préparer avant mon premier horaire ?',
     ],
   },
   {
@@ -305,10 +311,11 @@ export const m7: Module = {
       '7.1',
       'À la crêperie',
       1,
-      'Tu croises ces personnes à chaque quart : un plongeur de ton âge, deux gérants et un client régulier. Remarque comment tu passes du « tu » au « vous ».',
+      'Tu croises ces personnes au travail : un plongeur de ton âge, deux gérants et un client régulier. Remarque comment tu passes du « tu » au « vous ». Avec les gérants, tu ne parles pas du travail : c’est une petite jasette, et ce n’est pas grave si tu ne comprends pas tout. Si tu décroches, utilise tes phrases de la leçon 6.0.',
       creperie,
       [
         'L’élève est gêné par son accent : valoriser d’abord ce qui passe bien et ne corriger que ce qui nuit à la compréhension.',
+        'Avec les gérants, la conversation reste hors travail : l’élève est A2, et une conversation sans enjeu lui permet de prendre confiance.',
         'Ne pas chercher à le faire passer pour un Français ou un Québécois : le but est qu’il soit à l’aise dans sa propre voix.',
       ],
       [

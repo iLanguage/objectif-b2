@@ -29,6 +29,86 @@ const METHOD: LessonSection = {
 const RECOMMENCER = 'Fais 3 expressions par jour avec l’exercice guidé, puis passe en mode TA, copie le prompt et réutilise-les avec Gemini Live.'
 
 export const m6Drills: Record<string, PhraseDrill[]> = {
+  clarifier: [
+    {
+      id: 'excuse-moi-repeter',
+      phrase: 'Excuse-moi, peux-tu répéter',
+      context: 'Excuse-moi, peux-tu répéter ? Y a trop de bruit.',
+      buildUp: ['répéter', 'peux-tu répéter', 'excuse-moi, peux-tu répéter'],
+      register: 'courant',
+      meaning: 'Pour faire répéter quand tu n’as pas entendu.',
+      en: 'sorry, can you repeat that',
+    },
+    {
+      id: 'manque-un-bout',
+      phrase: 'J’ai manqué un bout',
+      context: 'J’ai manqué un bout, c’est pour emporter ou sur place, la commande de sarrasin ?',
+      buildUp: ['bout', 'un bout', 'manqué un bout', 'j’ai manqué un bout'],
+      register: 'courant',
+      meaning: 'Pour dire que tu as compris une partie, mais pas tout.',
+      en: 'I missed a bit',
+    },
+    {
+      id: 'cest-a-dire',
+      phrase: 'C’est-à-dire ?',
+      context: 'Il faut doubler la cadence pour le service du midi. — C’est-à-dire ?',
+      buildUp: ['dire', 'à-dire', 'c’est-à-dire'],
+      register: 'courant',
+      meaning: 'Pour demander d’expliquer ce qui vient d’être dit.',
+      en: 'meaning what?',
+    },
+    {
+      id: 'veux-dire-quoi',
+      phrase: 'Tu veux dire quoi par',
+      context: 'Tu veux dire quoi par « faire le sauté » ?',
+      buildUp: ['par', 'quoi par', 'dire quoi par', 'tu veux dire quoi par'],
+      register: 'courant',
+      meaning: 'Pour demander le sens d’un mot précis. Répète le mot que tu n’as pas compris.',
+      en: 'what do you mean by',
+    },
+    {
+      id: 'pas-sur-de-comprendre',
+      phrase: 'Je ne suis pas sûr de comprendre',
+      context: 'Je ne suis pas sûr de comprendre : je clique sur le bouton rouge pour envoyer la commande à la cuisine ?',
+      buildUp: ['comprendre', 'de comprendre', 'pas sûr de comprendre', 'je ne suis pas sûr de comprendre'],
+      register: 'courant',
+      meaning: 'Pour vérifier : redis la consigne avec tes mots, et l’autre confirme.',
+      en: 'I’m not sure I understand',
+    },
+    {
+      id: 'montrer-comment',
+      phrase: 'Tu peux me montrer comment tu fais ?',
+      context: 'Tu peux me montrer comment tu fais ?',
+      buildUp: ['fais', 'tu fais', 'comment tu fais', 'me montrer comment tu fais', 'tu peux me montrer comment tu fais'],
+      register: 'courant',
+      meaning: 'Pour demander à voir le geste : c’est souvent plus clair que des mots.',
+      en: 'can you show me how you do it?',
+    },
+    {
+      id: 'me-suis-melange',
+      phrase: 'Je me suis mélangé',
+      context: 'Je me suis mélangé avec les commandes à emporter, tu peux me réexpliquer ?',
+      buildUp: ['langé', 'mélangé', 'me suis mélangé', 'je me suis mélangé'],
+      register: 'courant',
+      meaning: 'Pour dire que tu ne t’y retrouves plus et demander une nouvelle explication.',
+      en: 'I got mixed up',
+    },
+    {
+      id: 'oublie-vite-fait',
+      phrase: 'Oups, j’ai oublié comment on plie les crêpes jambon-fromage, tu me montres vite fait ?',
+      context: 'Oups, j’ai oublié comment on plie les crêpes jambon-fromage, tu me montres vite fait ?',
+      buildUp: [
+        'fait',
+        'vite fait',
+        'tu me montres vite fait',
+        'jambon-fromage, tu me montres vite fait',
+        'oups, j’ai oublié comment on plie les crêpes jambon-fromage, tu me montres vite fait',
+      ],
+      register: 'familier',
+      meaning: 'Modèle à réutiliser : « Oups, j’ai oublié comment on ___, tu me montres vite fait ? »',
+      en: 'oops, I forgot how, can you quickly show me?',
+    },
+  ],
   relancer: [
     {
       id: 'mettons-que',
@@ -254,6 +334,7 @@ function lesson(
   objectives: string[],
   quiz: Lesson['quiz'],
   teacherNotes: string[],
+  overrides: Partial<Lesson> = {},
 ): Lesson {
   return {
     id,
@@ -268,6 +349,7 @@ function lesson(
     sections: [METHOD, { kind: 'drills', title: 'Les expressions', drills: m6Drills[drillsKey] }, SOURCE],
     quiz,
     teacherNotes,
+    ...overrides,
   }
 }
 
@@ -285,9 +367,91 @@ export const m6: Module = {
   accent: 'bg-module-6',
   lessons: [
     lesson(
+      '6.0',
+      'Faire répéter et demander de préciser',
+      1,
+      'clarifier',
+      [
+        'Dire que tu n’as pas compris au lieu de faire semblant',
+        'Faire répéter, demander le sens d’un mot et vérifier une consigne',
+        'Demander à quelqu’un de te montrer',
+      ],
+      [
+        {
+          id: '6.0-q1',
+          type: 'mcq',
+          prompt: 'Ton gérant te donne une consigne, et tu ne comprends pas tout. Que fais-tu ?',
+          options: ['Je dis « oui » et je devine.', 'Je demande de préciser tout de suite.', 'Je ne dis rien.', 'J’attends la fin de mon horaire.'],
+          answer: 1,
+          explanation: 'Demander coûte dix secondes. Une erreur à la cuisine coûte beaucoup plus cher.',
+        },
+        {
+          id: '6.0-q2',
+          type: 'matching',
+          prompt: 'Associe chaque situation à la bonne phrase.',
+          pairs: [
+            { left: 'Tu n’as pas entendu à cause du bruit', right: 'Excuse-moi, peux-tu répéter ?' },
+            { left: 'Tu ne connais pas un mot', right: 'Tu veux dire quoi par… ?' },
+            { left: 'Tu veux voir le geste', right: 'Tu peux me montrer comment tu fais ?' },
+            { left: 'Tu veux vérifier une consigne', right: 'Je ne suis pas sûr de comprendre…' },
+          ],
+        },
+        {
+          id: '6.0-q3',
+          type: 'mcq',
+          prompt: 'Une gérante te dit « vous ». Comment lui demandes-tu de répéter ?',
+          options: ['Excusez-moi, pouvez-vous répéter ?', 'Excuse-moi, peux-tu répéter ?', 'Quoi ?', 'Répète.'],
+          answer: 0,
+        },
+        {
+          id: '6.0-q4',
+          type: 'fill',
+          text: 'Il faut doubler la cadence pour le service du midi. — C’est-à-___ ?',
+          answers: [['dire']],
+        },
+        {
+          id: '6.0-q5',
+          type: 'fill',
+          text: 'J’ai ___ un bout, c’est pour emporter ou sur place ?',
+          answers: [['manqué']],
+        },
+      ],
+      [
+        'Priorité absolue au travail : l’élève est A2 et peut mal comprendre une consigne. Il doit oser le dire.',
+        'Faire répéter les situations vite et dans le bruit : ces phrases doivent sortir sans réfléchir.',
+        'Valoriser la question : demander de préciser montre du sérieux, pas de la faiblesse.',
+      ],
+      {
+        homework:
+          'À faire en premier : dis ces 8 phrases à voix haute chaque jour jusqu’à ce qu’elles sortent toutes seules, puis joue la scène avec Gemini, qui te donne des consignes comme au travail.',
+        sections: [
+          {
+            kind: 'text',
+            title: 'Pourquoi commencer ici',
+            paragraphs: [
+              'Au travail, on va te donner des consignes en français, parfois vite et dans le bruit. C’est normal de ne pas tout comprendre. **Ne fais jamais semblant.** Dire « oui » sans avoir compris, c’est ce qui cause les erreurs.',
+              'Un bon employé pose des questions. Avec ces huit phrases, tu pourras toujours dire ce que tu n’as pas compris. Apprends-les avant toutes les autres.',
+            ],
+          },
+          METHOD,
+          {
+            kind: 'vocab',
+            title: 'Avec « vous »',
+            items: [
+              { fr: 'Excusez-moi, pouvez-vous répéter ?', note: 'Excuse-moi, peux-tu répéter ?' },
+              { fr: 'Vous voulez dire quoi par… ?', note: 'Tu veux dire quoi par… ?' },
+              { fr: 'Pouvez-vous me montrer comment vous faites ?', note: 'Tu peux me montrer comment tu fais ?' },
+              { fr: 'Pouvez-vous me réexpliquer ?', note: 'Tu peux me réexpliquer ?' },
+            ],
+          },
+          { kind: 'drills', title: 'Les expressions', drills: m6Drills.clarifier },
+        ],
+      },
+    ),
+    lesson(
       '6.1',
       'Annoncer, relancer, résumer',
-      1,
+      2,
       'relancer',
       [
         'Comprendre et répéter six expressions qui organisent ce qu’on dit',
@@ -336,7 +500,7 @@ export const m6: Module = {
     lesson(
       '6.2',
       'Parler du quotidien',
-      2,
+      3,
       'quotidien',
       [
         'Comprendre six expressions fréquentes à l’oral québécois',
@@ -385,7 +549,7 @@ export const m6: Module = {
     lesson(
       '6.3',
       'Expliquer comme en science',
-      3,
+      4,
       'expliquer',
       [
         'Comprendre six tournures pour expliquer un phénomène',
@@ -434,7 +598,7 @@ export const m6: Module = {
     lesson(
       '6.4',
       'Réagir et montrer son intérêt',
-      4,
+      5,
       'reagir',
       [
         'Réagir de façon naturelle à ce qu’une personne raconte',
@@ -474,9 +638,13 @@ export const m6: Module = {
   ],
 }
 
-/** Expressions utilisables à l'oral du DELF et à l'hôpital (registre courant). */
-export const oralPhrases: PhraseDrill[] = Object.values(m6Drills)
-  .flat()
+/**
+ * Expressions à placer dans un exposé ou à l'oral du DELF : registre courant,
+ * sans les phrases de clarification, qui servent au travail.
+ */
+export const oralPhrases: PhraseDrill[] = Object.entries(m6Drills)
+  .filter(([group]) => group !== 'clarifier')
+  .flatMap(([, drills]) => drills)
   .filter((d) => d.register === 'courant')
 
 export function lessonDrills(lessonToRead: Lesson): PhraseDrill[] {
