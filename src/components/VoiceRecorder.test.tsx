@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { claimAudio } from '../lib/audioFocus'
+import { recordingFileName } from '../lib/text'
 import { MAX_RECORDING_SECONDS, VoiceRecorder } from './VoiceRecorder'
 
 const trackStop = vi.fn()
@@ -109,6 +110,31 @@ describe('VoiceRecorder', () => {
     expect(revokeObjectURL).toHaveBeenCalledWith('blob:voix-1')
     click(/Réécouter/)
     expect(plays[0].src).toBe('blob:voix-2')
+  })
+
+  it('sauvegarde l’enregistrement sur l’appareil, sous un nom lisible', async () => {
+    render(<VoiceRecorder label="Partie B · Défi 1 : Ton plan" />)
+    expect(screen.queryByRole('link', { name: /Sauvegarder/ })).not.toBeInTheDocument()
+
+    await recordOnce()
+    const link = screen.getByRole('link', { name: /Sauvegarder/ })
+    expect(link).toHaveAttribute('href', 'blob:voix-1')
+    expect(link).toHaveAttribute('download', 'partie-b-defi-1-ton-plan.webm')
+
+    click(/Recommencer/)
+    await flush()
+    expect(screen.queryByRole('link', { name: /Sauvegarder/ })).not.toBeInTheDocument()
+    click(/Arrêter l’enregistrement/)
+    await flush()
+    expect(screen.getByRole('link', { name: /Sauvegarder/ })).toHaveAttribute('href', 'blob:voix-2')
+  })
+
+  it('choisit l’extension selon le format du navigateur', () => {
+    expect(recordingFileName('Bonjour', 'audio/webm;codecs=opus')).toBe('bonjour.webm')
+    expect(recordingFileName('Bonjour', 'audio/mp4')).toBe('bonjour.m4a')
+    expect(recordingFileName('Bonjour', 'audio/ogg')).toBe('bonjour.ogg')
+    expect(recordingFileName('Je m’appelle Élodie !', '')).toBe('je-m-appelle-elodie.webm')
+    expect(recordingFileName('···', 'audio/mp4')).toBe('enregistrement.m4a')
   })
 
   it('garde l’ancien enregistrement si le nouveau échoue', async () => {

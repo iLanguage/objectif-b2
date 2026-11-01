@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { claimAudio, ownsAudio, releaseAudio } from '../lib/audioFocus'
 import { speechSupported } from '../lib/speech'
+import { recordingFileName } from '../lib/text'
 
 export const MAX_RECORDING_SECONDS = 30
 
@@ -25,11 +26,13 @@ function formatSeconds(seconds: number): string {
 
 /**
  * Enregistre la voix de l'élève et la fait réécouter. L'enregistrement reste en
- * mémoire : il n'est ni envoyé ni conservé, et disparaît quand on quitte la page.
+ * mémoire : il n'est pas envoyé, et il disparaît quand on quitte la page, sauf si
+ * l'élève le sauvegarde sur son appareil.
  */
 export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { label: string; maxSeconds?: number }) {
   const [status, setStatus] = useState<Status>('idle')
   const [url, setUrl] = useState<string | null>(null)
+  const [mimeType, setMimeType] = useState('')
   const [seconds, setSeconds] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const session = useRef(0)
@@ -117,6 +120,7 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
         if (urlRef.current) URL.revokeObjectURL(urlRef.current)
         urlRef.current = URL.createObjectURL(new Blob(chunks, { type: recorder.mimeType }))
         setUrl(urlRef.current)
+        setMimeType(recorder.mimeType)
       } else {
         setError('L’enregistrement est vide. Réessaie.')
       }
@@ -180,6 +184,11 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
               ▶ Réécouter ma voix
             </button>
           ))}
+        {url && !recording && (
+          <a href={url} download={recordingFileName(label, mimeType)} className="btn-secondary">
+            💾 Sauvegarder sur l’appareil
+          </a>
+        )}
         {status === 'requesting' && <span className="text-ink-muted">Autorise le micro si ton navigateur te le demande…</span>}
         {recording && (
           <span className="font-semibold text-danger-ink">
@@ -193,7 +202,7 @@ export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { l
           {error}
         </p>
       )}
-      <p className="text-sm text-ink-muted">Ton enregistrement reste sur cet appareil et disparaît quand tu quittes la page.</p>
+      <p className="text-sm text-ink-muted">Ton enregistrement reste sur cet appareil. Il disparaît quand tu quittes la page, sauf si tu le sauvegardes.</p>
     </div>
   )
 }
