@@ -55,7 +55,8 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
     const speakers: string[] = []
     paragraphs.forEach((line, i) => {
       const { speaker, text } = splitSpeaker(line)
-      const utterance = new SpeechSynthesisUtterance(text)
+      // Le gras et l'italique de la transcription ne se lisent pas à voix haute.
+      const utterance = new SpeechSynthesisUtterance(text.replace(/\*/g, ''))
       utterance.lang = voices[0]?.lang ?? 'fr-CA'
       utterance.rate = rate
       if (speaker) {

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { AutoQuestion } from '../types'
 import { allLessons, examPrepTasks, getLesson, mockExams, modules } from '../modules'
+import { lessonDrills } from '../modules/m6-expressions'
 import {
   buildExamPrepPrompt,
   buildExamPrompt,
@@ -142,7 +143,8 @@ describe('expressions du Module 6', () => {
   const clean = (text: string) => text.toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' ').trim()
 
   it('couvre toutes les expressions demandées, sans doublon', () => {
-    expect(drills).toHaveLength(31)
+    const m6 = modules.find((m) => m.id === 'm6')!.lessons.flatMap((l) => lessonDrills(l))
+    expect(m6).toHaveLength(31)
     expect(new Set(drills.map((d) => d.id)).size).toBe(drills.length)
   })
 
@@ -170,6 +172,29 @@ describe('expressions du Module 6', () => {
       expect(clean(d.buildUp.at(-1) ?? ''), d.id).toBe(clean(d.phrase))
       d.buildUp.slice(1).forEach((chunk, i) => expect(clean(chunk).endsWith(clean(d.buildUp[i])), `${d.id} : ${chunk}`).toBe(true))
     }
+  })
+})
+
+describe('leçon 1.0 : le débat par morceaux', () => {
+  const lesson = getLesson('1.0')!
+  const titles = lesson.sections.flatMap((s) => (s.kind === 'tip' ? [] : [s.title ?? '']))
+
+  it('montre d’abord la démonstration, puis la pratique', () => {
+    const demo = titles.flatMap((t, i) => (t.startsWith('Partie A') ? [i] : []))
+    const practice = titles.flatMap((t, i) => (t.startsWith('Partie B') ? [i] : []))
+    expect(demo).toHaveLength(8)
+    expect(practice).toHaveLength(4)
+    expect(Math.max(...demo)).toBeLessThan(Math.min(...practice))
+  })
+
+  it('garde les phrases du débat pour Gemini, avec le vouvoiement', () => {
+    expect(lessonDrills(lesson)).toHaveLength(12)
+    expect(buildLessonPrompt(lesson)).toContain('« Si je comprends bien, vous voulez dire que »')
+  })
+
+  it('ne donne pas les questions de la simulation dans la démonstration', () => {
+    const audio = lesson.sections.flatMap((s) => (s.kind === 'audio' ? s.transcript : [])).join(' ')
+    for (const q of lesson.speaking!.followUps) expect(audio).not.toContain(q)
   })
 })
 
