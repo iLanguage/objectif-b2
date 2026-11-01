@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom'
 import type { Module } from '../types'
 import { completionPercent, useProgress } from '../lib/progress'
-import { mockExams } from '../modules'
+import { examPrepTasks, mockExams } from '../modules'
 import { examComplete } from '../lib/exam'
 import { ProgressBar } from './ProgressBar'
 
 /** Carte de module sur le tableau de bord. */
 export function ModuleCard({ module: mod }: { module: Module }) {
   const state = useProgress()
-  const isExams = mod.lessons.length === 0
+  const isExams = mod.id === 'm5'
   const percent = isExams
     ? Math.round((mockExams.filter((e) => examComplete(e, state.exams[e.id])).length / mockExams.length) * 100)
     : completionPercent(mod.lessons, state)
-  const count = isExams ? `${mockExams.length} examens` : `${mod.lessons.length} leçons`
+  const count = isExams ? `${examPrepTasks.length} tâches · ${mockExams.length} examens` : `${mod.lessons.length} leçons`
   return (
     <li className="card relative flex flex-col overflow-hidden p-0">
       <div className={`${mod.accent} px-5 py-3 text-on-solid`}>

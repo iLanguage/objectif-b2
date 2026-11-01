@@ -1,20 +1,23 @@
 import type { MockExam, Module } from '../../types'
+import { lesson51 } from './preparation'
+
+export { examPrepTasks, getPrepTask, prepTaskKey } from './preparation'
 
 export const m5: Module = {
   id: 'm5',
   number: 5,
   slug: 'm5-delf-blanc',
   title: 'Examens blancs DELF B2',
-  subtitle: 'Trois simulations complètes, chronométrées',
-  weeks: [20, 27],
+  subtitle: 'Une tâche par semaine, puis trois simulations complètes',
+  weeks: [1, 27],
   immersion:
-    'Les conditions réelles : chronomètre, documents inconnus, quatre épreuves. Les épreuves de compréhension sont corrigées automatiquement ; les productions sont notées par le professeur avec les grilles DELF.',
+    'Chaque semaine, une tâche courte te prépare à une épreuve du DELF. À partir de la semaine 20, place aux conditions réelles : chronomètre, documents inconnus, quatre épreuves. Les épreuves de compréhension sont corrigées automatiquement ; les productions sont notées par le professeur avec les grilles DELF.',
   sources: [
     { label: 'France Éducation international — DELF B2 (exemples d’épreuves)', url: 'https://www.france-education-international.fr/diplome/delf-tout-public/niveau-b2' },
     { label: 'Alliance française de Montréal — sessions d’examen', url: 'https://www.afmontreal.ca/' },
   ],
   accent: 'bg-module-5',
-  lessons: [],
+  lessons: [lesson51],
 }
 
 const exam1: MockExam = {

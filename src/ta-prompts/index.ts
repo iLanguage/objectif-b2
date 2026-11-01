@@ -1,4 +1,4 @@
-import type { AutoQuestion, Lesson, MockExam, Persona } from '../types'
+import type { AutoQuestion, DelfSkill, ExamPrepTask, Lesson, MockExam, Persona } from '../types'
 import { lessonDrills, oralPhrases } from '../modules/m6-expressions'
 import type { WorkProgress } from '../lib/progress'
 import { lastAttempt } from '../lib/progress'
@@ -104,6 +104,25 @@ export function buildLessonPrompt(lesson: Lesson, progress?: WorkProgress): stri
 
 export function buildExamPrompt(exam: MockExam): string {
   return [generalSystemPrompt.trim(), examPrompt(exam)?.trim(), oralPhrasesBlock()].filter(Boolean).join('\n\n---\n\n')
+}
+
+const PREP_ROLES: Record<DelfSkill, string> = {
+  PE: 'Aide-moi à trouver mes idées, mais n’écris pas ma lettre à ma place. Je veux assembler des phrases que je connais. Quand je te colle mon texte, compte les mots, évalue-le avec la grille DELF B2 (note indicative sur 25), et donne-moi mes trois priorités. Vérifie surtout : la formule de fin, les exemples en phrases complètes et les anglicismes.',
+  CE: 'Quand je te colle mon article, pose-moi cinq questions de compréhension comme au DELF, dont deux Vrai/Faux où je dois citer le texte. Fais-moi ensuite expliquer cinq mots du texte avec mes mots.',
+  CO: 'Quand je te résume ce que j’ai écouté, pose-moi des questions pour préciser : qui parle, quels chiffres, quelle opinion. Ensuite, lis-moi un court texte sur le même sujet et pose-moi trois questions.',
+  PO: 'Joue l’examinateur. Écoute mon exposé sans m’interrompre, puis débats avec moi pendant cinq minutes en me contredisant poliment. Évalue-moi avec la grille DELF B2 de production orale.',
+}
+
+/** Prompt de la tâche hebdomadaire de préparation au DELF. */
+export function buildExamPrepPrompt(task: ExamPrepTask): string {
+  const scene = [
+    `# Préparation au DELF, semaine ${task.week} : ${task.title}`,
+    '',
+    ...task.instructions,
+    '',
+    task.skill ? PREP_ROLES[task.skill] : 'Aide-moi à faire le bilan : pose-moi des questions, puis propose-moi un plan de révision simple.',
+  ].join('\n')
+  return [generalSystemPrompt.trim(), scene, task.skill === 'PO' ? oralPhrasesBlock() : undefined].filter(Boolean).join('\n\n---\n\n')
 }
 
 /** Prompt de jeu de rôle avec une personne du Module 7. */

@@ -10,13 +10,15 @@ Site publié : <https://ilanguage.github.io/objectif-b2/>
 ## Fonctionnalités
 
 - **Tableau de bord** : semaine en cours, compte à rebours des examens, progression par module.
-- **8 modules, 42 leçons** : grammaire (Module 0), médecine (1), crêperie (2), bénévolat au CUSM (3),
+- **8 modules, 43 leçons** : grammaire (Module 0), médecine (1), crêperie (2), bénévolat au CUSM (3),
   SAAQ (4), avec quiz auto-corrigés (QCM, textes à trous, appariement), productions écrites et orales.
 - **Devoirs avec le TA, dès la semaine 1** : phrases pour faire répéter et préciser au travail (leçon
   6.0), puis expressions des pairs (Module 6), avec écoute en contexte
   puis construction arrière (`que`, `ons que`, `mettons que`) et enregistrement de sa voix pour la
   comparer au modèle (en mémoire seulement, rien n’est envoyé), et conversation (Module 7), avec un
   jeu de rôle par personne.
+- **Une tâche de préparation au DELF par semaine** (27 semaines) : lettre, lecture, oral ou écoute, avec
+  chronomètre, brouillon enregistré, prompt Gemini et enregistrement de la voix pour l’oral.
 - **3 examens blancs DELF B2** complets (CO, CE, PE, PO), chronométrés, compréhensions corrigées
   automatiquement et ramenées sur 25, productions notées avec les grilles DELF.
 - **Trois modes** : Élève, Professeur (grilles, notes pédagogiques, suivi, export/import de la

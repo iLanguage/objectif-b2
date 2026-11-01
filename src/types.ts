@@ -144,7 +144,7 @@ export interface Lesson {
   quiz?: AutoQuestion[]
   writing?: WritingTask
   speaking?: SpeakingTask
-  /** Devoir à faire avec le TA (modules de devoirs). */
+  /** Devoir à faire avec le TA, en parallèle des leçons du cours. */
   homework?: string
   /** Notes pédagogiques pour le professeur. */
   teacherNotes: string[]
@@ -162,8 +162,6 @@ export interface Module {
   sources: { label: string; url?: string }[]
   /** Couleur d'accent (classe Tailwind) pour la carte du tableau de bord. */
   accent: string
-  /** Module fait à la maison avec le TA, en parallèle des leçons du cours. */
-  taHomework?: boolean
   lessons: Lesson[]
 }
 
@@ -177,6 +175,23 @@ export interface ExamDocument {
   paragraphs: string[]
   source?: string
   questions: AutoQuestion[]
+}
+
+/** Tâche hebdomadaire de préparation aux examens blancs (Module 5). */
+export interface ExamPrepTask {
+  week: number
+  /** Épreuve travaillée ; absente pour les bilans et les examens complets. */
+  skill?: DelfSkill
+  title: string
+  minutes: number
+  instructions: string[]
+  /** Production écrite à rédiger sur la page de la tâche. */
+  writing?: WritingTask
+  /** Production orale à enregistrer sur la page de la tâche. */
+  speaking?: boolean
+  lessonId?: string
+  examId?: string
+  link?: { label: string; url: string }
 }
 
 export interface MockExam {

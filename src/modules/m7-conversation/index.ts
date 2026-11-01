@@ -301,7 +301,6 @@ export const m7: Module = {
   title: 'Conversation : me présenter',
   subtitle: 'Faire connaissance au travail, à la conduite et à l’hôpital',
   weeks: [1, 27],
-  taHomework: true,
   immersion:
     'À la crêperie, à l’école de conduite et à l’hôpital, tout commence par se présenter et faire la conversation. Ici, tu pratiques avec Gemini en vrai contexte, et tu trouves ta propre voix : celle d’un ado anglophone arrivé au Québec il y a un an.',
   sources: [],

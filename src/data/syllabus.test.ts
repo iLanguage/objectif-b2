@@ -33,15 +33,19 @@ describe('syllabus', () => {
   })
 
   it('commence les Modules 6 et 7 en semaine 1, comme devoirs avec le TA', () => {
-    expect(weekPlan(1).taHomework.map((l) => l.id)).toEqual(['6.0', '7.1'])
-    expect(weekPlan(2).taHomework.map((l) => l.id)).toEqual(['6.0', '6.1', '7.1', '7.2'])
+    expect(weekPlan(1).taHomework.map((l) => l.id)).toEqual(['5.1', '6.0', '7.1'])
+    expect(weekPlan(2).taHomework.map((l) => l.id)).toEqual(['5.1', '6.0', '6.1', '7.1', '7.2'])
   })
 
   it('garde les devoirs TA hors des leçons du cours', () => {
     for (const w of allWeeks()) {
-      expect(w.lessons.filter((l) => l.moduleId === 'm6' || l.moduleId === 'm7')).toEqual([])
+      expect(w.lessons.filter((l) => l.homework !== undefined)).toEqual([])
     }
     expect(weekPlan(1).lessons.map((l) => l.id)).toEqual(['1.0', '2.1'])
+  })
+
+  it('donne une tâche de préparation au DELF chaque semaine', () => {
+    for (const w of allWeeks()) expect(w.examPrep?.week, `${w.week}`).toBe(w.week)
   })
 
   it('compte les jours avant une échéance', () => {

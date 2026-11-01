@@ -3,8 +3,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { AppRoutes } from './App'
-import { allLessons, mockExams } from './modules'
+import { allLessons, examPrepTasks, mockExams } from './modules'
 import { ModeToggle } from './components/ModeToggle'
+import { getProgress } from './lib/progress'
 
 function renderAt(path: string) {
   return render(
@@ -30,6 +31,7 @@ describe('pages', () => {
     '/module/m0',
     '/module/m5',
     ...allLessons.map((l) => `/lecon/${l.id}`),
+    ...examPrepTasks.map((t) => `/preparation/${t.week}`),
     ...mockExams.map((e) => `/examen/${e.id}`),
   ]
 
@@ -38,9 +40,44 @@ describe('pages', () => {
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
   })
 
+  it('affiche une page introuvable pour une semaine inconnue', () => {
+    renderAt('/preparation/99')
+    expect(screen.getByRole('heading', { level: 1, name: 'Page introuvable' })).toBeInTheDocument()
+  })
+
   it('affiche une page introuvable', () => {
     renderAt('/nimporte-quoi')
     expect(screen.getByRole('heading', { level: 1, name: 'Page introuvable' })).toBeInTheDocument()
+  })
+})
+
+describe('tâche hebdomadaire', () => {
+  it('enregistre le brouillon par semaine et marque la tâche terminée', async () => {
+    const user = userEvent.setup()
+    renderAt('/preparation/2')
+    expect(screen.getByRole('heading', { level: 1, name: 'Réécrire ma lettre sur le bénévolat' })).toBeInTheDocument()
+    await user.type(screen.getByRole('textbox', { name: 'Ton texte' }), 'Monsieur')
+    await user.click(screen.getByRole('checkbox', { name: 'J’ai terminé cette tâche' }))
+
+    const week2 = getProgress().lessons['prep-2']
+    expect(week2.writing?.text).toBe('Monsieur')
+    expect(week2.done).toBe(true)
+    expect(getProgress().lessons['prep-6']).toBeUndefined()
+  })
+
+  it('montre l’enregistreur pour l’oral et l’examen pour les semaines de simulation', () => {
+    const { unmount } = renderAt('/preparation/20')
+    expect(screen.getByRole('link', { name: /Ouvrir examen blanc 1/ })).toBeInTheDocument()
+    unmount()
+    renderAt('/preparation/4')
+    expect(screen.getByRole('heading', { name: 'Enregistre ton exposé' })).toBeInTheDocument()
+  })
+
+  it('liste les tâches et les examens sur la page du Module 5', () => {
+    renderAt('/module/m5')
+    expect(screen.getByRole('heading', { name: 'Une tâche par semaine' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /5\.1 — Ma trousse de phrases/ })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Examen blanc 3 — Simulation/ })).toBeInTheDocument()
   })
 })
 

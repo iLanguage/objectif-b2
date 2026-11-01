@@ -198,6 +198,18 @@ export function WeeklySchedulePage() {
         )}
       </section>
 
+      {plan.examPrep && (
+        <section aria-labelledby="exam-prep-title" className="rounded-xl border-2 border-info-line bg-info-soft p-5">
+          <h2 id="exam-prep-title" className="text-xl font-bold text-info-ink">
+            🎯 Préparation au DELF cette semaine
+          </h2>
+          <Link to={`/preparation/${selectedWeek}`} className="mt-2 inline-block font-semibold text-link underline">
+            {plan.examPrep.title}
+          </Link>
+          <p className="text-ink-soft">{plan.examPrep.instructions[0]}</p>
+        </section>
+      )}
+
       {plan.taHomework.length > 0 && (
         <section aria-labelledby="ta-homework-title" className="rounded-xl border-2 border-ta-line bg-ta-soft p-5">
           <h2 id="ta-homework-title" className="text-xl font-bold text-ta-ink">

@@ -81,6 +81,9 @@ export function GuideEtudiant() {
             <strong>Mercredi soir (30 min)</strong> : pratique avec Gemini TA — ouvre la leçon, passe en mode TA et copie le prompt pour échanger à l’oral (Live).
           </li>
           <li>
+            <strong>Préparation au DELF</strong> : une tâche par semaine (lettre, lecture, oral ou écoute), à retrouver dans le planning.
+          </li>
+          <li>
             <strong>Devoirs avec ton TA</strong> : 3 expressions par jour (Module 6) et une conversation par séance (Module 7), avec Gemini Live.
           </li>
           <li>

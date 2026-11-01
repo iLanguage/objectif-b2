@@ -8,8 +8,8 @@ import { ALL_WEEKLY_MATERIALS, getWeekMaterials } from '../data/weeklyMaterials'
 describe('données des médias et devoirs hebdomadaires', () => {
   it('annonce les devoirs avec le TA dès la semaine 1, sans changer les cours', () => {
     const week = getWeekMaterials(1)
-    expect(week.taHomework.map((t) => t.lessonId)).toEqual(['6.0', '7.1'])
-    expect(week.homeworkSummary).toContain('Avec ton TA : 6.0, 7.1.')
+    expect(week.taHomework.map((t) => t.lessonId)).toEqual(['5.1', '6.0', '7.1'])
+    expect(week.homeworkSummary).toContain('Avec ton TA : 5.1, 6.0, 7.1.')
     expect(week.days.find((d) => d.day === 'Samedi')?.lessonId).toBe('0.A')
   })
 

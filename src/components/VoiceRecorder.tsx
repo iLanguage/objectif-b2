@@ -20,14 +20,14 @@ function micError(error: unknown): string {
 }
 
 function formatSeconds(seconds: number): string {
-  return `0:${String(seconds).padStart(2, '0')}`
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
 }
 
 /**
  * Enregistre la voix de l'élève et la fait réécouter. L'enregistrement reste en
  * mémoire : il n'est ni envoyé ni conservé, et disparaît quand on quitte la page.
  */
-export function VoiceRecorder({ label }: { label: string }) {
+export function VoiceRecorder({ label, maxSeconds = MAX_RECORDING_SECONDS }: { label: string; maxSeconds?: number }) {
   const [status, setStatus] = useState<Status>('idle')
   const [url, setUrl] = useState<string | null>(null)
   const [seconds, setSeconds] = useState(0)
@@ -127,7 +127,7 @@ export function VoiceRecorder({ label }: { label: string }) {
     setStatus('recording')
     timers.current.push(
       window.setInterval(() => setSeconds((s) => s + 1), 1000),
-      window.setTimeout(stop, MAX_RECORDING_SECONDS * 1000),
+      window.setTimeout(stop, maxSeconds * 1000),
     )
   }
 
@@ -184,7 +184,7 @@ export function VoiceRecorder({ label }: { label: string }) {
         {recording && (
           <span className="font-semibold text-danger-ink">
             <span aria-hidden="true">● </span>
-            Enregistrement… {formatSeconds(seconds)} / {formatSeconds(MAX_RECORDING_SECONDS)}
+            Enregistrement… {formatSeconds(seconds)} / {formatSeconds(maxSeconds)}
           </span>
         )}
       </div>

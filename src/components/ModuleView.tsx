@@ -1,8 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
-import { getModule, mockExams } from '../modules'
+import { examPrepTasks, getModule, mockExams, prepTaskKey } from '../modules'
 import { bestAttempt, completionPercent, lessonStatus, useProgress } from '../lib/progress'
 import { examScores } from '../lib/exam'
 import { evaluateDelf } from '../lib/scoring'
+import { weekNumber } from '../data/syllabus'
 import { STATUS_LABELS } from './labels'
 import { SkillBadge } from './SkillBadge'
 import { ProgressBar } from './ProgressBar'
@@ -50,6 +51,40 @@ function ExamList() {
         </Link>
       </div>
     </>
+  )
+}
+
+function PrepTaskList() {
+  const state = useProgress()
+  const current = weekNumber(new Date())
+  return (
+    <section aria-labelledby="preparation" className="card">
+      <h2 id="preparation" className="text-2xl font-bold">
+        Une tâche par semaine
+      </h2>
+      <ol className="mt-3 divide-y divide-line-subtle">
+        {examPrepTasks.map((task) => {
+          const done = state.lessons[prepTaskKey(task.week)]?.done
+          const status = STATUS_LABELS[done ? 'terminee' : 'a-faire']
+          return (
+            <li
+              key={task.week}
+              aria-current={task.week === current ? 'date' : undefined}
+              className={`flex flex-wrap items-center gap-2 py-2 ${task.week === current ? 'font-semibold' : ''}`}
+            >
+              <span className={status.className} role="img" aria-label={status.label}>
+                {status.icon}
+              </span>
+              <span className="w-24 text-ink-muted">Semaine {task.week}</span>
+              <Link to={`/preparation/${task.week}`} className="text-link underline">
+                {task.title}
+              </Link>
+              {task.skill && <SkillBadge skill={task.skill} />}
+            </li>
+          )
+        })}
+      </ol>
+    </section>
   )
 }
 
@@ -101,9 +136,9 @@ export function ModuleView() {
         )}
       </section>
 
-      {mod.lessons.length === 0 ? (
-        <ExamList />
-      ) : (
+      {mod.id === 'm5' && <PrepTaskList />}
+
+      {mod.lessons.length > 0 && (
         <section aria-labelledby="lecons" className="space-y-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 id="lecons" className="text-2xl font-bold">
@@ -146,6 +181,8 @@ export function ModuleView() {
           </ol>
         </section>
       )}
+
+      {mod.id === 'm5' && <ExamList />}
     </div>
   )
 }

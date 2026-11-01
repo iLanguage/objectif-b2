@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard'
 import { ModuleView } from './components/ModuleView'
 import { LessonView } from './components/LessonView'
 import { ExamView } from './components/ExamView'
+import { ExamPrepView } from './components/ExamPrepView'
 import { ProgressOverview } from './components/ProgressOverview'
 import { NotFound } from './components/NotFound'
 import { GuideEtudiant } from './guides/GuideEtudiant'
@@ -123,6 +124,7 @@ export function AppRoutes() {
       <Route path="/module/:moduleId" element={<ModuleView />} />
       <Route path="/lecon/:lessonId" element={<LessonView />} />
       <Route path="/examen/:examId" element={<ExamView />} />
+      <Route path="/preparation/:week" element={<ExamPrepView />} />
       <Route path="/progression" element={<ProgressOverview />} />
       <Route path="/planning" element={<WeeklySchedulePage />} />
       <Route path="/syllabus" element={<SyllabusPage />} />

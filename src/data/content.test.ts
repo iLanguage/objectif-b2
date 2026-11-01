@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { AutoQuestion } from '../types'
-import { allLessons, getLesson, mockExams, modules } from '../modules'
+import { allLessons, examPrepTasks, getLesson, mockExams, modules } from '../modules'
 import {
+  buildExamPrepPrompt,
   buildExamPrompt,
   buildLessonPrompt,
   buildPersonaPrompt,
@@ -43,7 +44,7 @@ describe('contenu des modules', () => {
   it('contient les modules 0 à 5 et toutes les leçons du plan', () => {
     expect(modules.map((m) => m.number)).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
     const counts = Object.fromEntries(modules.map((m) => [m.id, m.lessons.length]))
-    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 0, m6: 5, m7: 5 })
+    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 1, m6: 5, m7: 5 })
     expect(mockExams).toHaveLength(3)
   })
 
@@ -84,6 +85,55 @@ describe('contenu des modules', () => {
 
   it('alimente les banques de vocabulaire', () => {
     expect(vocabularyBanks.length).toBeGreaterThanOrEqual(5)
+  })
+})
+
+describe('préparation aux examens blancs (Module 5)', () => {
+  const key = (text: string) => text.toLowerCase()
+
+  it('prévoit une tâche pour chacune des 27 semaines, dès la semaine 1', () => {
+    expect(examPrepTasks.map((t) => t.week)).toEqual(Array.from({ length: TOTAL_WEEKS }, (_, i) => i + 1))
+  })
+
+  it('alterne les quatre épreuves pendant la préparation', () => {
+    const skills = new Set(examPrepTasks.filter((t) => t.week <= 18).map((t) => t.skill))
+    expect([...skills].sort()).toEqual(['CE', 'CO', 'PE', 'PO'])
+  })
+
+  it('demande au moins 250 mots à chaque production écrite', () => {
+    const letters = examPrepTasks.flatMap((t) => (t.writing ? [t.writing] : []))
+    expect(letters.length).toBeGreaterThanOrEqual(5)
+    for (const w of letters) expect(w.minWords, w.id).toBeGreaterThanOrEqual(250)
+  })
+
+  it('renvoie vers des leçons et des examens qui existent, à la bonne semaine', () => {
+    for (const t of examPrepTasks) {
+      if (t.lessonId) expect(getLesson(t.lessonId), `${t.week}`).toBeDefined()
+      if (t.examId) expect(mockExams.some((e) => e.id === t.examId), `${t.week}`).toBe(true)
+    }
+    for (const e of mockExams) expect(examPrepTasks.find((t) => t.week === e.week)?.examId).toBe(e.id)
+  })
+
+  it('ne révèle pas les sujets des examens blancs', () => {
+    const subjects = ['cellulaires', 'téléphones', 'semaine de quatre jours', 'télétravail', 'rue piétonne', 'service communautaire', 'surtourisme', 'gratuit', 'montres connectées']
+    const text = key(examPrepTasks.map((t) => [t.title, ...t.instructions].join(' ')).join(' '))
+    for (const subject of subjects) expect(text, subject).not.toContain(subject)
+  })
+
+  it('prépare un prompt Gemini pour chaque tâche', () => {
+    for (const t of examPrepTasks) {
+      const prompt = buildExamPrepPrompt(t)
+      expect(prompt, `${t.week}`).toContain(t.title)
+      expect(prompt, `${t.week}`).toContain(generalSystemPrompt.trim())
+    }
+    expect(buildExamPrepPrompt(examPrepTasks[1])).toContain('n’écris pas ma lettre à ma place')
+  })
+
+  it('corrige les anglicismes dans la lettre de la leçon 5.1', () => {
+    const lesson = getLesson('5.1')!
+    const letter = lesson.sections.flatMap((s) => (s.kind === 'reading' ? s.paragraphs : [])).join(' ')
+    expect(letter).toContain('Je vous prie d’agréer')
+    for (const word of ['appliquent', 'opportunité', 'procédures']) expect(letter).not.toContain(word)
   })
 })
 

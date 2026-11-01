@@ -1,3 +1,4 @@
+import type { ExamPrepTask } from '../types'
 import type { WeekPlan } from './syllabus'
 import { weekPlan } from './syllabus'
 
@@ -28,6 +29,8 @@ export interface WeekMaterialsPlan {
   homeworkSummary: string
   /** Devoirs à faire avec le TA, en plus du programme quotidien. */
   taHomework: { lessonId: string; title: string; homework: string }[]
+  /** Tâche de la semaine pour préparer les examens blancs. */
+  examPrep?: ExamPrepTask
   days: DailyScheduleItem[]
 }
 
@@ -339,6 +342,7 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
         ? `${homeworkSummary} Avec ton TA : ${taHomework.map((t) => t.lessonId).join(', ')}.`
         : homeworkSummary,
     taHomework,
+    examPrep: plan.examPrep,
     days,
   }
 }

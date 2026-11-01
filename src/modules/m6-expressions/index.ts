@@ -360,7 +360,6 @@ export const m6: Module = {
   title: 'Expressions de mes pairs',
   subtitle: 'Parler comme les gens que tu veux rejoindre',
   weeks: [1, 27],
-  taHomework: true,
   immersion:
     'Tu veux soigner des patients au Québec, et tu y vis depuis un an seulement. Les jeunes qui visent Marianopolis et le bénévolat à McGill parlent avec des expressions bien à eux : en les écoutant et en les reprenant, tu montres ton engagement à échanger en français avec les patients et ton équipe. Ces expressions serviront aussi dans tes exposés et tes simulations orales.',
   sources: [{ label: 'Radio-Canada OHdio — Moteur de recherche', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/moteur-de-recherche' }],

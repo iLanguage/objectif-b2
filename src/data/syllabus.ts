@@ -1,5 +1,5 @@
-import type { Lesson, MockExam } from '../types'
-import { allLessons, getModule, mockExams } from '../modules'
+import type { ExamPrepTask, Lesson, MockExam } from '../types'
+import { allLessons, getPrepTask, mockExams } from '../modules'
 
 /**
  * Calendrier du parcours A2 → B2 : 27 semaines, du lundi 26 octobre 2026
@@ -83,14 +83,16 @@ export interface WeekPlan {
   foundations: Lesson[]
   /** Nouvelles leçons thématiques de la semaine (Modules 1 à 4). */
   lessons: Lesson[]
-  /** Leçons à faire à la maison avec le TA (Modules 6 et 7), en parallèle du cours. */
+  /** Leçons à faire à la maison avec le TA, en parallèle du cours. */
   taHomework: Lesson[]
+  /** Tâche de la semaine pour préparer les examens blancs. */
+  examPrep?: ExamPrepTask
   exams: MockExam[]
   milestones: Milestone[]
 }
 
 function isTaHomework(lesson: Lesson): boolean {
-  return getModule(lesson.moduleId)?.taHomework === true
+  return lesson.homework !== undefined
 }
 
 export function weekPlan(week: number): WeekPlan {
@@ -104,6 +106,7 @@ export function weekPlan(week: number): WeekPlan {
     foundations: allLessons.filter((l) => l.moduleId === 'm0' && inWeek(l)),
     lessons: allLessons.filter((l) => l.moduleId !== 'm0' && !isTaHomework(l) && inWeek(l)),
     taHomework: allLessons.filter((l) => isTaHomework(l) && inWeek(l)),
+    examPrep: getPrepTask(week),
     exams: mockExams.filter((e) => e.week === week),
     milestones: MILESTONES.filter((m) => {
       const d = parseDate(m.date)

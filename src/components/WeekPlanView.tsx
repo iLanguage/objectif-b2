@@ -55,6 +55,14 @@ export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headi
           </li>
         ))}
       </ul>
+      {plan.examPrep && (
+        <p className="mt-3">
+          <span className="text-sm font-semibold text-ink-muted">Préparation au DELF : </span>
+          <Link to={`/preparation/${plan.week}`} className="font-medium text-link underline">
+            {plan.examPrep.title}
+          </Link>
+        </p>
+      )}
       {plan.taHomework.length > 0 && (
         <>
           <p className="mt-3 text-sm font-semibold text-ink-muted">À la maison, avec ton TA :</p>
