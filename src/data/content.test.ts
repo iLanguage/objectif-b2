@@ -44,7 +44,7 @@ describe('contenu des modules', () => {
   it('contient les modules 0 à 5 et toutes les leçons du plan', () => {
     expect(modules.map((m) => m.number)).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
     const counts = Object.fromEntries(modules.map((m) => [m.id, m.lessons.length]))
-    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 1, m6: 5, m7: 5 })
+    expect(counts).toEqual({ m0: 6, m1: 9, m2: 6, m3: 6, m4: 5, m5: 2, m6: 5, m7: 5 })
     expect(mockExams).toHaveLength(3)
   })
 
@@ -100,6 +100,20 @@ describe('préparation aux examens blancs (Module 5)', () => {
     expect([...skills].sort()).toEqual(['CE', 'CO', 'PE', 'PO'])
   })
 
+  it('place le débat sur la télémédecine en semaine 3, avant la lecture', () => {
+    const [week3, week4] = [examPrepTasks[2], examPrepTasks[3]]
+    expect(week3).toMatchObject({ week: 3, skill: 'PO', lessonId: '5.2', speaking: true, withTeacher: true })
+    expect(week4).toMatchObject({ week: 4, skill: 'CE', title: 'Lire : le manque de personnel infirmier' })
+  })
+
+  it('fait pratiquer l’oral et l’écrit avec le professeur, et donne une partie du test à chaque semaine de préparation', () => {
+    for (const t of examPrepTasks.filter((t) => t.week <= 18)) expect(t.skill, `${t.week}`).toBeDefined()
+    for (const t of examPrepTasks) {
+      if (t.withTeacher) expect(['PE', 'PO'], `${t.week}`).toContain(t.skill)
+      if (t.writing || t.speaking) expect(t.withTeacher, `${t.week}`).toBe(true)
+    }
+  })
+
   it('demande au moins 250 mots à chaque production écrite', () => {
     const letters = examPrepTasks.flatMap((t) => (t.writing ? [t.writing] : []))
     expect(letters.length).toBeGreaterThanOrEqual(5)
@@ -129,6 +143,19 @@ describe('préparation aux examens blancs (Module 5)', () => {
     expect(buildExamPrepPrompt(examPrepTasks[1])).toContain('n’écris pas ma lettre à ma place')
   })
 
+  it('apprend « par contre » pour « however », pas « par exemple »', () => {
+    const lesson = getLesson('5.2')!
+    const vocab = lesson.sections.flatMap((s) => (s.kind === 'vocab' ? s.items : []))
+    expect(vocab.find((i) => i.en === 'However,')?.fr).toContain('Par contre')
+    expect(vocab.find((i) => i.en === 'For example,')?.fr).toBe('Par exemple,')
+  })
+
+  it('reprend le format du débat dans la leçon 5.2', () => {
+    const { speaking } = getLesson('5.2')!
+    expect(speaking).toMatchObject({ prepMinutes: 20, speakMinutes: 17 })
+    expect(speaking?.followUps).toContain('Quelles sont les limites de cette technologie pour les patients qui ne possèdent pas les compétences informatiques requises ?')
+  })
+
   it('corrige les anglicismes dans la lettre de la leçon 5.1', () => {
     const lesson = getLesson('5.1')!
     const letter = lesson.sections.flatMap((s) => (s.kind === 'reading' ? s.paragraphs : [])).join(' ')
@@ -142,7 +169,7 @@ describe('expressions du Module 6', () => {
   const clean = (text: string) => text.toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' ').trim()
 
   it('couvre toutes les expressions demandées, sans doublon', () => {
-    expect(drills).toHaveLength(31)
+    expect(drills).toHaveLength(37)
     expect(new Set(drills.map((d) => d.id)).size).toBe(drills.length)
   })
 

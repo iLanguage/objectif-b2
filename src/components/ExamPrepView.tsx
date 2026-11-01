@@ -12,7 +12,8 @@ import { Timer } from './Timer'
 import { VoiceRecorder } from './VoiceRecorder'
 import { NotFound } from './NotFound'
 
-const SPEAKING_SECONDS = 4 * 60
+// Assez long pour un exposé complet de 5 à 7 minutes.
+const SPEAKING_SECONDS = 8 * 60
 
 /** Page d'une tâche hebdomadaire de préparation au DELF. */
 export function ExamPrepView() {
@@ -25,7 +26,8 @@ export function ExamPrepView() {
   const progress = state.lessons[key]
   const lesson = task.lessonId ? getLesson(task.lessonId) : undefined
   const exam = task.examId ? getExam(task.examId) : undefined
-  const grades = progress?.grades?.PE
+  const gradedSkill = task.writing ? 'PE' : task.speaking ? 'PO' : undefined
+  const grades = gradedSkill && progress?.grades?.[gradedSkill]
 
   return (
     <article className="space-y-8" key={key}>
@@ -46,8 +48,10 @@ export function ExamPrepView() {
         </p>
         <h1 className="mt-1 text-3xl font-bold leading-tight">{task.title}</h1>
         {task.skill && (
-          <div className="mt-3">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="font-semibold">Partie du DELF B2 :</span>
             <SkillBadge skill={task.skill} />
+            {task.withTeacher && <span className="font-semibold text-ink-soft">avec ton professeur</span>}
           </div>
         )}
       </header>
@@ -98,20 +102,6 @@ export function ExamPrepView() {
         />
       )}
 
-      {task.writing &&
-        (state.mode === 'professeur' ? (
-          <GrilleForm grille={GRILLES.PE} grades={grades} onSave={(g) => saveLessonGrades(key, 'PE', g)} />
-        ) : (
-          grades && (
-            <GrilleForm
-              grille={GRILLES.PE}
-              grades={grades}
-              readOnly
-              title={`Note du professeur : ${grilleTotal(GRILLES.PE, grades)} / 25`}
-            />
-          )
-        ))}
-
       {task.speaking && (
         <section aria-labelledby="oral" className="card">
           <h2 id="oral" className="mb-3 text-xl font-bold">
@@ -120,6 +110,20 @@ export function ExamPrepView() {
           <VoiceRecorder label={task.title} maxSeconds={SPEAKING_SECONDS} />
         </section>
       )}
+
+      {gradedSkill &&
+        (state.mode === 'professeur' ? (
+          <GrilleForm grille={GRILLES[gradedSkill]} grades={grades} onSave={(g) => saveLessonGrades(key, gradedSkill, g)} />
+        ) : (
+          grades && (
+            <GrilleForm
+              grille={GRILLES[gradedSkill]}
+              grades={grades}
+              readOnly
+              title={`Note du professeur : ${grilleTotal(GRILLES[gradedSkill], grades)} / 25`}
+            />
+          )
+        ))}
 
       <TaPanel prompt={buildExamPrepPrompt(task)} trackingId={key} />
 

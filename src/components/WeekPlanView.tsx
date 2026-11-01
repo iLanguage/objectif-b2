@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { Lesson } from '../types'
 import { formatDate, type WeekPlan } from '../data/syllabus'
 import { lessonStatus, useProgress } from '../lib/progress'
+import { SKILL_LABELS } from '../lib/scoring'
 import { STATUS_LABELS } from './labels'
 import { SkillBadge } from './SkillBadge'
 
@@ -57,7 +58,10 @@ export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headi
       </ul>
       {plan.examPrep && (
         <p className="mt-3">
-          <span className="text-sm font-semibold text-ink-muted">Préparation au DELF : </span>
+          <span className="text-sm font-semibold text-ink-muted">
+            {plan.examPrep.skill ? `Partie du DELF : ${SKILL_LABELS[plan.examPrep.skill]}` : 'Préparation au DELF'}
+            {plan.examPrep.withTeacher && ' (avec ton professeur)'} :{' '}
+          </span>
           <Link to={`/preparation/${plan.week}`} className="font-medium text-link underline">
             {plan.examPrep.title}
           </Link>

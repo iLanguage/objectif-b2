@@ -14,6 +14,7 @@ import {
 } from '../data/syllabus'
 import { allLessons } from '../modules'
 import { lessonStatus, useProgress } from '../lib/progress'
+import { SKILL_LABELS } from '../lib/scoring'
 import { STATUS_LABELS } from '../components/labels'
 import { SkillBadge } from '../components/SkillBadge'
 
@@ -201,12 +202,13 @@ export function WeeklySchedulePage() {
       {plan.examPrep && (
         <section aria-labelledby="exam-prep-title" className="rounded-xl border-2 border-info-line bg-info-soft p-5">
           <h2 id="exam-prep-title" className="text-xl font-bold text-info-ink">
-            🎯 Préparation au DELF cette semaine
+            🎯 Cette semaine au DELF{plan.examPrep.skill ? ` : ${SKILL_LABELS[plan.examPrep.skill]}` : ''}
           </h2>
           <Link to={`/preparation/${selectedWeek}`} className="mt-2 inline-block font-semibold text-link underline">
             {plan.examPrep.title}
           </Link>
           <p className="text-ink-soft">{plan.examPrep.instructions[0]}</p>
+          {plan.examPrep.withTeacher && <p className="mt-1 font-semibold">À pratiquer avec ton professeur au cours du dimanche.</p>}
         </section>
       )}
 

@@ -1,6 +1,7 @@
 import type { ExamPrepTask } from '../types'
 import type { WeekPlan } from './syllabus'
 import { weekPlan } from './syllabus'
+import { SKILL_LABELS } from '../lib/scoring'
 
 export interface DailyScheduleItem {
   day: 'Lundi' | 'Mardi' | 'Mercredi' | 'Jeudi' | 'Vendredi' | 'Samedi' | 'Dimanche'
@@ -188,6 +189,8 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
   // Leçon principale du samedi (quiz) et dimanche (oral/écrit)
   const satLesson = plan.foundations[0] ?? plan.lessons[0]
   const sunLesson = plan.lessons.find((l) => l.skill === 'PO' || l.skill === 'PE') ?? plan.lessons[0] ?? satLesson
+  // Les semaines d'oral et d'écrit, le cours du dimanche travaille la tâche DELF de la semaine.
+  const classTask = !exam && plan.examPrep?.withTeacher ? plan.examPrep : undefined
 
   const days: DailyScheduleItem[] = [
     {
@@ -295,13 +298,19 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
       day: 'Dimanche',
       where: 'Cours + Production',
       minutes: 90,
-      title: exam ? `Examen blanc ${exam.number} — Simulation DELF` : 'Cours 2 (1 h avec le professeur) + Production B2',
+      title: exam
+        ? `Examen blanc ${exam.number} — Simulation DELF`
+        : classTask?.skill
+          ? `Cours 2 (1 h avec le professeur) — ${SKILL_LABELS[classTask.skill]}`
+          : 'Cours 2 (1 h avec le professeur) + Production B2',
       taskDescription: exam
         ? `Passation chronométrée de l’examen blanc ${exam.number} (${exam.theme}).`
         : 'Séance axée sur l’expression : simulation d’exposé oral ou rédaction guidée avec évaluation sur grille DELF.',
       homework: exam
         ? `Termine l’épreuve de production écrite de l’examen blanc ${exam.number} (≥ 250 mots).`
-        : sunLesson?.speaking
+        : classTask
+          ? `Fais la tâche DELF de la semaine avec ton professeur : ${classTask.title}.`
+          : sunLesson?.speaking
           ? `Prépare l’oral de la leçon ${sunLesson.id} : 20 min de notes, monologue de 5-7 min devant le prof.`
           : sunLesson?.writing
             ? `Rédige le devoir écrit de la leçon ${sunLesson.id} (${sunLesson.writing.minWords} mots).`
@@ -309,15 +318,27 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
       media: {
         category: exam ? 'simulation' : 'reading',
         categoryLabel: exam ? 'Examen blanc DELF' : 'Production DELF B2',
-        title: exam ? `${exam.title} (${exam.theme})` : sunLesson ? `Leçon ${sunLesson.id} — ${sunLesson.title}` : 'Grilles DELF B2',
+        title: exam
+          ? `${exam.title} (${exam.theme})`
+          : classTask
+            ? classTask.title
+            : sunLesson
+              ? `Leçon ${sunLesson.id} — ${sunLesson.title}`
+              : 'Grilles DELF B2',
         platform: 'Objectif B2',
-        url: exam ? `#/examen/${exam.id}` : sunLesson ? `#/lecon/${sunLesson.id}` : '#/grilles',
-        actionLabel: exam ? `Lancer l’examen ${exam.number}` : sunLesson ? `Ouvrir la leçon ${sunLesson.id}` : 'Voir les grilles',
+        url: exam ? `#/examen/${exam.id}` : classTask ? `#/preparation/${week}` : sunLesson ? `#/lecon/${sunLesson.id}` : '#/grilles',
+        actionLabel: exam
+          ? `Lancer l’examen ${exam.number}`
+          : classTask
+            ? 'Ouvrir la tâche de la semaine'
+            : sunLesson
+              ? `Ouvrir la leçon ${sunLesson.id}`
+              : 'Voir les grilles',
         tip: exam
           ? 'Respecte scrupuleusement les chronomètres de chaque section pour t’habituer au rythme de l’examen.'
           : 'Consulte la grille d’évaluation officielle pour vérifier chaque critère avant de soumettre.',
       },
-      lessonId: exam ? undefined : sunLesson?.id,
+      lessonId: exam ? undefined : (classTask?.lessonId ?? sunLesson?.id),
     },
   ]
 

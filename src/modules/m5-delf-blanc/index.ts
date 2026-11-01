@@ -1,5 +1,5 @@
 import type { MockExam, Module } from '../../types'
-import { lesson51 } from './preparation'
+import { lesson51, lesson52 } from './preparation'
 
 export { examPrepTasks, getPrepTask, prepTaskKey } from './preparation'
 
@@ -17,7 +17,7 @@ export const m5: Module = {
     { label: 'Alliance française de Montréal — sessions d’examen', url: 'https://www.afmontreal.ca/' },
   ],
   accent: 'bg-module-5',
-  lessons: [lesson51],
+  lessons: [lesson51, lesson52],
 }
 
 const exam1: MockExam = {

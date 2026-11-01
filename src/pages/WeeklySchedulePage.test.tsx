@@ -6,6 +6,16 @@ import { WeeklySchedulePage } from './WeeklySchedulePage'
 import { ALL_WEEKLY_MATERIALS, getWeekMaterials } from '../data/weeklyMaterials'
 
 describe('données des médias et devoirs hebdomadaires', () => {
+  it('consacre le cours du dimanche à la partie du test de la semaine', () => {
+    const sunday = getWeekMaterials(3).days.find((d) => d.day === 'Dimanche')
+    expect(sunday?.title).toContain('Production orale')
+    expect(sunday?.media.url).toBe('#/preparation/3')
+    expect(sunday?.lessonId).toBe('5.2')
+    const week4 = getWeekMaterials(4).days.find((d) => d.day === 'Dimanche')
+    expect(week4?.media.url).not.toContain('preparation')
+    expect(getWeekMaterials(1).days.find((d) => d.day === 'Dimanche')?.lessonId).toBe('1.0')
+  })
+
   it('annonce les devoirs avec le TA dès la semaine 1, sans changer les cours', () => {
     const week = getWeekMaterials(1)
     expect(week.taHomework.map((t) => t.lessonId)).toEqual(['5.1', '6.0', '7.1'])

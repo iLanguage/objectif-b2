@@ -182,6 +182,8 @@ export interface ExamPrepTask {
   week: number
   /** Épreuve travaillée ; absente pour les bilans et les examens complets. */
   skill?: DelfSkill
+  /** Tâche à présenter au professeur (production orale ou écrite). */
+  withTeacher?: boolean
   title: string
   minutes: number
   instructions: string[]

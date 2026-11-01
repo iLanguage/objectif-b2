@@ -69,8 +69,9 @@ describe('tâche hebdomadaire', () => {
     const { unmount } = renderAt('/preparation/20')
     expect(screen.getByRole('link', { name: /Ouvrir examen blanc 1/ })).toBeInTheDocument()
     unmount()
-    renderAt('/preparation/4')
+    renderAt('/preparation/3')
     expect(screen.getByRole('heading', { name: 'Enregistre ton exposé' })).toBeInTheDocument()
+    expect(screen.getByText('avec ton professeur')).toBeInTheDocument()
   })
 
   it('liste les tâches et les examens sur la page du Module 5', () => {
