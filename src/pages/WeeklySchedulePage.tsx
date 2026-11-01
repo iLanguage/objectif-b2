@@ -62,9 +62,12 @@ export function WeeklySchedulePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Leçons associées à cette semaine
+  // Leçons du cours pour cette semaine (les devoirs TA ont leur propre encadré)
   const weekLessons = allLessons.filter(
-    (l) => selectedWeek >= l.week && selectedWeek <= (l.untilWeek ?? l.week),
+    (l) =>
+      selectedWeek >= l.week &&
+      selectedWeek <= (l.untilWeek ?? l.week) &&
+      !plan.taHomework.some((t) => t.lessonId === l.id),
   )
 
   return (
@@ -195,6 +198,24 @@ export function WeeklySchedulePage() {
         )}
       </section>
 
+      {plan.taHomework.length > 0 && (
+        <section aria-labelledby="ta-homework-title" className="rounded-xl border-2 border-ta-line bg-ta-soft p-5">
+          <h2 id="ta-homework-title" className="text-xl font-bold text-ta-ink">
+            🤖 Devoirs avec ton TA cette semaine
+          </h2>
+          <ul className="mt-3 space-y-3">
+            {plan.taHomework.map((t) => (
+              <li key={t.lessonId}>
+                <Link to={`/lecon/${t.lessonId}`} className="font-semibold text-link underline">
+                  {t.lessonId} — {t.title}
+                </Link>
+                <p className="text-ink-soft">{t.homework}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Déroulement jour par jour */}
       <section aria-labelledby="daily-schedule-title" className="space-y-6">
         <div className="flex items-center justify-between">
@@ -206,7 +227,7 @@ export function WeeklySchedulePage() {
           </span>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 gap-6">
           {plan.days.map((item) => {
             const style = CONTEXT_STYLES[item.where]
             const categoryIcon = CATEGORY_ICONS[item.media.category] ?? '🔗'
@@ -215,7 +236,7 @@ export function WeeklySchedulePage() {
             return (
               <article
                 key={item.day}
-                className="card border border-line p-5 shadow-sm transition hover:shadow-md"
+                className="card min-w-0 border border-line p-5 shadow-sm transition wrap-anywhere hover:shadow-md"
               >
                 {/* En-tête du jour */}
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line-subtle pb-3">
@@ -233,7 +254,7 @@ export function WeeklySchedulePage() {
                   </span>
                 </div>
 
-                <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
                   {/* Colonne gauche : Activité et Devoir */}
                   <div className="space-y-3">
                     <div>

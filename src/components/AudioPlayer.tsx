@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { RichText } from './RichText'
+import { frenchVoices } from '../lib/speech'
 
 interface AudioPlayerProps {
   title: string
@@ -14,14 +15,6 @@ const SPEAKER = /^([A-ZÉÈÀÂÎÔÇ][\p{L} -]{1,24}) : /u
 function splitSpeaker(line: string): { speaker?: string; text: string } {
   const m = line.match(SPEAKER)
   return m ? { speaker: m[1], text: line.slice(m[0].length) } : { text: line }
-}
-
-function frenchVoices(): SpeechSynthesisVoice[] {
-  const voices = window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('fr'))
-  // Priorité au français canadien, puis aux voix « naturelles » plutôt qu'aux voix
-  // fantaisie nommées « Nom (Langue) » (Grandma, Rocko… sur macOS).
-  const rank = (v: SpeechSynthesisVoice) => (v.lang === 'fr-CA' ? 0 : 2) + (v.name.includes('(') ? 1 : 0)
-  return voices.sort((a, b) => rank(a) - rank(b))
 }
 
 /**

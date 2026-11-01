@@ -83,6 +83,37 @@ export interface SpeakingTask {
 // Contenu des leçons
 // ---------------------------------------------------------------------------
 
+/** Registre d'une expression : où on peut l'utiliser. */
+export type PhraseRegister = 'familier' | 'courant'
+
+/** Expression entendue chez les pairs, travaillée à l'oreille puis par construction arrière. */
+export interface PhraseDrill {
+  id: string
+  /** Expression cible. */
+  phrase: string
+  /** Courte phrase en contexte, écoutée trois fois. */
+  context: string
+  /** Morceaux à répéter, du dernier son à l'expression complète (« que », « ons que », « mettons que »). */
+  buildUp: string[]
+  register: PhraseRegister
+  /** Sens, expliqué en français simple. */
+  meaning: string
+  en: string
+}
+
+/** Personne à qui se présenter (Module 7). */
+export interface Persona {
+  id: string
+  title: string
+  /** Qui est cette personne, pour le jeu de rôle. */
+  about: string
+  address: 'tu' | 'vous'
+  /** Exemple de présentation dans ta propre voix. */
+  modelIntro: string
+  /** Cinq questions pour faire parler la personne. */
+  questions: string[]
+}
+
 export type LessonSection =
   | { kind: 'text'; title?: string; paragraphs: string[] }
   | { kind: 'vocab'; title?: string; items: { fr: string; en?: string; note?: string }[] }
@@ -91,6 +122,8 @@ export type LessonSection =
   | { kind: 'audio'; title: string; description?: string; transcript: string[] }
   | { kind: 'tip'; text: string }
   | { kind: 'resources'; title?: string; links: { label: string; url: string; description?: string }[] }
+  | { kind: 'drills'; title: string; drills: PhraseDrill[] }
+  | { kind: 'personas'; title: string; personas: Persona[] }
 
 export interface Lesson {
   /** Identifiant affiché, ex. « 1.2 » ou « 0.A ». */
@@ -109,6 +142,8 @@ export interface Lesson {
   quiz?: AutoQuestion[]
   writing?: WritingTask
   speaking?: SpeakingTask
+  /** Devoir à faire avec le TA (modules de devoirs). */
+  homework?: string
   /** Notes pédagogiques pour le professeur. */
   teacherNotes: string[]
 }
@@ -125,6 +160,8 @@ export interface Module {
   sources: { label: string; url?: string }[]
   /** Couleur d'accent (classe Tailwind) pour la carte du tableau de bord. */
   accent: string
+  /** Module fait à la maison avec le TA, en parallèle des leçons du cours. */
+  taHomework?: boolean
   lessons: Lesson[]
 }
 

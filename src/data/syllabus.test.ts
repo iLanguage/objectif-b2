@@ -32,6 +32,18 @@ describe('syllabus', () => {
     expect(plan.lessons.map((l) => l.id)).toEqual(expect.arrayContaining(['1.3', '4.1']))
   })
 
+  it('commence les Modules 6 et 7 en semaine 1, comme devoirs avec le TA', () => {
+    expect(weekPlan(1).taHomework.map((l) => l.id)).toEqual(['6.1', '7.1'])
+    expect(weekPlan(2).taHomework.map((l) => l.id)).toEqual(['6.1', '6.2', '7.1', '7.2'])
+  })
+
+  it('garde les devoirs TA hors des leçons du cours', () => {
+    for (const w of allWeeks()) {
+      expect(w.lessons.filter((l) => l.moduleId === 'm6' || l.moduleId === 'm7')).toEqual([])
+    }
+    expect(weekPlan(1).lessons.map((l) => l.id)).toEqual(['1.0', '2.1'])
+  })
+
   it('compte les jours avant une échéance', () => {
     expect(daysUntil('2027-05-01', new Date(2027, 3, 30))).toBe(1)
   })

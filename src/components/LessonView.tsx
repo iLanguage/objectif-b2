@@ -97,7 +97,7 @@ export function LessonView() {
           Contenu
         </h2>
         {lesson.sections.map((s, i) => (
-          <SectionView key={i} section={s} />
+          <SectionView key={i} section={s} lessonId={lesson.id} />
         ))}
       </section>
 

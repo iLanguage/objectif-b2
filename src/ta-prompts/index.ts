@@ -1,4 +1,5 @@
-import type { AutoQuestion, Lesson, MockExam } from '../types'
+import type { AutoQuestion, Lesson, MockExam, Persona } from '../types'
+import { lessonDrills, oralPhrases } from '../modules/m6-expressions'
 import type { WorkProgress } from '../lib/progress'
 import { lastAttempt } from '../lib/progress'
 import { PASSING_PERCENT } from '../lib/scoring'
@@ -68,13 +69,61 @@ export function remediationBlock(lesson: Lesson, progress: WorkProgress | undefi
   ].join('\n')
 }
 
+/** Liste des expressions d'une leçon du Module 6, avec les morceaux à construire. */
+function drillsBlock(lesson: Lesson): string | undefined {
+  const drills = lessonDrills(lesson)
+  if (drills.length === 0) return undefined
+  const lines = drills.map(
+    (d) => `- « ${d.phrase} » (${d.register}) — Phrase : « ${d.context} » — Morceaux : ${d.buildUp.map((c) => `« ${c} »`).join(', ')}`,
+  )
+  return ['# Mes expressions', '', ...lines].join('\n')
+}
+
+/** Rappelle à Gemini de faire réutiliser les expressions du Module 6 à l'oral. */
+function oralPhrasesBlock(): string {
+  return [
+    '# Mes expressions à réutiliser',
+    '',
+    'Pendant cet oral, encourage-moi à placer naturellement au moins deux de ces expressions :',
+    oralPhrases.map((d) => `« ${d.phrase} »`).join(', ') + '.',
+  ].join('\n')
+}
+
 /** Prompt complet à copier dans Gemini. */
 export function buildLessonPrompt(lesson: Lesson, progress?: WorkProgress): string {
-  return [generalSystemPrompt.trim(), lessonPrompt(lesson)?.trim(), remediationBlock(lesson, progress)]
+  return [
+    generalSystemPrompt.trim(),
+    lessonPrompt(lesson)?.trim(),
+    drillsBlock(lesson),
+    lesson.speaking && oralPhrasesBlock(),
+    remediationBlock(lesson, progress),
+  ]
     .filter(Boolean)
     .join('\n\n---\n\n')
 }
 
 export function buildExamPrompt(exam: MockExam): string {
-  return [generalSystemPrompt.trim(), examPrompt(exam)?.trim()].filter(Boolean).join('\n\n---\n\n')
+  return [generalSystemPrompt.trim(), examPrompt(exam)?.trim(), oralPhrasesBlock()].filter(Boolean).join('\n\n---\n\n')
+}
+
+/** Prompt de jeu de rôle avec une personne du Module 7. */
+export function buildPersonaPrompt(persona: Persona): string {
+  const scene = [
+    `# Jeu de rôle : ${persona.title}`,
+    '',
+    `Joue cette personne : ${persona.about} Tu me parles en disant « ${persona.address} », et je te parle de la même façon.`,
+    '',
+    '## Déroulement',
+    '1. Reste dans ton rôle, salue-moi et laisse-moi me présenter comme je le fais d’habitude. Ne me corrige pas encore.',
+    '2. Sors du rôle un instant. Dis-moi ce qui sonne naturel et ce qui sonne récité, puis aide-moi à retravailler ma présentation en 3 ou 4 phrases, dans ma propre voix : un ado anglophone arrivé au Québec il y a un an.',
+    '3. Reprends ton rôle. Je me présente de nouveau, puis je te pose mes questions. Réponds en 2 ou 3 phrases et relance-moi une fois sur deux, pour que ça reste une vraie conversation.',
+    '4. Quand je dis « bilan », fais mon bilan.',
+    '',
+    '## Exemple de présentation (à adapter avec mes mots)',
+    persona.modelIntro,
+    '',
+    '## Mes cinq questions',
+    ...persona.questions.map((q, i) => `${i + 1}. ${q}`),
+  ].join('\n')
+  return [generalSystemPrompt.trim(), scene].join('\n\n---\n\n')
 }

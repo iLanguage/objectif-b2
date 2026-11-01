@@ -23,7 +23,7 @@ function LessonLink({ lesson }: { lesson: Lesson }) {
 
 export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headingLevel?: 2 | 3 }) {
   const Heading = headingLevel === 2 ? 'h2' : 'h3'
-  const empty = plan.foundations.length + plan.lessons.length + plan.exams.length === 0
+  const empty = plan.foundations.length + plan.lessons.length + plan.taHomework.length + plan.exams.length === 0
   return (
     <div>
       <Heading className="text-lg font-bold">
@@ -55,6 +55,16 @@ export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headi
           </li>
         ))}
       </ul>
+      {plan.taHomework.length > 0 && (
+        <>
+          <p className="mt-3 text-sm font-semibold text-ink-muted">À la maison, avec ton TA :</p>
+          <ul className="mt-1 space-y-2">
+            {plan.taHomework.map((l) => (
+              <LessonLink key={l.id} lesson={l} />
+            ))}
+          </ul>
+        </>
+      )}
       {empty && (
         <p className="mt-2 text-ink-soft">
           Pas de nouvelle leçon : semaine de révision. Refais les quiz sous 70 % et pratique avec Gemini.

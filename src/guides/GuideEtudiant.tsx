@@ -81,6 +81,9 @@ export function GuideEtudiant() {
             <strong>Mercredi soir (30 min)</strong> : pratique avec Gemini TA — ouvre la leçon, passe en mode TA et copie le prompt pour échanger à l’oral (Live).
           </li>
           <li>
+            <strong>Devoirs avec ton TA</strong> : 3 expressions par jour (Module 6) et une conversation par séance (Module 7), avec Gemini Live.
+          </li>
+          <li>
             <strong>Week-end (3 h dédiées)</strong> : cours avec le professeur (samedi 1 h, dimanche 1 h) + quiz du site, révision de vocabulaire et examens blancs.
           </li>
         </ul>

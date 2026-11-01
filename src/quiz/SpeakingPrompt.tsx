@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { SpeakingTask } from '../types'
 import { RichText } from '../components/RichText'
 import { Timer } from '../components/Timer'
+import { oralPhrases } from '../modules/m6-expressions'
 
 interface SpeakingPromptProps {
   task: SpeakingTask
@@ -56,6 +58,19 @@ export function SpeakingPrompt({ task, checked, onCheckedChange, revealFollowUps
           </ul>
         )}
       </div>
+
+      <aside className="rounded-xl border border-ta-line-soft bg-ta-soft p-4" aria-label="Expressions à réutiliser">
+        <p className="font-semibold">Place au moins deux expressions de tes pairs :</p>
+        <p className="mt-1" lang="fr">
+          {oralPhrases
+            .slice(0, 6)
+            .map((d) => `« ${d.phrase} »`)
+            .join(' · ')}
+        </p>
+        <Link to="/module/m6" className="mt-2 inline-block font-semibold text-link underline">
+          Voir toutes les expressions
+        </Link>
+      </aside>
 
       <fieldset className="card">
         <legend className="px-1 text-lg font-semibold">Auto-évaluation après mon passage</legend>

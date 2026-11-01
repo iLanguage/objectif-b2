@@ -27,7 +27,9 @@ export const vocabularyBanks: VocabBank[] = modules
       lesson.sections.flatMap((section) =>
         section.kind === 'vocab'
           ? section.items.map((item) => ({ ...item, lessonId: lesson.id, lessonTitle: lesson.title }))
-          : [],
+          : section.kind === 'drills'
+            ? section.drills.map((d) => ({ fr: d.phrase, en: d.en, note: d.meaning, lessonId: lesson.id, lessonTitle: lesson.title }))
+            : [],
       ),
     ),
   }))

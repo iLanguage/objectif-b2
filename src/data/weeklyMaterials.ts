@@ -26,6 +26,8 @@ export interface WeekMaterialsPlan {
   title: string
   focus: string
   homeworkSummary: string
+  /** Devoirs à faire avec le TA, en plus du programme quotidien. */
+  taHomework: { lessonId: string; title: string; homework: string }[]
   days: DailyScheduleItem[]
 }
 
@@ -322,11 +324,21 @@ function buildWeekMaterials(week: number): WeekMaterialsPlan {
       ? `Leçons au programme : ${lessonIds.join(', ')}. Effectue les quiz, le vocabulaire associé et la production orale/écrite de fin de semaine.`
       : 'Semaine de révision et consolidation : retravaille les quiz sous 70 % avec Gemini TA et intensifie l’immersion audio.'
 
+  const taHomework = plan.taHomework.map((l) => ({
+    lessonId: l.id,
+    title: l.title,
+    homework: l.homework ?? 'Passe en mode TA et copie le prompt de la leçon.',
+  }))
+
   return {
     week,
     title: `Semaine ${week}`,
     focus,
-    homeworkSummary,
+    homeworkSummary:
+      taHomework.length > 0
+        ? `${homeworkSummary} Avec ton TA : ${taHomework.map((t) => t.lessonId).join(', ')}.`
+        : homeworkSummary,
+    taHomework,
     days,
   }
 }

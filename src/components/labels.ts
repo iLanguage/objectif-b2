@@ -1,4 +1,4 @@
-import type { LessonSkill, Mode } from '../types'
+import type { LessonSkill, Mode, PhraseRegister } from '../types'
 import type { LessonStatus } from '../lib/progress'
 
 export const LESSON_SKILL_LABELS: Record<LessonSkill, { label: string; className: string }> = {
@@ -21,3 +21,16 @@ export const MODES: { id: Mode; label: string; icon: string; description: string
   { id: 'professeur', label: 'Professeur', icon: '👨‍🏫', description: 'Grilles, notes pédagogiques, suivi' },
   { id: 'ta', label: 'TA Gemini', icon: '🤖', description: 'Prompts à copier dans Gemini' },
 ]
+
+export const REGISTER_LABELS: Record<PhraseRegister, { label: string; className: string; use: string }> = {
+  familier: {
+    label: 'Familier',
+    className: 'bg-tag-amber text-tag-amber-ink',
+    use: 'Avec tes collègues et tes amis, pas à l’examen.',
+  },
+  courant: {
+    label: 'Courant',
+    className: 'bg-tag-sky text-tag-sky-ink',
+    use: 'Partout, y compris à l’oral du DELF et à l’hôpital.',
+  },
+}

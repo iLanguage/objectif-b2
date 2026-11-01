@@ -1,10 +1,16 @@
 import type { LessonSection } from '../types'
 import { RichText } from './RichText'
 import { AudioPlayer } from './AudioPlayer'
+import { PhraseDrillList } from './PhraseDrillList'
+import { PersonaList } from './PersonaList'
 
 /** Affiche une section de contenu de leçon. Les titres sont des h3 sous le h2 « Contenu ». */
-export function SectionView({ section }: { section: LessonSection }) {
+export function SectionView({ section, lessonId }: { section: LessonSection; lessonId: string }) {
   switch (section.kind) {
+    case 'drills':
+      return <PhraseDrillList title={section.title} drills={section.drills} lessonId={lessonId} />
+    case 'personas':
+      return <PersonaList title={section.title} personas={section.personas} />
     case 'text':
       return (
         <section className="card">

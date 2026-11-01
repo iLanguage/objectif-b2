@@ -5,8 +5,10 @@ import { m2 } from './m2-creperie'
 import { m3 } from './m3-muhc'
 import { m4 } from './m4-saaq'
 import { m5, mockExams } from './m5-delf-blanc'
+import { m6 } from './m6-expressions'
+import { m7 } from './m7-conversation'
 
-export const modules: Module[] = [m0, m1, m2, m3, m4, m5]
+export const modules: Module[] = [m0, m1, m2, m3, m4, m5, m6, m7]
 export { mockExams }
 
 export const allLessons: Lesson[] = modules.flatMap((m) => m.lessons)

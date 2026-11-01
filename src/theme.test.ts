@@ -34,7 +34,7 @@ function contrast(a: string, b: string): number {
 
 const surfaces = ['page', 'surface', 'surface-muted', 'surface-sunken']
 const tints = ['success-soft', 'danger-soft', 'warning-soft', 'warning-tint', 'info-soft', 'teacher-soft', 'teacher-tint', 'ta-soft', 'ta-tint']
-const modules = [0, 1, 2, 3, 4, 5].map((n) => `module-${n}`)
+const modules = [0, 1, 2, 3, 4, 5, 6, 7].map((n) => `module-${n}`)
 const tags = ['purple', 'sky', 'emerald', 'orange', 'yellow', 'indigo', 'amber', 'rose']
 
 /** Texte normal : 4,5:1. Paires réellement utilisées dans les composants. */

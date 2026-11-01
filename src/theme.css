@@ -121,6 +121,8 @@
   --color-module-3: #0f766e;
   --color-module-4: #1d4ed8;
   --color-module-5: #6d28d9;
+  --color-module-6: #a21caf;
+  --color-module-7: #0369a1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -225,5 +227,7 @@
     --color-module-3: #0f766e;
     --color-module-4: #2563eb;
     --color-module-5: #7c3aed;
+    --color-module-6: #c026d3;
+    --color-module-7: #0369a1;
   }
 }
