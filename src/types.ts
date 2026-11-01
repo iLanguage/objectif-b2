@@ -122,6 +122,20 @@ export type LessonSection =
   | { kind: 'grammar'; title: string; rule: string[]; examples: string[] }
   | { kind: 'reading'; title: string; source?: string; paragraphs: string[] }
   | { kind: 'audio'; title: string; description?: string; transcript: string[] }
+  | {
+      /** Modèle écrit et parlé. Toute tâche de production passe par ici : l'élève lit et écoute avant de parler. */
+      kind: 'model'
+      title: string
+      description?: string
+      /** Le modèle, en Markdown. Les titres s'affichent mais ne sont pas lus. */
+      markdown: string
+      /** Texte replié au départ, pour un long modèle déjà vu plus haut dans la leçon. */
+      collapsed?: boolean
+      /** La tâche « À toi », en Markdown, affichée sous le modèle. */
+      task?: string
+      /** Durée de l'enregistrement proposé sous la tâche, en secondes. */
+      recordSeconds?: number
+    }
   | { kind: 'tip'; text: string }
   | { kind: 'resources'; title?: string; links: { label: string; url: string; description?: string }[] }
   | { kind: 'drills'; title: string; drills: PhraseDrill[] }

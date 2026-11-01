@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { AutoQuestion } from '../types'
 import { allLessons, examPrepTasks, getLesson, mockExams, modules } from '../modules'
 import { lessonDrills } from '../modules/m6-expressions'
+import { parseMarkdown, spokenLines } from '../lib/markdown'
 import {
   buildExamPrepPrompt,
   buildExamPrompt,
@@ -183,8 +184,34 @@ describe('leçon 1.0 : le débat par morceaux', () => {
     const demo = titles.flatMap((t, i) => (t.startsWith('Partie A') ? [i] : []))
     const practice = titles.flatMap((t, i) => (t.startsWith('Partie B') ? [i] : []))
     expect(demo).toHaveLength(8)
-    expect(practice).toHaveLength(4)
+    expect(practice).toHaveLength(11)
     expect(Math.max(...demo)).toBeLessThan(Math.min(...practice))
+  })
+
+  it('montre un modèle écrit et parlé avant chaque défi', () => {
+    const challenges = lesson.sections.flatMap((s) => (s.kind !== 'tip' && s.title?.includes('Défi') ? [s] : []))
+    expect(challenges).toHaveLength(9)
+    for (const s of challenges) {
+      expect(s.kind, s.title).toBe('model')
+      if (s.kind === 'model') {
+        expect(spokenLines(parseMarkdown(s.markdown)).length, s.title).toBeGreaterThan(0)
+        expect(s.task, s.title).toBeTruthy()
+      }
+    }
+  })
+
+  it('utilise le plan du professeur, et le monologue le suit', () => {
+    const models = lesson.sections.flatMap((s) => (s.kind === 'model' ? [s.markdown] : []))
+    const headings = parseMarkdown(models[0]).filter((b) => b.type === 'heading').map((b) => b.text)
+    expect(headings).toEqual([
+      'Sujet et déclaration',
+      'I. Introduction',
+      'II. Arguments en faveur de la télémédecine (Avantages)',
+      'III. Arguments contre / Limites',
+      'IV. Conclusion',
+    ])
+    const monologue = models.find((m) => m.includes('Je vais expliquer'))!
+    for (const connector of ['Pour commencer', 'Par contre', 'De plus', 'En conclusion']) expect(monologue).toContain(connector)
   })
 
   it('garde les phrases du débat pour Gemini, avec le vouvoiement', () => {
@@ -193,8 +220,8 @@ describe('leçon 1.0 : le débat par morceaux', () => {
   })
 
   it('ne donne pas les questions de la simulation dans la démonstration', () => {
-    const audio = lesson.sections.flatMap((s) => (s.kind === 'audio' ? s.transcript : [])).join(' ')
-    for (const q of lesson.speaking!.followUps) expect(audio).not.toContain(q)
+    const models = lesson.sections.flatMap((s) => (s.kind === 'model' ? [s.markdown] : [])).join(' ')
+    for (const q of lesson.speaking!.followUps) expect(models).not.toContain(q)
   })
 })
 

@@ -1,8 +1,11 @@
 import type { LessonSection } from '../types'
+import { parseMarkdown, spokenLines } from '../lib/markdown'
 import { RichText } from './RichText'
 import { AudioPlayer } from './AudioPlayer'
+import { Markdown } from './Markdown'
 import { PhraseDrillList } from './PhraseDrillList'
 import { PersonaList } from './PersonaList'
+import { VoiceRecorder } from './VoiceRecorder'
 
 /** Affiche une section de contenu de leçon. Les titres sont des h3 sous le h2 « Contenu ». */
 export function SectionView({ section, lessonId }: { section: LessonSection; lessonId: string }) {
@@ -40,6 +43,24 @@ export function SectionView({ section, lessonId }: { section: LessonSection; les
       )
     case 'audio':
       return <AudioPlayer title={section.title} description={section.description} paragraphs={section.transcript} />
+    case 'model':
+      return (
+        <AudioPlayer
+          title={section.title}
+          description={section.description}
+          paragraphs={spokenLines(parseMarkdown(section.markdown))}
+          transcriptOpen={!section.collapsed}
+          written={(current) => <Markdown text={section.markdown} active={current} />}
+        >
+          {section.task && (
+            <div className="mt-4 space-y-3 rounded-lg border-l-4 border-primary p-4">
+              <h4 className="text-lg font-bold">À toi</h4>
+              <Markdown text={section.task} />
+              {section.recordSeconds && <VoiceRecorder label={section.title} maxSeconds={section.recordSeconds} />}
+            </div>
+          )}
+        </AudioPlayer>
+      )
     case 'vocab':
       return (
         <section className="card">

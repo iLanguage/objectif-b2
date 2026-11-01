@@ -1,4 +1,18 @@
 import type { Module } from '../../types'
+import PLAN from './plan-telemedecine.md?raw'
+import MONOLOGUE from './monologue-telemedecine.md?raw'
+
+const DEBAT_EN_DIRECT = `
+  ## Montrer que tu comprends, puis dire non
+  Évaluateur : Les jeunes préfèrent la vidéo. Dans dix ans, tout le monde saura utiliser la technologie. Votre argument ne tient plus.
+  Mikael : **Vous avez raison sur un point :** les jeunes sont à l’aise avec la technologie. Mais même si tout le monde sait l’utiliser, le médecin ne pourra toujours pas palper la peau du patient.
+  ## Ajouter, puis jouer l’avocat du diable
+  Évaluateur : Et pour une simple rougeur ? La vidéo fait gagner du temps.
+  Mikael : **Je suis d’accord, et j’ajouterais que** le patient n’a pas besoin de manquer l’école ou le travail. **On pourrait me dire que** la vidéo suffit donc toujours. **C’est vrai, mais** si le médecin doit revoir le patient en personne, on perd le temps gagné.
+  ## Revenir à ta position
+  Évaluateur : Donc, pour vous, il faut garder les cliniques ?
+  Mikael : **Je reviens à mon idée principale :** la télémédecine doit compléter plutôt que remplacer les consultations en personne. **Et vous, que feriez-vous si** vous ne saviez pas utiliser un ordinateur ?
+`
 
 export const m1: Module = {
   id: 'm1',
@@ -55,35 +69,34 @@ export const m1: Module = {
           paragraphs: [
             'À ta dernière pratique, tu as fait ce débat en anglais, et tes arguments étaient bons : une opinion claire, des exemples et une conclusion. **Tu n’as pas besoin de nouvelles idées.** Aujourd’hui, on met **tes idées** en français, morceau par morceau.',
             '**Les cinq morceaux :** 1. le plan · 2. les exemples · 3. les phrases pour relier tes idées · 4. répondre aux questions · 5. convaincre en direct.',
-            '**Partie A, la démonstration :** ton professeur fait le travail avec tes idées, et tu écoutes. **Partie B, à toi :** tu refais chaque morceau à voix haute.',
-            '**Avant de commencer :** enregistre-toi pendant une minute. Dis en français ce que tu peux de ton débat, même si c’est difficile. À la fin du cours, tu recommences et tu compares.',
+            '**Partie A, la démonstration :** ton professeur fait le travail avec tes idées, et tu lis et tu écoutes. **Partie B, à toi :** tu refais chaque morceau à voix haute.',
+            '**Tu ne pars jamais de zéro.** Avant chaque défi, tu lis le modèle et tu l’écoutes. Ensuite seulement, c’est à toi.',
           ],
         },
         {
-          kind: 'text',
+          kind: 'model',
           title: 'Partie A · Morceau 1 : Le plan',
-          paragraphs: [
-            'Voici le genre de notes à écrire pendant ta préparation : des mots-clés, pas des phrases complètes. Tout vient de ton débat en anglais.',
-            '**Introduction :** la technologie avance · pas de déplacement, pas de salle d’attente · de chez soi · bon pour les personnes âgées → mais remplacer tout ? → **ma position : non** → je vais expliquer pourquoi.',
-            '**Partie 1, les avantages :** plus pratique (petit problème de peau) · plus accessible (personnes âgées, transport en commun, travail, école, mobilité).',
-            '**Partie 2, les problèmes :** 1. pas d’examen physique (bosse, texture, équipement, tests) · 2. accès inégal (technologie, dossier en ligne, moins accessible pour certains).',
-            '**Conclusion :** un pas en avant · compléter, pas remplacer · les deux options · plus pratique pour certains, mais moins accessible pour d’autres.',
-          ],
+          description: 'Plan d’exposé pour la production orale B2. Lis-le en l’écoutant : chaque ligne devient une partie de ton monologue. Pendant ta préparation, tu écris ce genre de notes, pas des phrases complètes.',
+          markdown: PLAN,
         },
         {
           kind: 'tip',
-          text: 'Ta question en anglais, « Should it completely replace? », est déjà une problématique : « La télémédecine devrait-elle vraiment tout remplacer ? » Plus tard, tu pourras dire : « Dans quelle mesure la télémédecine peut-elle améliorer l’accès aux soins sans compromettre la qualité du diagnostic ? »',
+          text: 'Ta question en anglais, « Should it completely replace? », est déjà une problématique : « La télémédecine devrait-elle remplacer complètement les consultations en personne ? » Plus tard, tu pourras dire : « Dans quelle mesure la télémédecine peut-elle améliorer l’accès aux soins sans compromettre la qualité du diagnostic ? »',
         },
         {
-          kind: 'text',
+          kind: 'model',
           title: 'Partie A · Morceau 2 : Un exemple pour chaque point',
-          paragraphs: [
-            '**La règle : une idée, un exemple, un lien avec ta position.** L’exemple est une histoire courte, en phrases complètes.',
-            '**Plus pratique.** Par exemple, j’ai un petit problème de peau, comme une rougeur. Je la montre à la caméra, le médecin voit le problème et il me donne un conseil. C’est un cas où la vidéo fonctionne.',
-            '**Plus accessible.** Par exemple, une personne âgée qui ne conduit pas doit prendre le transport en commun pour aller à la clinique. Un élève doit manquer l’école, et un travailleur doit manquer le travail. Avec la vidéo, ils restent à la maison.',
-            '**Pas d’examen physique.** Par exemple, j’ai une bosse sur la peau. À la caméra, le médecin la voit, mais il ne peut pas la toucher. Il ne peut pas sentir la texture. Il ne sait pas si c’est enflammé, ou s’il y a du pus ou du liquide.',
-            '**Accès inégal.** Par exemple, une personne âgée doit se connecter au rendez-vous et remplir son dossier médical en ligne. C’est compliqué pour elle. Elle doit demander de l’aide ou trouver une autre solution.',
-          ],
+          description: 'La règle : une idée, un exemple, un lien avec ta position. L’exemple est une histoire courte, en phrases complètes.',
+          markdown: `
+            # Praticité et gain de temps
+            Par exemple, j’ai un petit problème de peau, comme une rougeur. Je la montre à la caméra, le médecin voit le problème et il me donne un conseil. C’est un cas où la vidéo fonctionne.
+            # Accessibilité
+            Par exemple, une personne âgée qui ne conduit pas doit prendre les transports en commun pour aller à la clinique. Un étudiant doit manquer un cours. Avec la vidéo, ils restent à la maison.
+            # Absence d’examen physique
+            Par exemple, j’ai une bosse sur la peau. À la caméra, le médecin la voit, mais il ne peut pas la palper. Il ne sait pas si c’est une inflammation, du pus ou du liquide.
+            # Fracture numérique et équité
+            Par exemple, une personne âgée doit remplir son dossier médical en ligne. C’est compliqué pour elle. Elle doit demander de l’aide ou trouver une autre solution.
+          `,
         },
         {
           kind: 'vocab',
@@ -95,7 +108,7 @@ export const m1: Module = {
             { fr: 'plus pratique', en: 'more convenient', note: 'Tes mots.' },
             { fr: 'plus accessible / moins accessible', en: 'more / less accessible' },
             { fr: 'les personnes âgées', en: 'older people' },
-            { fr: 'le transport en commun', en: 'public transit' },
+            { fr: 'les transports en commun', en: 'public transit' },
             { fr: 'une rougeur', en: 'a red patch on the skin' },
             { fr: 'une bosse', en: 'a bump' },
             { fr: 'toucher / sentir la texture', en: 'to touch / to feel the texture' },
@@ -107,7 +120,17 @@ export const m1: Module = {
             { fr: 'remplir son dossier médical en ligne', en: 'to fill out your medical file online' },
             { fr: 'compliqué(e)', en: 'complicated', note: 'C’est compliqué. La technologie est compliquée. Après « c’est », on garde le masculin.' },
             { fr: 'compléter, pas remplacer', en: 'to complement, not replace' },
-            { fr: 'un pas en avant', en: 'a step forward' },
+            { fr: 'bondé(e)', en: 'packed, overcrowded' },
+            { fr: 'tributaire de', en: 'dependent on', note: 'Une personne tributaire des transports en commun.' },
+            { fr: 'une affection cutanée', en: 'a skin condition' },
+            { fr: 'un suivi rapide', en: 'a quick follow-up' },
+            { fr: 'palper', en: 'to feel with the hands, during an exam' },
+            { fr: 'la praticité', en: 'convenience' },
+            { fr: 'les compétences numériques', en: 'digital skills' },
+            { fr: 'l’équité', en: 'fairness, equity' },
+            { fr: 'au détriment de', en: 'at the expense of' },
+            { fr: 'une avancée majeure', en: 'a major step forward' },
+            { fr: 'bien que + subjonctif', en: 'although', note: 'Bien que la télémédecine soit… Apprends-le comme un bloc.' },
           ],
         },
         {
@@ -147,21 +170,10 @@ export const m1: Module = {
           ],
         },
         {
-          kind: 'audio',
+          kind: 'model',
           title: 'Partie A : Le monologue assemblé',
-          description:
-            'Le plan, les exemples et les phrases, tout ensemble. Écoute une fois, puis affiche la transcription : les phrases pour relier sont en gras. Ne l’apprends pas par cœur : prends les morceaux. À ton rythme, ce texte dure environ 5 minutes.',
-          transcript: [
-            '**Aujourd’hui, on se demande si** la télémédecine devrait remplacer les consultations en personne pour tous les problèmes de santé mineurs.',
-            'La technologie avance vite. Avec la télémédecine, on n’a pas besoin de se déplacer ni d’attendre dans la salle d’attente. On peut voir le médecin de chez soi. C’est un grand avantage, surtout pour les personnes âgées.',
-            'Mais la télémédecine devrait-elle vraiment tout remplacer ? **À mon avis, non.** Elle est utile, mais elle ne devrait pas tout remplacer. **Je vais expliquer pourquoi.** Je vais parler des avantages, puis des problèmes.',
-            '**Pour commencer,** la télémédecine est plus pratique. **Par exemple,** j’ai un petit problème de peau, comme une rougeur. Je la montre à la caméra, le médecin voit le problème et il me donne un conseil. Parfois, je veux juste demander un conseil. Je n’ai pas besoin de perdre une demi-journée pour ça.',
-            '**De plus,** elle aide différents groupes de personnes. **Prenons l’exemple d’**une personne âgée qui ne conduit pas. Pour aller à la clinique, elle doit prendre le transport en commun, et c’est long. Pensons aussi aux gens qui travaillent, aux élèves et aux personnes qui ont des problèmes de mobilité. Pour eux, une consultation par vidéo est plus accessible.',
-            '**Cela dit,** si la télémédecine remplaçait tout, il y aurait de sérieux problèmes.',
-            'Premièrement, le médecin ne peut pas examiner le patient physiquement. **Par exemple,** j’ai une bosse sur la peau. À la caméra, le médecin la voit, mais il ne peut pas la toucher. Il ne peut pas sentir la texture. Il ne sait pas si c’est enflammé, ou s’il y a du pus ou du liquide. Il ne peut pas non plus utiliser son équipement ou faire des tests. **Autrement dit,** un problème qui semble mineur à l’écran n’est pas toujours mineur. Le médecin ne peut pas toujours décider du diagnostic et du traitement seulement par vidéo.',
-            'Deuxièmement, tout le monde n’a pas le même accès. Certaines personnes ne sont pas à l’aise avec la technologie. Pour elles, se connecter au rendez-vous, c’est déjà difficile. Remplir un dossier médical en ligne, c’est compliqué. Elles doivent demander de l’aide ou trouver une autre solution. **Ce que je veux dire, c’est que** la télémédecine pourrait rendre les soins moins accessibles pour certaines personnes.',
-            '**En conclusion,** la télémédecine est un pas en avant. **Par contre,** elle devrait compléter les consultations en personne, pas les remplacer. **Je suis convaincu que** le meilleur système donne les deux options aux patients. Si on remplaçait tout, ce serait plus pratique pour certains, mais moins accessible pour d’autres. **C’est pourquoi je pense qu’**il faut garder le choix.',
-          ],
+          description: 'Le plan, les exemples et les phrases, tout ensemble. Lis en écoutant : les phrases pour relier sont en gras. Ne l’apprends pas par cœur : prends les morceaux. À ton rythme, ce texte dure environ 5 minutes.',
+          markdown: MONOLOGUE,
         },
         {
           kind: 'text',
@@ -189,19 +201,27 @@ export const m1: Module = {
           ],
         },
         {
-          kind: 'audio',
+          kind: 'model',
           title: 'Partie A : Deux questions, quatre gestes',
-          description: 'Écoute, puis affiche la transcription et trouve les quatre gestes. Tu dis « vous » à l’évaluateur, jamais « tu ».',
-          transcript: [
-            'Évaluateur : Si le problème est vraiment mineur, pourquoi se déplacer ? La vidéo suffit, non ?',
-            'Mikael : **Si je comprends bien, vous voulez dire que** pour un petit problème, on n’a jamais besoin de voir le médecin en personne ?',
-            'Évaluateur : Oui, exactement.',
-            'Mikael : **Qu’est-ce que vous voulez dire par** « mineur » ? Un problème de peau, par exemple ?',
-            'Évaluateur : Oui, par exemple.',
-            'Mikael : **Je dirais que** ça dépend du problème. Pour une rougeur, la vidéo suffit souvent, parce que le médecin voit le problème. Par contre, pour une bosse, il doit la toucher. **Je suis d’accord en partie,** mais on ne sait pas toujours si un problème est mineur avant l’examen. C’est pourquoi le patient doit garder le choix.',
-            'Évaluateur : Vous dites que la télémédecine aide les personnes âgées, mais aussi qu’elle leur cause des problèmes. Ce n’est pas une contradiction ?',
-            'Mikael : **C’est une bonne question. Laissez-moi réfléchir. Vous me demandez** comment les deux peuvent être vrais. **Je ne suis pas d’accord, parce que** les personnes âgées ne sont pas toutes pareilles. Pour une personne à l’aise avec la technologie, la vidéo est plus simple. Pour une autre, c’est compliqué. **Autrement dit,** chacun a des besoins différents. C’est justement pour ça qu’il faut les deux options.',
-          ],
+          description: 'Lis en écoutant. Tu dis « vous » à l’évaluateur, jamais « tu ».',
+          markdown: `
+            # Première question
+            Évaluateur : Si le problème est vraiment mineur, pourquoi se déplacer ? La vidéo suffit, non ?
+            ## Geste 1 : reformuler
+            Mikael : **Si je comprends bien, vous voulez dire que** pour un petit problème, on n’a jamais besoin de voir le médecin en personne ?
+            Évaluateur : Oui, exactement.
+            ## Geste 2 : clarifier
+            Mikael : **Qu’est-ce que vous voulez dire par** « mineur » ? Un problème de peau, par exemple ?
+            Évaluateur : Oui, par exemple.
+            ## Gestes 3 et 4 : répondre, puis prendre position
+            Mikael : **Je dirais que** ça dépend du problème. Pour une rougeur, la vidéo suffit souvent, parce que le médecin voit le problème. Par contre, pour une bosse, il doit la palper. **Je suis d’accord en partie,** mais on ne sait pas toujours si un problème est mineur avant l’examen. C’est pourquoi le patient doit garder le choix.
+            # Deuxième question
+            Évaluateur : Vous dites que la télémédecine aide les personnes âgées, mais aussi qu’elle leur cause des problèmes. Ce n’est pas une contradiction ?
+            ## Gagner du temps, puis reformuler
+            Mikael : **C’est une bonne question. Laissez-moi réfléchir. Vous me demandez** comment les deux peuvent être vrais.
+            ## Répondre et prendre position
+            Mikael : **Je ne suis pas d’accord, parce que** les personnes âgées ne sont pas toutes pareilles. Pour une personne à l’aise avec la technologie, la vidéo est plus simple. Pour une autre, c’est compliqué. **Autrement dit,** chacun a des besoins différents. C’est justement pour ça qu’il faut les deux options.
+          `,
         },
         {
           kind: 'vocab',
@@ -217,17 +237,10 @@ export const m1: Module = {
           ],
         },
         {
-          kind: 'audio',
+          kind: 'model',
           title: 'Partie A : Le débat en direct',
-          description: 'Écoute comment Mikael montre qu’il comprend, ajoute une idée, joue l’avocat du diable, puis revient à sa position.',
-          transcript: [
-            'Évaluateur : Les jeunes préfèrent la vidéo. Dans dix ans, tout le monde saura utiliser la technologie. Votre argument ne tient plus.',
-            'Mikael : **Vous avez raison sur un point :** les jeunes sont à l’aise avec la technologie. Mais même si tout le monde sait l’utiliser, le médecin ne pourra toujours pas toucher le patient.',
-            'Évaluateur : Et pour une simple rougeur ? La vidéo fait gagner du temps.',
-            'Mikael : **Je suis d’accord, et j’ajouterais que** le patient n’a pas besoin de manquer l’école ou le travail. **On pourrait me dire que** la vidéo suffit donc toujours. **C’est vrai, mais** si le médecin doit revoir le patient en personne, on perd le temps gagné.',
-            'Évaluateur : Donc, pour vous, il faut garder les cliniques ?',
-            'Mikael : **Je reviens à mon idée principale :** la télémédecine devrait compléter les consultations en personne, pas les remplacer. **Et vous, que feriez-vous si** vous ne saviez pas utiliser un ordinateur ?',
-          ],
+          description: 'Lis en écoutant. Regarde comment Mikael montre qu’il comprend, ajoute une idée, joue l’avocat du diable, puis revient à sa position.',
+          markdown: DEBAT_EN_DIRECT,
         },
         {
           kind: 'drills',
@@ -236,7 +249,7 @@ export const m1: Module = {
             {
               id: 'debat-expliquer-pourquoi',
               phrase: 'Je vais expliquer pourquoi',
-              context: 'À mon avis, non. Je vais expliquer pourquoi.',
+              context: 'Je pense qu’elle ne devrait pas remplacer totalement les soins en personne. Je vais expliquer pourquoi.',
               buildUp: ['pourquoi', 'expliquer pourquoi', 'je vais expliquer pourquoi'],
               register: 'courant',
               meaning: 'Pour annoncer que tu vas défendre ton opinion.',
@@ -244,32 +257,40 @@ export const m1: Module = {
             },
             {
               id: 'debat-completer-remplacer',
-              phrase: 'Elle devrait compléter les consultations en personne, pas les remplacer',
-              context: 'À mon avis, elle devrait compléter les consultations en personne, pas les remplacer.',
+              phrase: 'La télémédecine doit compléter plutôt que remplacer les consultations en personne',
+              context: 'La télémédecine doit compléter plutôt que remplacer les consultations en personne.',
               buildUp: [
-                'les remplacer',
-                'pas les remplacer',
-                'en personne, pas les remplacer',
-                'compléter les consultations en personne, pas les remplacer',
-                'elle devrait compléter les consultations en personne, pas les remplacer',
+                'en personne',
+                'les consultations en personne',
+                'remplacer les consultations en personne',
+                'plutôt que remplacer les consultations en personne',
+                'compléter plutôt que remplacer les consultations en personne',
+                'la télémédecine doit compléter plutôt que remplacer les consultations en personne',
               ],
               register: 'courant',
               meaning: 'Ta position en une phrase. Si tu oublies tout le reste, garde celle-ci.',
-              en: 'it should complement in-person visits, not replace them',
+              en: 'telemedicine should complement rather than replace in-person visits',
             },
             {
-              id: 'debat-cela-dit',
-              phrase: 'Cela dit, il y aurait de sérieux problèmes',
-              context: 'Cela dit, il y aurait de sérieux problèmes.',
-              buildUp: ['problèmes', 'de sérieux problèmes', 'il y aurait de sérieux problèmes', 'cela dit, il y aurait de sérieux problèmes'],
+              id: 'debat-par-contre',
+              phrase: 'Par contre, les médecins ne peuvent pas examiner physiquement le patient',
+              context: 'Par contre, les médecins ne peuvent pas examiner physiquement le patient.',
+              buildUp: [
+                'le patient',
+                'physiquement le patient',
+                'examiner physiquement le patient',
+                'ne peuvent pas examiner physiquement le patient',
+                'les médecins ne peuvent pas examiner physiquement le patient',
+                'par contre, les médecins ne peuvent pas examiner physiquement le patient',
+              ],
               register: 'courant',
-              meaning: 'Pour passer des avantages aux problèmes.',
-              en: 'that being said, there would be serious problems',
+              meaning: 'Pour passer des avantages aux limites.',
+              en: 'however, doctors cannot physically examine the patient',
             },
             {
               id: 'debat-autrement-dit',
               phrase: 'Autrement dit',
-              context: 'Autrement dit, un problème qui semble mineur n’est pas toujours mineur.',
+              context: 'Autrement dit, le diagnostic est délicat à distance.',
               buildUp: ['dit', 'ment dit', 'autrement dit'],
               register: 'courant',
               meaning: 'Pour réexpliquer ton idée plus simplement.',
@@ -285,42 +306,91 @@ export const m1: Module = {
               en: 'what I mean is',
             },
             {
-              id: 'debat-plus-pratique',
-              phrase: 'Plus pratique pour certains, mais moins accessible pour d’autres',
-              context: 'Ce serait plus pratique pour certains, mais moins accessible pour d’autres.',
+              id: 'debat-au-detriment',
+              phrase: 'La praticité ne doit pas se faire au détriment de l’équité',
+              context: 'Bien que la télémédecine soit une avancée majeure, la praticité ne doit pas se faire au détriment de l’équité.',
               buildUp: [
-                'pour d’autres',
-                'moins accessible pour d’autres',
-                'mais moins accessible pour d’autres',
-                'pour certains, mais moins accessible pour d’autres',
-                'plus pratique pour certains, mais moins accessible pour d’autres',
+                'de l’équité',
+                'au détriment de l’équité',
+                'se faire au détriment de l’équité',
+                'ne doit pas se faire au détriment de l’équité',
+                'la praticité ne doit pas se faire au détriment de l’équité',
               ],
               register: 'courant',
-              meaning: 'Ta dernière phrase : l’idée de ta conclusion.',
-              en: 'more convenient for some, but less accessible for others',
+              meaning: 'L’idée de ta conclusion : ce qui est pratique ne doit pas passer avant ce qui est juste.',
+              en: 'convenience must not come at the expense of fairness',
             },
           ],
         },
         {
-          kind: 'text',
-          title: 'Partie B · Étape 2 : Tes défis pour le monologue',
-          paragraphs: [
-            '**Défi 1, le plan.** Regarde seulement tes notes du morceau 1. Dis ton plan en une minute, en phrases courtes.',
-            '**Défi 2, un exemple.** Choisis un point du plan et donne ton exemple sans lire. Recommence avec un autre point.',
-            '**Défi 3, les phrases.** Complète ces modèles à voix haute, un par un. Si tu bloques, dis-le plus simplement.',
-            'Aujourd’hui, on se demande si ___.',
-            'À mon avis, ___. Je vais expliquer pourquoi.',
-            'Pour commencer, la télémédecine est plus ___. Par exemple, ___.',
-            'De plus, elle aide ___. Prenons l’exemple de ___.',
-            'Cela dit, il y aurait de sérieux problèmes. Premièrement, ___. Par exemple, ___.',
-            'Deuxièmement, ___. Autrement dit, ___.',
-            'En conclusion, ___. C’est pourquoi je pense que ___.',
-            '**Défi 4, tout assembler.** Fais le monologue au complet avec tes notes. Pas grave si ce n’est pas parfait ou si tu hésites : continue jusqu’à la fin.',
-          ],
+          kind: 'model',
+          title: 'Partie B · Défi 1 : Ton plan en une minute',
+          description: 'Lis et écoute le modèle deux fois.',
+          markdown: `
+            Le sujet, c’est la télémédecine. La question est : devrait-elle remplacer complètement les consultations en personne pour les problèmes de santé mineurs ?
+            Je pense qu’elle ne devrait pas remplacer totalement les soins en personne. Je vais expliquer pourquoi.
+            Pour commencer, je vais parler des avantages : le gain de temps et l’accessibilité.
+            Par contre, il y a des limites : l’absence d’examen physique et la fracture numérique.
+            En conclusion, la télémédecine doit compléter plutôt que remplacer les consultations en personne.
+          `,
+          task: 'Dis ton plan en une minute. Tu peux regarder le modèle. Enregistre-toi : à la fin du cours, tu vas comparer.',
+          recordSeconds: 90,
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 2 : Une idée, un exemple, un lien',
+          description: 'Lis et écoute : voici un point du plan, développé en trois temps.',
+          markdown: `
+            ## L’idée
+            Par contre, les médecins ne peuvent pas examiner physiquement le patient.
+            ## L’exemple
+            Par exemple, j’ai une bosse sur la peau. À la caméra, le médecin la voit, mais il ne peut pas la palper.
+            ## Le lien avec ta position
+            Autrement dit, le diagnostic est délicat à distance.
+          `,
+          task: `
+            Fais la même chose avec l’accessibilité :
+            * **L’idée :** La télémédecine est plus accessible.
+            * **L’exemple :** Prenons l’exemple d’une personne âgée qui ___.
+            * **Le lien :** Autrement dit, ___.
+          `,
+          recordSeconds: 45,
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 3 : Les phrases, une par une',
+          description: 'Lis et écoute le modèle complet. Tu fais ensuite les mêmes phrases, avec des trous.',
+          markdown: `
+            * La technologie progresse rapidement et transforme les soins de santé.
+            * Je pense qu’elle ne devrait pas remplacer totalement les soins en personne. Je vais expliquer pourquoi.
+            * Pour commencer, la télémédecine est pratique. Par exemple, j’ai une rougeur et je la montre à la caméra.
+            * De plus, elle est accessible. Prenons l’exemple d’une personne âgée qui ne conduit pas.
+            * Par contre, les médecins ne peuvent pas examiner physiquement le patient. Par exemple, ils ne peuvent pas palper une bosse.
+            * De plus, tout le monde n’a pas le même accès aux technologies. Autrement dit, c’est compliqué pour certaines personnes.
+            * En conclusion, la télémédecine doit compléter plutôt que remplacer les consultations en personne.
+          `,
+          task: `
+            Complète à voix haute, une phrase à la fois :
+            * La technologie ___.
+            * Je pense qu’elle ___. Je vais expliquer pourquoi.
+            * Pour commencer, la télémédecine est ___. Par exemple, ___.
+            * De plus, elle est ___. Prenons l’exemple de ___.
+            * Par contre, les médecins ___. Par exemple, ___.
+            * De plus, tout le monde ___. Autrement dit, ___.
+            * En conclusion, la télémédecine doit ___.
+          `,
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 4 : Tout assembler',
+          description: 'Écoute encore le monologue complet. Affiche le texte si tu veux le lire en même temps.',
+          markdown: MONOLOGUE,
+          collapsed: true,
+          task: 'Fais le monologue au complet, avec le plan du morceau 1 sous les yeux. Pas grave si ce n’est pas parfait ou si tu hésites : continue jusqu’à la fin.',
         },
         {
           kind: 'drills',
-          title: 'Partie B · Étape 3 : Six phrases pour le débat',
+          title: 'Partie B · Étape 2 : Six phrases pour le débat',
           drills: [
             {
               id: 'debat-si-je-comprends-bien',
@@ -379,21 +449,76 @@ export const m1: Module = {
           ],
         },
         {
-          kind: 'text',
-          title: 'Partie B · Étape 4 : Tes défis pour le débat',
-          paragraphs: [
-            '**Défi 5, reformuler seulement.** Ton professeur te pose une question. Tu ne réponds pas : tu la redis avec « Si je comprends bien, vous voulez dire que… ». Faites-le trois fois.',
-            '**Défi 6, les quatre gestes.** Ton professeur te pose une question que tu n’as pas vue. Tu reformules, tu clarifies, tu réponds, puis tu prends position.',
-            '**Défi 7, dire non poliment.** Ton professeur dit quelque chose de contraire à ta position. Tu commences toujours par « Je comprends votre point de vue, mais… » ou « Vous avez raison sur un point : … ».',
-            '**Défi 8, changer de côté.** Défends la télémédecine pendant une minute, puis réponds à ton propre argument avec « On pourrait me dire que… C’est vrai, mais… ».',
-            '**Défi 9, le mini-débat.** Trois minutes avec ton professeur. Quand tu te perds : « Je reviens à mon idée principale : … »',
-          ],
+          kind: 'model',
+          title: 'Partie B · Défi 5 : Reformuler seulement',
+          description: 'Lis et écoute : Mikael ne répond pas encore. Il redit seulement la question.',
+          markdown: `
+            Évaluateur : La vidéo, c’est plus rapide, non ?
+            Mikael : **Si je comprends bien, vous voulez dire que** la vidéo fait gagner du temps ?
+            Évaluateur : Les personnes âgées peuvent demander de l’aide, non ?
+            Mikael : **Si je comprends bien, vous voulez dire que** leur famille peut les aider ?
+          `,
+          task: 'Ton professeur te pose une question. Tu ne réponds pas : tu la redis avec « Si je comprends bien, vous voulez dire que… ». Faites-le trois fois.',
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 6 : Les quatre gestes',
+          description: 'Lis et écoute les quatre gestes sur une nouvelle question.',
+          markdown: `
+            Évaluateur : Les cliniques sont déjà pleines. Pourquoi ne pas tout faire par vidéo ?
+            ## Geste 1 : reformuler
+            Mikael : **Si je comprends bien, vous voulez dire que** la vidéo pourrait aider les cliniques ?
+            Évaluateur : Oui.
+            ## Geste 2 : clarifier
+            Mikael : **Qu’est-ce que vous voulez dire par** « tout » ? Même les examens physiques ?
+            Évaluateur : Non, seulement les problèmes mineurs.
+            ## Geste 3 : répondre
+            Mikael : **Je dirais que** la vidéo peut aider pour un suivi rapide. Par exemple, un patient peut poser une question sans se déplacer.
+            ## Geste 4 : prendre position
+            Mikael : **Je suis d’accord en partie,** mais la télémédecine doit compléter plutôt que remplacer les consultations en personne.
+          `,
+          task: 'Ton professeur te pose une question que tu n’as pas vue. Tu reformules, tu clarifies, tu réponds, puis tu prends position. Garde le modèle sous les yeux.',
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 7 : Dire non poliment',
+          description: 'Lis et écoute : Mikael commence toujours par montrer qu’il a compris.',
+          markdown: `
+            Évaluateur : Un médecin peut tout voir avec une bonne caméra.
+            Mikael : **Je comprends votre point de vue, mais** une caméra ne permet pas de palper la peau.
+            Évaluateur : Tout le monde a un téléphone aujourd’hui.
+            Mikael : **Vous avez raison sur un point :** beaucoup de gens ont un téléphone. Mais tout le monde n’a pas les compétences numériques requises.
+          `,
+          task: 'Ton professeur dit quelque chose de contraire à ta position. Tu commences toujours par « Je comprends votre point de vue, mais… » ou « Vous avez raison sur un point : … ».',
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 8 : Changer de côté',
+          description: 'Lis et écoute : Mikael donne l’argument contraire, puis il y répond lui-même.',
+          markdown: `
+            **On pourrait me dire que** la télémédecine fait gagner du temps. **C’est vrai, mais** si le médecin doit revoir le patient en personne, on perd le temps gagné.
+            **On pourrait me dire que** tout le monde a un téléphone. **C’est vrai, mais** remplir un dossier médical en ligne peut quand même être compliqué.
+          `,
+          task: `
+            Fais la même chose avec un autre argument :
+            * On pourrait me dire que ___.
+            * C’est vrai, mais ___.
+          `,
+          recordSeconds: 45,
+        },
+        {
+          kind: 'model',
+          title: 'Partie B · Défi 9 : Le mini-débat',
+          description: 'Écoute encore le débat en direct. Affiche le texte si tu veux le lire en même temps.',
+          markdown: DEBAT_EN_DIRECT,
+          collapsed: true,
+          task: 'Trois minutes avec ton professeur. Tu peux garder tes phrases sous les yeux. Quand tu te perds : « Je reviens à mon idée principale : … »',
         },
         {
           kind: 'text',
           title: 'Bilan : ce que tu sais faire maintenant',
           paragraphs: [
-            '**Recommence ton enregistrement d’une minute** et compare-le au premier. Note une chose qui est plus facile qu’au début du cours.',
+            '**Réécoute ton enregistrement du défi 1,** puis refais ton plan en une minute, cette fois sans regarder le modèle. Note une chose qui est plus facile qu’au début du cours.',
             '**Tu connais la structure :** introduction, avantages, problèmes, conclusion. **Pour chaque question :** reformuler, clarifier, répondre, prendre position.',
             '**Cette semaine :** fais 3 phrases par jour avec les exercices guidés, puis écoute le monologue une fois. Passe en mode TA pour pratiquer les morceaux avec Gemini. Quand tu es prêt, fais la simulation complète ci-dessous avec le chronomètre.',
           ],
@@ -430,9 +555,11 @@ export const m1: Module = {
         ],
       },
       teacherNotes: [
-        'Plan du cours (60 min) : 5 min, enregistrement « avant » d’une minute sur le téléphone · 20 min, Partie A : vous faites la démonstration, Mikael écoute · 15 min, Partie B, étapes 1 et 2 : le monologue · 15 min, Partie B, étapes 3 et 4 : le débat · 5 min, enregistrement « après » et bilan. La simulation complète de 37 min ne tient pas dans ce cours : elle vient après, avec Gemini ou dimanche prochain.',
-        'Le monologue modèle et les arguments sont reconstitués à partir de vos notes de sa dernière pratique. Interprétations à valider avec lui : « Comfort » est compris comme « à l’aise avec la technologie », « Attending » comme « se connecter au rendez-vous », « working around the problem » comme « demander de l’aide ou trouver une autre solution ».',
-        'Ajouts à ses notes : « une rougeur » pour l’exemple qui fonctionne en vidéo, et « pas besoin de perdre une demi-journée » pour « just ask for advice ». Remplacez-les par ses propres exemples s’il en a de meilleurs.',
+        'Plan du cours (60 min) : 25 min, Partie A : vous faites la démonstration, Mikael lit et écoute · 15 min, phrases du monologue et défis 1 à 4 · 15 min, phrases du débat et défis 5 à 9 · 5 min, bilan : il compare sa minute du défi 1 à une nouvelle minute, sans le modèle. La simulation complète de 37 min ne tient pas dans ce cours : elle vient après, avec Gemini ou dimanche prochain.',
+        'Règle pour Mikael (A2) : jamais de production sans modèle. Chaque défi montre un modèle écrit et parlé juste avant la tâche. S’il bloque, revenez au modèle plutôt que de lui demander d’improviser.',
+        'Le plan du morceau 1 est votre plan (plan-telemedecine.md), et le monologue le suit (monologue-telemedecine.md). Ces deux fichiers Markdown se modifient directement.',
+        'La langue du plan dépasse le niveau A2 : bondées, tributaires, au détriment de, bien que + subjonctif. Traitez-les comme des blocs à répéter, pas comme de la grammaire à expliquer.',
+        'Ajouts à ses notes : « une rougeur » pour l’exemple qui fonctionne en vidéo, « perdre une demi-journée » pour « just ask for advice », et « une personne âgée qui ne conduit pas ». Remplacez-les par ses propres exemples s’il en a de meilleurs.',
         'Dans les notes, « However = Par exemple » est une confusion à corriger : however = par contre.',
         'Point faible à exploiter : il présente les personnes âgées à la fois comme un avantage et comme un problème. L’audio « Deux questions, quatre gestes » lui montre comment transformer cette objection en argument pour les deux options.',
         'Les questions de la simulation restent cachées dans la démonstration : utilisez-les pour les défis 6 et 7. Pendant les défis, corrigez au plus deux erreurs à la fois, et seulement après sa réponse.',

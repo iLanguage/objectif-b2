@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { RichText } from './RichText'
 import { frenchVoices } from '../lib/speech'
 
@@ -8,6 +8,11 @@ interface AudioPlayerProps {
   description?: string
   /** En examen, la transcription reste cachée jusqu'à la correction. */
   transcriptLocked?: boolean
+  /** La transcription est visible dès l'ouverture (modèles à lire et à écouter). */
+  transcriptOpen?: boolean
+  /** Remplace la transcription par défaut ; reçoit la ligne lue en ce moment. */
+  written?: (current: number | null) => ReactNode
+  children?: ReactNode
 }
 
 const SPEAKER = /^([A-ZÉÈÀÂÎÔÇ][\p{L} -]{1,24}) : /u
@@ -21,13 +26,13 @@ function splitSpeaker(line: string): { speaker?: string; text: string } {
  * Lecteur « audio » basé sur la synthèse vocale du navigateur (voix fr-CA si
  * disponible). Les dialogues « Nom : texte » alternent les voix et les hauteurs.
  */
-export function AudioPlayer({ title, paragraphs, description, transcriptLocked = false }: AudioPlayerProps) {
+export function AudioPlayer({ title, paragraphs, description, transcriptLocked = false, transcriptOpen = false, written, children }: AudioPlayerProps) {
   const supported = typeof window !== 'undefined' && 'speechSynthesis' in window
   const [state, setState] = useState<'idle' | 'playing' | 'paused'>('idle')
   const [current, setCurrent] = useState<number | null>(null)
   const [rate, setRate] = useState(0.95)
   const [plays, setPlays] = useState(0)
-  const [showTranscript, setShowTranscript] = useState(false)
+  const [showTranscript, setShowTranscript] = useState(transcriptOpen)
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const cancelled = useRef(false)
 
@@ -156,11 +161,13 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
           </button>
           {showTranscript && (
             <div className="prose-lesson mt-3 rounded-lg bg-surface-muted p-4 leading-relaxed">
-              {paragraphs.map((p, i) => (
-                <p key={i} className={current === i ? 'rounded bg-highlight' : undefined}>
-                  <RichText text={p} />
-                </p>
-              ))}
+              {written
+                ? written(current)
+                : paragraphs.map((p, i) => (
+                    <p key={i} className={current === i ? 'rounded bg-highlight' : undefined}>
+                      <RichText text={p} />
+                    </p>
+                  ))}
             </div>
           )}
         </div>
@@ -168,6 +175,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
       {transcriptLocked && supported && (
         <p className="mt-3 text-sm text-ink-muted">La transcription sera disponible après la correction.</p>
       )}
+      {children}
     </section>
   )
 }
