@@ -10,9 +10,9 @@ export const m1: Module = {
   immersion:
     'Écouter et lire l’actualité de la santé au Québec, comme un futur médecin. Chaque leçon te rapproche de ta candidature Med-P — en français.',
   sources: [
-    { label: 'Radio-Canada OHdio — Moteur de recherche', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/moteur-de-recherche' },
-    { label: 'Radio-Canada OHdio — Les années lumière', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/les-annees-lumiere' },
-    { label: 'Radio-Canada Info — Santé', url: 'https://ici.radio-canada.ca/info' },
+    { label: 'Radio-Canada OHdio — Moteur de recherche', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/6056/moteur-de-recherche' },
+    { label: 'Radio-Canada OHdio — Les années lumière', url: 'https://ici.radio-canada.ca/ohdio/premiere/emissions/52/les-annees-lumiere' },
+    { label: 'Radio-Canada Info — Santé', url: 'https://ici.radio-canada.ca/sante' },
     { label: 'McGill — Admissions en médecine (Med-P)', url: 'https://www.mcgill.ca/medadmissions/' },
   ],
   accent: 'bg-rose-700',
