@@ -1096,6 +1096,27 @@ export const m1: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : une lettre de motivation courte',
+        description: 'Lis en écoutant. Alex n’est pas toi : garde le plan, mais écris ton parcours et tes exemples. Cette lettre compte environ 130 mots ; la tienne doit en compter au moins 250. Les phrases à réutiliser sont en gras.',
+        markdown: `
+          # En-tête
+          Montréal, le 15 janvier 2027
+          **Objet :** Candidature au programme Med-P
+          Madame, Monsieur,
+          # Qui je suis
+          Je m’appelle Alex Tremblay et je suis élève au cégep, en sciences de la nature. **Je me permets de vous écrire afin de** présenter ma candidature au programme Med-P.
+          # Mon expérience
+          **D’abord,** je suis bénévole dans une résidence pour personnes âgées. **Par exemple,** je lis le journal à une dame qui ne voit plus bien. **Mon expérience de bénévole m’a permis de** comprendre l’importance de l’écoute.
+          # Ma motivation
+          **De plus,** je veux devenir médecin au Québec, parce que j’aime aider les gens. **Cependant,** il faut que je parle bien français, car un patient doit comprendre son médecin. **Je souhaiterais** soigner chaque patient dans sa langue.
+          # Fin
+          **Je reste à votre disposition pour une entrevue.**
+          **Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.**
+          Alex Tremblay
+        `,
+      },
       writing: {
         id: '1.5-pe',
         title: 'Lettre de motivation',
@@ -1154,6 +1175,30 @@ export const m1: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : un court exposé et une réponse au débat',
+        description: 'Lis en écoutant. Ce modèle dure moins de deux minutes : il montre le plan et la façon de répondre. Ton exposé dure de 5 à 7 minutes, avec tes idées et tes exemples. Les phrases pour relier sont en gras.',
+        markdown: `
+          # Mon plan (des notes, pas des phrases complètes)
+          * **Le document :** il manque des médecins de famille.
+          * **La question :** faut-il obliger les jeunes médecins à choisir la médecine familiale ?
+          * **Pour :** les patients attendent trop longtemps.
+          * **Contre :** un médecin obligé est moins motivé.
+          * **Ma position :** encourager plutôt qu’obliger.
+          # Introduction
+          **Ce document parle de** la médecine familiale au Québec. Beaucoup de personnes n’ont pas de médecin de famille. **La question est la suivante :** faut-il obliger les jeunes médecins à choisir la médecine familiale ? **Je pense que** non, mais qu’il faut les encourager. **Je vais expliquer pourquoi.**
+          # Premier argument
+          **D’abord,** je comprends cette idée, parce que les patients attendent trop longtemps. **Par exemple,** une personne âgée qui habite en région peut attendre des mois pour un rendez-vous.
+          # Deuxième argument
+          **Par contre,** un médecin obligé est souvent moins motivé. **Par exemple,** s’il n’aime pas son travail, il peut quitter la région après deux ans. Le problème revient.
+          # Conclusion
+          **En conclusion,** je préfère encourager les jeunes médecins, par exemple avec un meilleur salaire en région. **Et si la solution était aussi** le travail d’équipe avec les pharmaciens ?
+          # Une réponse pendant le débat
+          Examinatrice : Mais les patients ne peuvent pas attendre. Il faut agir vite, non ?
+          Mikael : **Je comprends votre point de vue, mais** une obligation ne règle pas tout. Les médecins doivent aussi avoir envie de rester.
+        `,
+      },
       speaking: {
         id: '1.6-po',
         title: 'Exposé et débat',

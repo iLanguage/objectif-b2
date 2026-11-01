@@ -6,6 +6,7 @@ import { GRILLES, grilleTotal } from '../data/grilles-delf'
 import { GrilleForm } from '../quiz/GrilleForm'
 import { WritingPrompt } from '../quiz/WritingPrompt'
 import { RichText } from './RichText'
+import { SectionView } from './SectionView'
 import { SkillBadge } from './SkillBadge'
 import { TaPanel } from './TaPanel'
 import { Timer } from './Timer'
@@ -51,6 +52,15 @@ export function ExamPrepView() {
           </div>
         )}
       </header>
+
+      {task.model && (
+        <section aria-labelledby="modele" className="space-y-4">
+          <h2 id="modele" className="text-xl font-bold">
+            Lis et écoute d’abord
+          </h2>
+          <SectionView section={task.model} lessonId={key} />
+        </section>
+      )}
 
       <section aria-labelledby="consigne" className="card">
         <h2 id="consigne" className="text-xl font-bold">

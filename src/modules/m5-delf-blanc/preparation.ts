@@ -1,4 +1,4 @@
-import type { ExamPrepTask, Lesson, WritingTask } from '../../types'
+import type { ExamPrepTask, Lesson, ModelSection, WritingTask } from '../../types'
 
 /**
  * Une tâche par semaine pour préparer les examens blancs, en alternant les
@@ -26,13 +26,22 @@ function writing(week: number, title: string, subject: string): WritingTask {
   }
 }
 
-const pe = (week: number, title: string, subject: string): ExamPrepTask => ({
+/** Une lettre courte sur le sujet de la semaine : le plan est complet, mais le texte reste à développer. */
+const letterModel = (markdown: string): ModelSection => ({
+  kind: 'model',
+  title: 'Modèle : une lettre courte',
+  description: 'Lis en écoutant. Cette lettre montre le plan, mais elle est trop courte : la tienne doit compter au moins 250 mots. Garde le plan, change les idées et les exemples, et développe chaque argument.',
+  markdown,
+})
+
+const pe = (week: number, title: string, subject: string, model: ModelSection): ExamPrepTask => ({
   week,
   skill: 'PE',
   title,
   minutes: 60,
   instructions: [subject, 'Rédige ta lettre en 1 heure, sans dictionnaire au début, puis relis-la avec la liste de vérification.'],
   lessonId: '5.1',
+  model,
   writing: writing(week, title, subject),
 })
 
@@ -49,7 +58,7 @@ const ce = (week: number, title: string, topic: string): ExamPrepTask => ({
   link: { label: 'Chercher sur Radio-Canada', url: 'https://ici.radio-canada.ca/info' },
 })
 
-const po = (week: number, title: string, question: string): ExamPrepTask => ({
+const po = (week: number, title: string, question: string, markdown: string): ExamPrepTask => ({
   week,
   skill: 'PO',
   title,
@@ -58,6 +67,12 @@ const po = (week: number, title: string, question: string): ExamPrepTask => ({
     `Sujet : ${question}`,
     'Prépare un plan en 10 minutes, sans tout écrire. Parle 3 minutes, enregistre-toi et réécoute-toi. Ensuite, débats avec Gemini Live.',
   ],
+  model: {
+    kind: 'model',
+    title: 'Modèle : un plan et un court exposé',
+    description: 'Lis en écoutant. Ce modèle dure environ une minute. Prends le même plan, mais trouve tes idées et tes exemples : ton exposé dure 3 minutes.',
+    markdown,
+  },
   speaking: true,
 })
 
@@ -86,23 +101,153 @@ export const examPrepTasks: ExamPrepTask[] = [
     ],
     lessonId: '5.1',
   },
-  pe(2, 'Réécrire ma lettre sur le bénévolat', 'Reprends ta lettre à la direction sur le bénévolat à l’hôpital. Elle compte environ 160 mots : développe-la jusqu’à 250 mots, avec un exemple précis pour chaque argument, une concession et une formule de politesse.'),
+  pe(2, 'Réécrire ma lettre sur le bénévolat', 'Reprends ta lettre à la direction sur le bénévolat à l’hôpital. Elle compte environ 160 mots : développe-la jusqu’à 250 mots, avec un exemple précis pour chaque argument, une concession et une formule de politesse.', {
+    kind: 'model',
+    title: 'Modèle : développer un argument',
+    description: 'Lis en écoutant. Voici comment passer d’une phrase générale à un paragraphe : on ajoute un exemple précis, puis une concession. Fais la même chose pour chaque argument de ta lettre.',
+    markdown: `
+      # Avant
+      Deuxièmement, le bénévolat pourrait aider les élèves à développer des qualités importantes comme la patience.
+      # Après, avec un exemple précis
+      Deuxièmement, le bénévolat pourrait aider les élèves à développer des qualités importantes comme la patience. **Par exemple, un bénévole qui** tient compagnie à une patiente âgée doit l’écouter, parler doucement et prendre son temps. Il apprend ainsi une qualité essentielle pour un futur médecin.
+      # Une concession à ajouter
+      **Certes,** le bénévolat prend du temps, **mais** il apprend aussi aux élèves à mieux s’organiser.
+      # La formule de fin
+      **Je vous prie d’agréer, Monsieur le Directeur, l’expression de mes salutations distinguées.**
+    `,
+  }),
   ce(3, 'Lire : le manque de personnel infirmier', 'le manque de personnel infirmier'),
-  po(4, 'Parler : conduire à 16 ans', 'Les jeunes de 16 ans devraient-ils pouvoir conduire ?'),
+  po(4, 'Parler : conduire à 16 ans', 'Les jeunes de 16 ans devraient-ils pouvoir conduire ?', `
+    # Mon plan (des notes, pas des phrases complètes)
+    * **La question :** à 16 ans, est-on prêt à conduire ?
+    * **Pour :** plus de liberté, surtout en région.
+    * **Contre :** peu d’expérience.
+    * **Ma position :** oui, mais avec des règles strictes.
+    # Introduction
+    **Aujourd’hui, je vais parler de** la conduite à 16 ans. **La question est la suivante :** à cet âge, est-on prêt à conduire ? **Je pense que** oui, mais avec des règles strictes.
+    # Premier argument
+    **D’abord,** le permis donne de la liberté. **Par exemple,** une élève qui habite à la campagne peut aller seule à l’école et au travail.
+    # Deuxième argument
+    **Par contre,** un jeune conducteur a peu d’expérience. **Par exemple,** la nuit ou sous la neige, il peut avoir peur et faire une erreur.
+    # Conclusion
+    **En conclusion,** je suis d’accord, mais les jeunes doivent suivre des règles strictes, comme zéro alcool au volant.
+  `),
   co(5, 'Écouter : le cœur', 'le cœur'),
-  pe(6, 'Lettre : des cours de premiers soins', 'Écris à la direction de ton école pour proposer un cours de premiers soins pour tous les élèves.'),
+  pe(6, 'Lettre : des cours de premiers soins', 'Écris à la direction de ton école pour proposer un cours de premiers soins pour tous les élèves.', letterModel(`
+    # Début
+    Montréal, le 1er décembre 2026
+    **Objet :** Proposition d’un cours de premiers soins
+    Madame, Monsieur,
+    # Ma position
+    **Je vous écris concernant** un cours de premiers soins pour tous les élèves. **À mon avis, c’est une excellente occasion d’**apprendre des gestes utiles.
+    # Premier argument
+    **Tout d’abord,** ce cours pourrait sauver des vies. **Par exemple, un élève qui** connaît les bons gestes peut aider un ami qui fait un malaise au gymnase.
+    # Deuxième argument
+    **Ensuite,** ce cours donnerait confiance aux élèves. **Par exemple, une élève qui** sait arrêter un saignement reste calme quand quelqu’un se blesse.
+    # Concession
+    **Certes,** l’horaire est déjà chargé, **mais** un cours de deux heures par année suffirait.
+    # Fin
+    **Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.**
+  `)),
   ce(7, 'Lire : le diabète chez les jeunes', 'le diabète chez les jeunes'),
-  po(8, 'Parler : les calories au menu', 'Les restaurants devraient-ils afficher les calories sur leur menu ?'),
+  po(8, 'Parler : les calories au menu', 'Les restaurants devraient-ils afficher les calories sur leur menu ?', `
+    # Mon plan (des notes, pas des phrases complètes)
+    * **La question :** faut-il montrer les calories au menu ?
+    * **Pour :** les clients choisissent mieux.
+    * **Contre :** c’est difficile pour les petits restaurants.
+    * **Ma position :** oui pour les grandes chaînes.
+    # Introduction
+    **Aujourd’hui, je vais parler des** calories au menu. **La question est la suivante :** les restaurants doivent-ils les montrer ? **Je pense que** oui, surtout dans les grandes chaînes.
+    # Premier argument
+    **D’abord,** les clients peuvent mieux choisir. **Par exemple,** une personne qui fait attention à sa santé voit vite le plat le plus léger.
+    # Deuxième argument
+    **Par contre,** c’est difficile pour un petit restaurant. **Par exemple,** si le chef change le menu chaque semaine, il doit calculer les calories chaque semaine.
+    # Conclusion
+    **En conclusion,** les grandes chaînes doivent montrer les calories, mais les petits restaurants doivent rester libres.
+  `),
   co(9, 'Écouter : le cerveau', 'le cerveau'),
-  pe(10, 'Lettre : des pistes cyclables', 'Écris à ta Ville pour demander une piste cyclable sécuritaire près de ton école.'),
+  pe(10, 'Lettre : des pistes cyclables', 'Écris à ta Ville pour demander une piste cyclable sécuritaire près de ton école.', letterModel(`
+    # Début
+    Montréal, le 4 janvier 2027
+    **Objet :** Demande d’une piste cyclable près de mon école
+    Madame, Monsieur,
+    # Ma position
+    **Je vous écris concernant** la sécurité des élèves à vélo. **À mon avis,** une piste cyclable sécuritaire est nécessaire près de mon école.
+    # Premier argument
+    **Tout d’abord,** la rue est dangereuse. **Par exemple,** le matin, les voitures passent très près des élèves qui arrivent à vélo.
+    # Deuxième argument
+    **Ensuite,** une piste encouragerait les jeunes à bouger. **Par exemple, un élève qui** vient à l’école à vélo fait trente minutes de sport par jour.
+    # Concession
+    **Certes,** une piste coûte cher, **mais** la sécurité des jeunes est plus importante.
+    # Fin
+    **Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.**
+  `)),
   ce(11, 'Lire : la vaccination', 'la vaccination'),
-  po(12, 'Parler : le bénévolat à l’étranger', 'Le bénévolat à l’étranger est-il une bonne idée pour un futur médecin ?'),
+  po(12, 'Parler : le bénévolat à l’étranger', 'Le bénévolat à l’étranger est-il une bonne idée pour un futur médecin ?', `
+    # Mon plan (des notes, pas des phrases complètes)
+    * **La question :** partir à l’étranger aide-t-il un futur médecin ?
+    * **Pour :** découvrir un autre système de santé.
+    * **Contre :** un élève sans formation peut mal aider.
+    * **Ma position :** oui, mais avec un organisme sérieux.
+    # Introduction
+    **Aujourd’hui, je vais parler du** bénévolat à l’étranger. **La question est la suivante :** est-ce une bonne expérience pour un futur médecin ? **Je pense que** oui, mais seulement avec un organisme sérieux.
+    # Premier argument
+    **D’abord,** on découvre un autre système de santé. **Par exemple,** une élève qui aide dans une petite clinique voit comment on soigne avec peu de matériel.
+    # Deuxième argument
+    **Par contre,** un élève n’a pas de formation médicale. **Par exemple,** il ne peut pas faire de soins, et il ne doit pas prendre la place d’un travailleur local.
+    # Conclusion
+    **En conclusion,** c’est une bonne idée si le jeune reste à sa place et s’il part avec un organisme sérieux.
+  `),
   co(13, 'Écouter : les médicaments', 'les médicaments'),
-  pe(14, 'Lettre : plus de médecins de famille', 'Écris au ministre de la Santé pour proposer une solution au manque de médecins de famille.'),
+  pe(14, 'Lettre : plus de médecins de famille', 'Écris au ministre de la Santé pour proposer une solution au manque de médecins de famille.', letterModel(`
+    # Début
+    Montréal, le 25 janvier 2027
+    **Objet :** Une solution au manque de médecins de famille
+    Monsieur le Ministre,
+    # Ma position
+    **Je vous écris concernant** le manque de médecins de famille au Québec. **À mon avis,** il faut donner plus de place aux infirmières praticiennes.
+    # Premier argument
+    **Tout d’abord,** les médecins auraient plus de temps. **Par exemple, un patient qui** a un problème simple peut voir une infirmière praticienne, et le médecin s’occupe des cas graves.
+    # Deuxième argument
+    **Ensuite,** les patients seraient mieux suivis. **Par exemple, une personne âgée qui** a du diabète peut voir la même infirmière chaque mois.
+    # Concession
+    **Certes,** il faudrait former plus d’infirmières, **mais** ce serait plus rapide que de former de nouveaux médecins.
+    # Fin
+    **Je vous prie d’agréer, Monsieur le Ministre, l’expression de mes salutations distinguées.**
+  `)),
   ce(15, 'Lire : la chaleur et la santé', 'les effets de la chaleur sur la santé'),
-  po(16, 'Parler : l’IA chez le médecin', 'L’intelligence artificielle peut-elle aider les médecins sans les remplacer ?'),
+  po(16, 'Parler : l’IA chez le médecin', 'L’intelligence artificielle peut-elle aider les médecins sans les remplacer ?', `
+    # Mon plan (des notes, pas des phrases complètes)
+    * **La question :** l’IA peut-elle aider sans remplacer le médecin ?
+    * **Pour :** elle lit des images très vite.
+    * **Contre :** elle ne comprend pas les émotions.
+    * **Ma position :** elle aide, le médecin décide.
+    # Introduction
+    **Aujourd’hui, je vais parler de** l’intelligence artificielle à l’hôpital. **La question est la suivante :** peut-elle aider les médecins sans prendre leur place ? **Je pense que** oui.
+    # Premier argument
+    **D’abord,** l’IA travaille très vite. **Par exemple,** elle peut regarder des centaines de radiographies et montrer au médecin celles qui sont inquiétantes.
+    # Deuxième argument
+    **Par contre,** elle ne comprend pas les émotions. **Par exemple,** une patiente qui a peur a besoin d’une personne qui l’écoute et qui la rassure.
+    # Conclusion
+    **En conclusion,** l’IA est un bon outil, mais c’est le médecin qui doit décider.
+  `),
   co(17, 'Écouter : la génétique', 'la génétique'),
-  pe(18, 'Lettre : une salle pour les familles', 'Écris à la direction d’un hôpital pour proposer une salle de repos pour les familles des patients.'),
+  pe(18, 'Lettre : une salle pour les familles', 'Écris à la direction d’un hôpital pour proposer une salle de repos pour les familles des patients.', letterModel(`
+    # Début
+    Montréal, le 22 février 2027
+    **Objet :** Proposition d’une salle de repos pour les familles
+    Madame, Monsieur,
+    # Ma position
+    **Je vous écris concernant** les familles des patients. **À mon avis,** elles ont besoin d’une salle de repos à l’hôpital.
+    # Premier argument
+    **Tout d’abord,** les familles sont très fatiguées. **Par exemple, une mère qui** reste près de son enfant toute la nuit dort sur une chaise.
+    # Deuxième argument
+    **Ensuite,** une personne reposée aide mieux le patient. **Par exemple, un père qui** a bien dormi écoute mieux le médecin et comprend mieux ses conseils.
+    # Concession
+    **Certes,** l’hôpital a peu d’espace, **mais** une petite pièce avec deux fauteuils suffirait.
+    # Fin
+    **Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.**
+  `)),
   {
     week: 19,
     title: 'Bilan de la tentative 1',
@@ -136,7 +281,21 @@ export const examPrepTasks: ExamPrepTask[] = [
     instructions: ['Regarde ta note la plus basse en compréhension. Refais une leçon de lecture ou d’écoute, puis demande à Gemini trois exercices du même type.'],
     lessonId: '0.F',
   },
-  pe(26, 'Mon épreuve la plus faible : la lettre', 'Choisis le sujet de lettre qui t’a donné le plus de difficulté cette année et réécris-la complètement.'),
+  pe(26, 'Mon épreuve la plus faible : la lettre', 'Choisis le sujet de lettre qui t’a donné le plus de difficulté cette année et réécris-la complètement.', {
+    kind: 'model',
+    title: 'Modèle : réécrire un paragraphe faible',
+    description: 'Lis en écoutant. Voici un paragraphe faible, sa nouvelle version et la méthode. Fais la même chose pour chaque paragraphe de ta lettre.',
+    markdown: `
+      # Avant
+      Le cours est bon pour les élèves. Par exemple, pour les accidents.
+      # Après
+      **Tout d’abord,** ce cours serait très utile aux élèves, parce qu’il leur apprendrait à réagir vite. **Par exemple, un élève qui** sait arrêter un saignement peut aider un ami blessé en attendant l’ambulance.
+      # Ma méthode
+      * Je commence par un connecteur.
+      * J’explique mon idée avec « parce que ».
+      * Je remplace la phrase sans verbe par un exemple en phrase complète.
+    `,
+  }),
   {
     week: 27,
     title: 'Bilan final',

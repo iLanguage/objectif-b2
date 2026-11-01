@@ -163,6 +163,28 @@ export const m3: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : une candidature courte',
+        description: 'Lis en écoutant. Alex n’est pas toi : garde le plan, mais écris tes disponibilités et tes exemples. Ce modèle donne deux qualités et compte environ 120 mots ; ta lettre donne trois qualités et compte au moins 250 mots.',
+        markdown: `
+          # Début
+          Montréal, le 8 décembre 2026
+          **Objet :** Candidature comme bénévole
+          Madame, Monsieur,
+          # Qui je suis
+          Je m’appelle Alex Tremblay, j’ai 16 ans et je souhaite devenir bénévole au CUSM.
+          # Mes disponibilités et mes langues
+          **Je suis disponible** les dimanches, de 13 h à 17 h. **Je souhaite m’engager pour une durée d’au moins six mois.** Je parle français et anglais.
+          # Mes qualités
+          **Je suis ponctuel et fiable.** **Par exemple,** à mon club de soccer, j’arrive toujours en avance pour préparer le terrain. **J’ai aussi le sens de l’écoute.** **Par exemple,** je visite mon grand-père chaque semaine et je l’écoute raconter ses souvenirs.
+          # Ma motivation
+          Je veux étudier en médecine, et je veux découvrir la vie à l’hôpital. Je souhaite aussi aider les patients et leurs familles.
+          # Fin
+          **Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.**
+          Alex Tremblay
+        `,
+      },
       writing: {
         id: '3.2-pe',
         title: 'Candidature de bénévole au CUSM',
@@ -259,6 +281,25 @@ export const m3: Module = {
           answer: 1,
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : une courte entrevue',
+        description: 'Lis en écoutant, deux fois. Alex vouvoie la coordonnatrice et utilise le conditionnel pour la mise en situation. Dans ton entrevue, les questions changent et tu réponds avec ton histoire.',
+        markdown: `
+          # Se présenter
+          Coordonnatrice : Bonjour, Alex. Pouvez-vous vous présenter ?
+          Alex : Bonjour, madame. Je m’appelle Alex, j’ai 16 ans et je suis en cinquième secondaire. Je veux devenir médecin. Je travaille dans un restaurant, et ça m’a appris à être patient avec les gens.
+          # Expliquer sa motivation
+          Coordonnatrice : Pourquoi voulez-vous faire du bénévolat dans un hôpital ?
+          Alex : Je veux découvrir la vie à l’hôpital et je veux aider les gens. Par exemple, je peux accueillir les visiteurs et leur montrer le chemin.
+          # Répondre à une mise en situation
+          Coordonnatrice : Que feriez-vous si un patient était agressif ?
+          Alex : **Dans cette situation, je resterais calme.** Je ne discuterais pas avec lui et j’avertirais immédiatement l’infirmière responsable.
+          # Poser une question à la fin
+          Coordonnatrice : Merci, Alex. C’est tout pour moi.
+          Alex : Merci, madame. Quelles sont les tâches d’un nouveau bénévole ?
+        `,
+      },
       speaking: {
         id: '3.3-po',
         title: 'Entrevue avec la coordonnatrice des bénévoles',
@@ -422,6 +463,21 @@ export const m3: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : un essai court',
+        description: 'Lis en écoutant. Ce modèle suit le plan dialectique et compte environ 110 mots. Ton essai doit compter au moins 250 mots, avec deux arguments pour, tes exemples et ta position.',
+        markdown: `
+          # Introduction
+          Beaucoup d’élèves veulent devenir médecins. **Mais** le bénévolat est-il vraiment une étape essentielle ? **D’une part,** je vais présenter ses avantages. **D’autre part,** je vais parler de ses limites.
+          # Thèse : les avantages
+          **Il est indéniable que** le bénévolat aide à découvrir l’hôpital. **Prenons l’exemple d’**une élève qui aide en pédiatrie. Elle voit le travail des infirmières et elle comprend mieux ce milieu.
+          # Antithèse : les limites
+          **Certains affirment que** le bénévolat est toujours utile. **Pourtant,** il prend du temps. Par exemple, un élève qui fait dix heures de bénévolat par semaine peut avoir de moins bonnes notes.
+          # Conclusion : ma position
+          **En somme,** le bénévolat n’est pas obligatoire, mais il est très utile s’il est sincère et bien équilibré.
+        `,
+      },
       writing: {
         id: '3.5-pe',
         title: 'Le bénévolat, une étape essentielle ?',

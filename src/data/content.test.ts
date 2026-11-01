@@ -118,7 +118,7 @@ describe('préparation aux examens blancs (Module 5)', () => {
 
   it('ne révèle pas les sujets des examens blancs', () => {
     const subjects = ['cellulaires', 'téléphones', 'semaine de quatre jours', 'télétravail', 'rue piétonne', 'service communautaire', 'surtourisme', 'gratuit', 'montres connectées']
-    const text = key(examPrepTasks.map((t) => [t.title, ...t.instructions].join(' ')).join(' '))
+    const text = key(examPrepTasks.map((t) => [t.title, ...t.instructions, t.model?.markdown].join(' ')).join(' '))
     for (const subject of subjects) expect(text, subject).not.toContain(subject)
   })
 
@@ -222,6 +222,37 @@ describe('leçon 1.0 : le débat par morceaux', () => {
   it('ne donne pas les questions de la simulation dans la démonstration', () => {
     const models = lesson.sections.flatMap((s) => (s.kind === 'model' ? [s.markdown] : [])).join(' ')
     for (const q of lesson.speaking!.followUps) expect(models).not.toContain(q)
+  })
+})
+
+describe('un modèle avant chaque production', () => {
+  const productionLessons = allLessons.filter((l) => l.id !== '1.0' && (l.writing || l.speaking))
+  const productionPrep = examPrepTasks.filter((t) => t.writing || t.speaking)
+
+  it('fait lire et écouter un modèle avant chaque tâche d’une leçon', () => {
+    expect(productionLessons.length).toBeGreaterThanOrEqual(15)
+    for (const l of productionLessons) expect(spokenLines(parseMarkdown(l.model?.markdown ?? '')).length, l.id).toBeGreaterThan(0)
+  })
+
+  it('fait lire et écouter un modèle avant chaque tâche de préparation', () => {
+    expect(productionPrep).toHaveLength(10)
+    for (const t of productionPrep) expect(spokenLines(parseMarkdown(t.model?.markdown ?? '')).length, `${t.week}`).toBeGreaterThan(0)
+  })
+
+  it('ne lit pas les notes d’un plan comme le nom d’une personne', () => {
+    const speaker = /^[A-ZÉÈÀÂÎÔÇ][\p{L} -]{1,24} : /u
+    const known = new Set(['Alex', 'Cliente', 'Coordonnatrice', 'Examinatrice', 'Mikael', 'Serveur', 'Touriste'])
+    const models = [...productionLessons.filter((l) => l.moduleId !== 'm7'), ...productionPrep].map((t) => t.model!.markdown)
+    for (const line of models.flatMap((m) => spokenLines(parseMarkdown(m)))) {
+      const name = line.match(speaker)?.[0].slice(0, -3)
+      if (name) expect(known, line).toContain(name)
+    }
+  })
+
+  it('ne donne pas les questions du débat dans le modèle', () => {
+    for (const l of productionLessons) {
+      for (const q of l.speaking?.followUps ?? []) expect(l.model?.markdown, `${l.id} : ${q}`).not.toContain(q)
+    }
   })
 })
 

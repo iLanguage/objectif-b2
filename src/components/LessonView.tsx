@@ -125,6 +125,7 @@ export function LessonView() {
           <h2 id="ecrit" className="text-2xl font-bold">
             📝 Production écrite
           </h2>
+          {lesson.model && <SectionView section={lesson.model} lessonId={lesson.id} />}
           <WritingPrompt
             task={lesson.writing}
             text={progress?.writing?.text ?? ''}
@@ -140,6 +141,7 @@ export function LessonView() {
           <h2 id="oral" className="text-2xl font-bold">
             🎤 Production orale
           </h2>
+          {lesson.model && <SectionView section={lesson.model} lessonId={lesson.id} />}
           <SpeakingPrompt
             task={lesson.speaking}
             checked={progress?.checked ?? []}

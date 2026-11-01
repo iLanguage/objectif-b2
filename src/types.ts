@@ -141,6 +141,9 @@ export type LessonSection =
   | { kind: 'drills'; title: string; drills: PhraseDrill[] }
   | { kind: 'personas'; title: string; personas: Persona[] }
 
+/** Modèle écrit et parlé. */
+export type ModelSection = Extract<LessonSection, { kind: 'model' }>
+
 export interface Lesson {
   /** Identifiant affiché, ex. « 1.2 » ou « 0.A ». */
   id: string
@@ -156,6 +159,8 @@ export interface Lesson {
   objectives: string[]
   sections: LessonSection[]
   quiz?: AutoQuestion[]
+  /** Modèle affiché juste avant la production, après le quiz, pour ne pas donner ses réponses. */
+  model?: ModelSection
   writing?: WritingTask
   speaking?: SpeakingTask
   /** Devoir à faire avec le TA, en parallèle des leçons du cours. */
@@ -199,6 +204,8 @@ export interface ExamPrepTask {
   title: string
   minutes: number
   instructions: string[]
+  /** Modèle à lire et à écouter avant de lancer le chronomètre. */
+  model?: ModelSection
   /** Production écrite à rédiger sur la page de la tâche. */
   writing?: WritingTask
   /** Production orale à enregistrer sur la page de la tâche. */

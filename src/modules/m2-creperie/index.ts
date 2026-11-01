@@ -114,6 +114,33 @@ export const m2: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : une commande du début à la fin',
+        description: 'Lis en écoutant, deux fois. Cette cliente est avec une amie et elle a une allergie aux fraises. Dans ton jeu de rôle, le client et l’allergie sont différents, mais les étapes restent les mêmes.',
+        markdown: `
+          # Accueillir
+          Serveur : Bonjour ! Bienvenue à la crêperie. Vous êtes combien ?
+          Cliente : Bonjour ! Nous sommes deux.
+          Serveur : Une table pour deux ? Suivez-moi, s’il vous plaît. Voici le menu. Je vous apporte de l’eau ?
+          Cliente : Oui, merci.
+          # Prendre la commande
+          Serveur : Avez-vous fait votre choix ?
+          Cliente : Pas encore. Qu’est-ce que vous recommandez ?
+          Serveur : Je vous recommande la crêpe du jour, avec du jambon et du fromage.
+          Cliente : D’accord, deux crêpes du jour, s’il vous plaît.
+          # Vérifier les allergies
+          Serveur : Avez-vous des allergies alimentaires ?
+          Cliente : Oui, je suis allergique aux fraises.
+          Serveur : Merci de me le dire. Je vais avertir la cuisine.
+          # Confirmer et conclure
+          Serveur : Et comme boisson ?
+          Cliente : Un café et un jus d’orange.
+          Serveur : Je répète : deux crêpes du jour, un café et un jus d’orange. Désirez-vous autre chose ?
+          Cliente : Non, merci.
+          Serveur : Parfait, ça arrive dans quelques minutes.
+        `,
+      },
       speaking: {
         id: '2.1-po',
         title: 'Jeu de rôle : ton premier client',
@@ -344,6 +371,27 @@ export const m2: Module = {
           explanation: 'Au Québec, le dîner est le repas du midi — et la réservation était pour midi.',
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : la réponse à une autre cliente',
+        description: 'Lis en écoutant. Mme Roy a reçu la mauvaise crêpe et elle a attendu son addition. M. Gagnon a deux autres problèmes : réponds à ses problèmes à lui. Ce modèle compte environ 90 mots ; ta réponse doit en compter au moins 180.',
+        markdown: `
+          # Début
+          **Objet :** Votre visite du 3 novembre
+          Madame,
+          # Remercier
+          **Nous vous remercions d’avoir pris le temps de nous écrire.**
+          # S’excuser
+          **Nous sommes sincèrement désolés** : vous avez reçu la mauvaise crêpe et vous avez attendu longtemps votre addition. **Veuillez accepter nos excuses pour** ce désagrément.
+          # Expliquer
+          **Ce jour-là, notre équipe était réduite,** parce que deux employés étaient malades.
+          # Proposer une solution
+          **Afin de nous faire pardonner, nous serions heureux de vous offrir** un dessert et un café lors de votre prochaine visite.
+          # Fin
+          **Nous vous prions d’agréer, Madame, l’expression de nos salutations distinguées.**
+          Julie Martin, responsable du service
+        `,
+      },
       writing: {
         id: '2.3-pe',
         title: 'Réponse à la réclamation de M. Gagnon',
@@ -520,6 +568,25 @@ export const m2: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : la critique d’un petit café',
+        description: 'Lis en écoutant. Ce modèle parle d’un café inventé et compte environ 110 mots. Ta critique parle d’une crêperie et doit compter au moins 250 mots : garde le plan et ajoute tes détails.',
+        markdown: `
+          # Le titre
+          **Un petit café plein de charme dans le Vieux-Montréal**
+          # Le lieu
+          Samedi dernier, je suis allé au Café du Port, dans le Vieux-Montréal, avec ma sœur.
+          # L’ambiance et le service
+          Le café est petit et chaleureux, avec de vieux murs de pierre. Le serveur est souriant et rapide.
+          # Les plats
+          J’ai goûté la soupe à l’oignon et le gâteau aux carottes. La soupe est savoureuse et copieuse. Le gâteau est moelleux et fait maison.
+          # Mon opinion
+          **J’ai été agréablement surpris par** les prix : **le rapport qualité-prix est excellent.** **Certes,** la salle est bruyante le midi, **mais** le service reste agréable. **Il est dommage que** le café soit fermé le dimanche.
+          # Ma recommandation
+          **Je recommande vivement ce café aux** étudiants et aux familles.
+        `,
+      },
       writing: {
         id: '2.5-pe',
         title: 'Critique gastronomique',
@@ -572,6 +639,22 @@ export const m2: Module = {
           text: 'Pour un touriste, ajoute un petit fait culturel : « Au Québec, on produit environ les trois quarts du sirop d’érable du monde ! »',
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : deux plats pour une touriste',
+        description: 'Lis en écoutant, deux fois. Regarde les trois temps : ce que c’est, ce qu’il y a dedans, pourquoi le choisir. Dans ta simulation, choisis d’autres plats et dis pourquoi tu les recommandes.',
+        markdown: `
+          # Le plat
+          Touriste : Bonjour ! Je visite Montréal pour la première fois. Quel plat me recommandez-vous ?
+          Mikael : Je vous recommande la tourtière. **C’est** une tarte salée, typique du Québec. **Elle est garnie de** viande et d’épices. **C’est parfait si** vous avez faim après une journée de visite.
+          # Le dessert
+          Touriste : Et comme dessert ?
+          Mikael : Je vous recommande la tarte au sucre. **C’est** un dessert traditionnel. **Elle est garnie de** sucre et de crème. Elle est fondante et très sucrée. **C’est parfait si** vous aimez les desserts riches.
+          # Une question imprévue
+          Touriste : On mange de la tourtière toute l’année ?
+          Mikael : **Bonne question !** Beaucoup de familles québécoises en mangent surtout à Noël. C’est une tradition.
+        `,
+      },
       speaking: {
         id: '2.6-po',
         title: 'Simulation : un touriste curieux',

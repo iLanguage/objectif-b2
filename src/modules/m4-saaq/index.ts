@@ -406,6 +406,27 @@ export const m4: Module = {
           ],
         },
       ],
+      model: {
+        kind: 'model',
+        title: 'Modèle : les étapes, expliquées à un cousin',
+        description: 'Lis en écoutant, deux fois. Ce modèle dure environ une minute et il donne un seul conseil. Ton exposé dure de 3 à 5 minutes, avec plus de détails et deux conseils personnels. Les connecteurs sont en gras.',
+        markdown: `
+          # Mon plan (des notes, pas des phrases complètes)
+          * Le cours de conduite
+          * L’examen théorique et le permis d’apprenti conducteur
+          * La période d’apprentissage
+          * L’examen pratique et le permis probatoire
+          * Mes conseils
+          # Ce que je dis
+          Salut ! Tu veux savoir comment obtenir ton permis au Québec ? Je t’explique.
+          **Tout d’abord,** tu suis un cours de conduite dans une école reconnue.
+          **Ensuite,** tu passes l’examen théorique à la SAAQ. Tu reçois ton permis d’apprenti conducteur.
+          **Puis,** tu conduis avec une personne qui a un permis valide depuis au moins deux ans.
+          **Une fois que** tu es prêt, tu passes l’examen sur route. **Après avoir réussi** cet examen, tu reçois ton permis probatoire.
+          **Enfin,** pendant deux ans, les règles sont plus strictes. Par exemple, c’est zéro alcool au volant.
+          **Mon conseil :** pratique souvent avec une personne patiente, surtout sous la pluie et le soir.
+        `,
+      },
       speaking: {
         id: '4.4-po',
         title: 'Exposé : du cours de conduite au permis',
