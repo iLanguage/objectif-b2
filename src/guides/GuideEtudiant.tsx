@@ -48,7 +48,7 @@ export function GuideEtudiant() {
           <table className="w-full min-w-[36rem] text-left">
             <caption className="sr-only">Applications recommandées, leur usage et pourquoi</caption>
             <thead>
-              <tr className="border-b border-slate-300 text-sm text-slate-600">
+              <tr className="border-b border-line-strong text-sm text-ink-muted">
                 <th scope="col" className="py-2 pr-3">Application</th>
                 <th scope="col" className="py-2 pr-3">Usage</th>
                 <th scope="col" className="py-2">Pourquoi</th>
@@ -56,7 +56,7 @@ export function GuideEtudiant() {
             </thead>
             <tbody>
               {APPS.map((a) => (
-                <tr key={a.app} className="border-b border-slate-100">
+                <tr key={a.app} className="border-b border-line-subtle">
                   <th scope="row" className="py-2 pr-3 font-semibold">
                     {a.app}
                   </th>

@@ -56,12 +56,12 @@ export function Timer({ minutes, label, onExpire }: TimerProps) {
 
   const low = remaining <= 60
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-3">
-      <span className="font-medium text-slate-700">{label}</span>
+    <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line-strong bg-surface px-4 py-3">
+      <span className="font-medium text-ink-soft">{label}</span>
       <span
         role="timer"
         aria-label={`${label} : temps restant`}
-        className={`font-mono text-2xl font-bold tabular-nums ${low ? 'text-red-700' : 'text-slate-900'}`}
+        className={`font-mono text-2xl font-bold tabular-nums ${low ? 'text-danger-ink' : 'text-ink'}`}
       >
         {format(remaining)}
       </span>

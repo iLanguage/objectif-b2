@@ -21,11 +21,11 @@ const CONTEXT_STYLES: Record<
   DailyScheduleItem['where'],
   { badge: string; icon: string }
 > = {
-  Trajet: { badge: 'bg-sky-100 text-sky-900 border-sky-300', icon: '🚇' },
-  Maison: { badge: 'bg-indigo-100 text-indigo-900 border-indigo-300', icon: '🏠' },
-  Divertissement: { badge: 'bg-amber-100 text-amber-900 border-amber-300', icon: '📺' },
-  'Cours + Pratique': { badge: 'bg-emerald-100 text-emerald-900 border-emerald-300', icon: '👨‍🏫' },
-  'Cours + Production': { badge: 'bg-rose-100 text-rose-900 border-rose-300', icon: '🎓' },
+  Trajet: { badge: 'bg-tag-sky text-tag-sky-ink border-tag-sky-line', icon: '🚇' },
+  Maison: { badge: 'bg-tag-indigo text-tag-indigo-ink border-tag-indigo-line', icon: '🏠' },
+  Divertissement: { badge: 'bg-tag-amber text-tag-amber-ink border-tag-amber-line', icon: '📺' },
+  'Cours + Pratique': { badge: 'bg-tag-emerald text-tag-emerald-ink border-tag-emerald-line', icon: '👨‍🏫' },
+  'Cours + Production': { badge: 'bg-tag-rose text-tag-rose-ink border-tag-rose-line', icon: '🎓' },
 }
 
 const CATEGORY_ICONS: Record<string, string> = {
@@ -127,10 +127,10 @@ export function WeeklySchedulePage() {
                 onClick={() => setWeek(m.week)}
                 className={`min-h-10 min-w-10 rounded-lg px-2.5 py-1 text-sm font-semibold transition ${
                   isSelected
-                    ? 'bg-blue-800 text-white shadow'
+                    ? 'bg-primary text-on-solid shadow'
                     : isCurrent
-                      ? 'border-2 border-blue-600 bg-blue-50 text-blue-950 hover:bg-blue-100'
-                      : 'border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
+                      ? 'border-2 border-info-line bg-info-soft text-info-ink hover:bg-info-tint'
+                      : 'border border-line bg-surface-muted text-ink-soft hover:bg-surface-sunken'
                 }`}
               >
                 S{m.week}
@@ -144,32 +144,32 @@ export function WeeklySchedulePage() {
       {/* Carte résumé de la semaine */}
       <section
         aria-labelledby="week-overview-title"
-        className="card border-l-8 border-l-blue-700 bg-gradient-to-r from-blue-50/50 to-white"
+        className="card border-l-8 border-l-info-line bg-gradient-to-r from-info-soft/50 to-surface"
       >
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="week-overview-title" className="text-2xl font-bold text-blue-950">
+          <h2 id="week-overview-title" className="text-2xl font-bold text-info-ink">
             Semaine {selectedWeek} · du {formatDate(start)} au {formatDate(end)}
           </h2>
           {phase && (
-            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-900">
+            <span className="rounded-full bg-info-tint px-3 py-1 text-xs font-bold text-info-ink">
               Phase {phase.id} ({phase.level}) : {phase.title}
             </span>
           )}
         </div>
 
         <div className="mt-3 space-y-2">
-          <p className="text-base font-semibold text-slate-900">
+          <p className="text-base font-semibold text-ink">
             🎯 Objectif de la semaine : <span className="font-normal">{plan.focus}</span>
           </p>
-          <p className="text-sm text-slate-700">
+          <p className="text-sm text-ink-soft">
             📝 <strong>Sommaire des devoirs :</strong> {plan.homeworkSummary}
           </p>
         </div>
 
         {/* Leçons au programme */}
         {weekLessons.length > 0 && (
-          <div className="mt-4 border-t border-slate-200 pt-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600">
+          <div className="mt-4 border-t border-line pt-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted">
               Leçons au programme cette semaine :
             </h3>
             <ul className="mt-2 flex flex-wrap gap-2">
@@ -179,7 +179,7 @@ export function WeeklySchedulePage() {
                   <li key={l.id}>
                     <Link
                       to={`/lecon/${l.id}`}
-                      className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface px-2.5 py-1 text-sm font-semibold text-link shadow-sm hover:bg-info-soft"
                     >
                       <span aria-hidden="true">{status.icon}</span>
                       <span>
@@ -201,7 +201,7 @@ export function WeeklySchedulePage() {
           <h2 id="daily-schedule-title" className="text-2xl font-bold">
             Programme jour par jour
           </h2>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-ink-muted">
             7 jours · Écoute, pratique et cours
           </span>
         </div>
@@ -215,12 +215,12 @@ export function WeeklySchedulePage() {
             return (
               <article
                 key={item.day}
-                className="card border border-slate-200 p-5 shadow-sm transition hover:shadow-md"
+                className="card border border-line p-5 shadow-sm transition hover:shadow-md"
               >
                 {/* En-tête du jour */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line-subtle pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-black text-slate-900">{item.day}</span>
+                    <span className="text-lg font-black text-ink">{item.day}</span>
                     <span
                       className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-bold ${style.badge}`}
                     >
@@ -228,7 +228,7 @@ export function WeeklySchedulePage() {
                       <span>{item.where}</span>
                     </span>
                   </div>
-                  <span className="text-sm font-semibold text-slate-600">
+                  <span className="text-sm font-semibold text-ink-muted">
                     ⏱️ {item.minutes} minutes
                   </span>
                 </div>
@@ -237,15 +237,15 @@ export function WeeklySchedulePage() {
                   {/* Colonne gauche : Activité et Devoir */}
                   <div className="space-y-3">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
-                      <p className="mt-1 text-sm text-slate-700">{item.taskDescription}</p>
+                      <h3 className="text-lg font-bold text-ink">{item.title}</h3>
+                      <p className="mt-1 text-sm text-ink-soft">{item.taskDescription}</p>
                     </div>
 
-                    <div className="rounded-lg bg-slate-50 p-3 border border-slate-200">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <div className="rounded-lg bg-surface-muted p-3 border border-line">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-ink-muted">
                         📋 Devoir / Tâche active :
                       </h4>
-                      <p className="mt-1 text-sm font-medium text-slate-900">
+                      <p className="mt-1 text-sm font-medium text-ink">
                         {item.homework}
                       </p>
                     </div>
@@ -262,30 +262,30 @@ export function WeeklySchedulePage() {
                     )}
 
                     {item.taInstructions && (
-                      <p className="text-xs text-indigo-900 bg-indigo-50 p-2 rounded border border-indigo-200">
+                      <p className="text-xs text-ta-ink bg-ta-soft p-2 rounded border border-ta-line-soft">
                         🤖 <strong>Astuce Gemini TA :</strong> {item.taInstructions}
                       </p>
                     )}
                   </div>
 
                   {/* Colonne droite : Média audio / vidéo / outil */}
-                  <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50/40 via-white to-slate-50 p-4 space-y-3">
+                  <div className="rounded-xl border border-info-line-soft bg-gradient-to-br from-info-soft/40 via-surface to-surface-muted p-4 space-y-3">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-blue-900">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-link">
                         <span>{categoryIcon}</span>
                         <span>{item.media.categoryLabel}</span>
                       </span>
-                      <span className="text-xs text-slate-500 font-medium">
+                      <span className="text-xs text-ink-muted font-medium">
                         {item.media.platform}
                       </span>
                     </div>
 
                     <div>
-                      <h4 className="font-bold text-slate-900 text-base">
+                      <h4 className="font-bold text-ink text-base">
                         {item.media.title}
                       </h4>
                       {item.media.tip && (
-                        <p className="mt-1 text-xs text-slate-600 italic">
+                        <p className="mt-1 text-xs text-ink-muted italic">
                           💡 {item.media.tip}
                         </p>
                       )}
@@ -297,7 +297,7 @@ export function WeeklySchedulePage() {
                           href={item.media.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-blue-800 px-4 py-2 text-sm font-bold text-white shadow transition hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-on-solid shadow transition hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2"
                         >
                           <span>{item.media.actionLabel}</span>
                           <span aria-hidden="true">↗</span>
@@ -306,7 +306,7 @@ export function WeeklySchedulePage() {
                       ) : (
                         <Link
                           to={item.media.url.replace('#', '')}
-                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-blue-800 px-4 py-2 text-sm font-bold text-white shadow transition hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-on-solid shadow transition hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2"
                         >
                           <span>{item.media.actionLabel}</span>
                           <span aria-hidden="true">→</span>
@@ -322,8 +322,8 @@ export function WeeklySchedulePage() {
       </section>
 
       {/* Liens de bas de page */}
-      <section className="card bg-slate-50 text-center space-y-2">
-        <p className="font-semibold text-slate-800">
+      <section className="card bg-surface-muted text-center space-y-2">
+        <p className="font-semibold text-ink">
           Envie d'avoir une vision d'ensemble sur les 27 semaines du parcours ?
         </p>
         <div className="flex flex-wrap justify-center gap-3">

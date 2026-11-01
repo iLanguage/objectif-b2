@@ -17,8 +17,8 @@ export function TeacherPanel({ lesson, progress }: { lesson: Lesson; progress: W
   const productions: ('PE' | 'PO')[] = [...(lesson.writing ? ['PE' as const] : []), ...(lesson.speaking ? ['PO' as const] : [])]
 
   return (
-    <section className="space-y-4 rounded-xl border-2 border-emerald-300 bg-emerald-50 p-5" aria-labelledby="teacher-panel">
-      <h2 id="teacher-panel" className="text-xl font-bold text-emerald-950">
+    <section className="space-y-4 rounded-xl border-2 border-teacher-line bg-teacher-soft p-5" aria-labelledby="teacher-panel">
+      <h2 id="teacher-panel" className="text-xl font-bold text-teacher-ink">
         👨‍🏫 Espace professeur
       </h2>
 
@@ -39,14 +39,14 @@ export function TeacherPanel({ lesson, progress }: { lesson: Lesson; progress: W
               <table className="mt-2 w-full max-w-md text-left">
                 <caption className="sr-only">Historique des tentatives</caption>
                 <thead>
-                  <tr className="border-b border-emerald-200 text-sm">
+                  <tr className="border-b border-teacher-line-soft text-sm">
                     <th scope="col" className="py-1">Date</th>
                     <th scope="col" className="py-1">Score</th>
                   </tr>
                 </thead>
                 <tbody>
                   {progress.attempts.map((a) => (
-                    <tr key={a.date} className="border-b border-emerald-100">
+                    <tr key={a.date} className="border-b border-teacher-line-soft">
                       <td className="py-1">{formatDateTime(a.date)}</td>
                       <td className="py-1 font-semibold">{a.percent} %</td>
                     </tr>
@@ -61,7 +61,7 @@ export function TeacherPanel({ lesson, progress }: { lesson: Lesson; progress: W
                       .filter((q) => lastMissed.includes(q.id))
                       .map((q) => (
                         <li key={q.id}>
-                          {describeQuestion(q)} — <span className="text-emerald-900">{describeAnswer(q)}</span>
+                          {describeQuestion(q)} — <span className="text-teacher-ink">{describeAnswer(q)}</span>
                         </li>
                       ))}
                   </ul>
@@ -69,7 +69,7 @@ export function TeacherPanel({ lesson, progress }: { lesson: Lesson; progress: W
               )}
             </>
           ) : (
-            <p className="mt-1 text-slate-700">Pas encore de tentative.</p>
+            <p className="mt-1 text-ink-soft">Pas encore de tentative.</p>
           )}
         </div>
       )}
@@ -108,7 +108,7 @@ export function TeacherPanel({ lesson, progress }: { lesson: Lesson; progress: W
           >
             Enregistrer le commentaire
           </button>
-          <span role="status" className="text-green-800">
+          <span role="status" className="text-success-ink">
             {saved ? 'Commentaire enregistré.' : ''}
           </span>
         </div>

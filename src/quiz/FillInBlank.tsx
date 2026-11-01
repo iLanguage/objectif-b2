@@ -34,9 +34,9 @@ export function FillInBlank({ question, number, value, onChange, showResult }: F
   return (
     <div role="group" aria-labelledby={labelId}>
       <p id={labelId} className="text-lg font-semibold">
-        <span className="mr-2 text-slate-500">{number}.</span>
+        <span className="mr-2 text-ink-muted">{number}.</span>
         Complète la phrase.
-        {question.hint && <span className="ml-2 font-normal text-slate-600">Indice : {question.hint}</span>}
+        {question.hint && <span className="ml-2 font-normal text-ink-muted">Indice : {question.hint}</span>}
       </p>
       <p className="mt-3 text-lg leading-[2.6]">
         {parts.map((part, i) => (
@@ -58,7 +58,7 @@ export function FillInBlank({ question, number, value, onChange, showResult }: F
                   spellCheck={false}
                   aria-label={`Trou ${i + 1} sur ${blanks}`}
                   className={`field mx-1 w-44 py-1 ${
-                    showResult ? (isCorrect(i) ? 'border-2 border-green-700 bg-green-50' : 'border-2 border-red-700 bg-red-50') : ''
+                    showResult ? (isCorrect(i) ? 'border-2 border-success-line bg-success-soft' : 'border-2 border-danger-line bg-danger-soft') : ''
                   }`}
                 />
               </span>
@@ -80,7 +80,7 @@ export function FillInBlank({ question, number, value, onChange, showResult }: F
         <ul className="mt-2 space-y-1">
           {question.answers.map((accepted, i) =>
             isCorrect(i) ? null : (
-              <li key={i} className="text-red-800">
+              <li key={i} className="text-danger-ink">
                 Trou {i + 1} : la bonne réponse est <strong>{accepted[0]}</strong>
                 {answers[i] ? ` (tu as écrit « ${answers[i]} »)` : ' (pas de réponse)'}
               </li>

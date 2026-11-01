@@ -103,7 +103,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
   return (
     <section className="card" aria-label={`Document audio : ${title}`}>
       <h3 className="text-lg font-bold">🎧 {title}</h3>
-      {description && <p className="mt-1 text-slate-700">{description}</p>}
+      {description && <p className="mt-1 text-ink-soft">{description}</p>}
 
       {supported ? (
         <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -119,7 +119,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
           <button type="button" className="btn-secondary" onClick={stop} disabled={state === 'idle'}>
             ⏹ Arrêter
           </button>
-          <label className="flex items-center gap-2 text-slate-700">
+          <label className="flex items-center gap-2 text-ink-soft">
             Vitesse
             <select
               className="field py-1"
@@ -132,19 +132,19 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
               <option value={1.1}>Rapide</option>
             </select>
           </label>
-          <span className="text-sm text-slate-600">
+          <span className="text-sm text-ink-muted">
             Écoutes : {plays}
             {transcriptLocked && ' (2 au maximum, comme au DELF)'}
           </span>
         </div>
       ) : (
-        <p className="mt-3 rounded-md bg-amber-50 p-3 text-amber-900">
+        <p className="mt-3 rounded-md bg-warning-soft p-3 text-warning-ink">
           Ton navigateur ne propose pas de synthèse vocale. Demande à ton professeur ou à Gemini de te lire le document, ou lis la
           transcription.
         </p>
       )}
       {supported && voices.length === 0 && (
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-ink-muted">
           Aucune voix française détectée : installe une voix « Français (Canada) » dans les réglages de synthèse vocale de ton appareil
           pour un meilleur accent.
         </p>
@@ -161,9 +161,9 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
             {showTranscript ? 'Masquer la transcription' : 'Afficher la transcription'}
           </button>
           {showTranscript && (
-            <div className="prose-lesson mt-3 rounded-lg bg-slate-50 p-4 leading-relaxed">
+            <div className="prose-lesson mt-3 rounded-lg bg-surface-muted p-4 leading-relaxed">
               {paragraphs.map((p, i) => (
-                <p key={i} className={current === i ? 'rounded bg-yellow-100' : undefined}>
+                <p key={i} className={current === i ? 'rounded bg-highlight' : undefined}>
                   <RichText text={p} />
                 </p>
               ))}
@@ -172,7 +172,7 @@ export function AudioPlayer({ title, paragraphs, description, transcriptLocked =
         </div>
       )}
       {transcriptLocked && supported && (
-        <p className="mt-3 text-sm text-slate-600">La transcription sera disponible après la correction.</p>
+        <p className="mt-3 text-sm text-ink-muted">La transcription sera disponible après la correction.</p>
       )}
     </section>
   )

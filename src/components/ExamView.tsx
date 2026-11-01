@@ -32,8 +32,8 @@ function ReadingDocument({ doc }: { doc: ExamDocument }) {
   return (
     <section className="card">
       <h3 className="text-xl font-bold">{doc.title}</h3>
-      {doc.source && <p className="mt-1 text-sm italic text-slate-600">{doc.source}</p>}
-      <article className="prose-lesson mt-4 border-l-4 border-slate-300 pl-4 text-lg leading-relaxed" lang="fr">
+      {doc.source && <p className="mt-1 text-sm italic text-ink-muted">{doc.source}</p>}
+      <article className="prose-lesson mt-4 border-l-4 border-line-strong pl-4 text-lg leading-relaxed" lang="fr">
         {doc.paragraphs.map((p, i) => (
           <p key={i}>
             <RichText text={p} />
@@ -63,11 +63,11 @@ function ComprehensionSection({
   return (
     <section id={id} tabIndex={-1} aria-labelledby={`${id}-titre`} className="scroll-mt-24 space-y-4">
       <h2 id={`${id}-titre`} className="text-2xl font-bold">
-        {skill === 'CO' ? '🎧' : '📖'} {SKILL_LABELS[skill]} <span className="font-normal text-slate-600">· {section.minutes} min · /25</span>
+        {skill === 'CO' ? '🎧' : '📖'} {SKILL_LABELS[skill]} <span className="font-normal text-ink-muted">· {section.minutes} min · /25</span>
       </h2>
       {!submitted && <Timer minutes={section.minutes} label={SKILL_LABELS[skill]} />}
       {skill === 'CO' && !submitted && (
-        <p className="text-slate-700">
+        <p className="text-ink-soft">
           Lis les questions d’un document avant de l’écouter. Comme au DELF, écoute chaque document deux fois au maximum.
         </p>
       )}
@@ -94,7 +94,7 @@ function ComprehensionSection({
         }}
       />
       {submitted && (
-        <p role="status" className="rounded-xl border-2 border-blue-700 bg-blue-50 p-4 text-xl font-bold">
+        <p role="status" className="rounded-xl border-2 border-info-line bg-info-soft p-4 text-xl font-bold">
           {SKILL_LABELS[skill]} : {to25(result.points, result.max)} / 25
           <span className="ml-2 text-base font-normal">
             ({result.points.toLocaleString('fr-CA')} point{result.points > 1 ? 's' : ''} sur {result.max})
@@ -140,7 +140,7 @@ export function ExamView() {
       )
     }
     return (
-      <p className="rounded-lg bg-slate-100 p-4">
+      <p className="rounded-lg bg-surface-sunken p-4">
         Cette épreuve est notée par ton professeur avec la grille DELF (mode Professeur). En attendant, fais-la évaluer par Gemini en
         mode TA.
       </p>
@@ -161,11 +161,11 @@ export function ExamView() {
       </nav>
 
       <header>
-        <p className="font-semibold text-slate-600">Module 5 · Semaine {exam.week}</p>
+        <p className="font-semibold text-ink-muted">Module 5 · Semaine {exam.week}</p>
         <h1 className="mt-1 text-3xl font-bold">
           {exam.title} — {exam.theme}
         </h1>
-        <p className="mt-2 max-w-3xl text-slate-700">
+        <p className="mt-2 max-w-3xl text-ink-soft">
           Quatre épreuves notées sur 25. Fais-les dans l’ordre, en conditions réelles : chronomètre démarré, pas de dictionnaire, téléphone
           en mode avion. Tes réponses sont enregistrées au fur et à mesure.
         </p>
@@ -201,7 +201,7 @@ export function ExamView() {
 
       <section id="pe" tabIndex={-1} aria-labelledby="pe-titre" className="scroll-mt-24 space-y-4">
         <h2 id="pe-titre" className="text-2xl font-bold">
-          📝 {SKILL_LABELS.PE} <span className="font-normal text-slate-600">· {exam.pe.minutes} min · /25</span>
+          📝 {SKILL_LABELS.PE} <span className="font-normal text-ink-muted">· {exam.pe.minutes} min · /25</span>
         </h2>
         <Timer minutes={exam.pe.minutes} label={SKILL_LABELS.PE} />
         <WritingPrompt
@@ -217,7 +217,7 @@ export function ExamView() {
       <section id="po" tabIndex={-1} aria-labelledby="po-titre" className="scroll-mt-24 space-y-4">
         <h2 id="po-titre" className="text-2xl font-bold">
           🎤 {SKILL_LABELS.PO}{' '}
-          <span className="font-normal text-slate-600">
+          <span className="font-normal text-ink-muted">
             · {exam.po.prepMinutes} min de préparation + {exam.po.task.speakMinutes} min · /25
           </span>
         </h2>

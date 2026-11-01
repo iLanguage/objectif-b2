@@ -28,7 +28,7 @@ export function MultipleChoice({ question, number, value, onChange, showResult }
   return (
     <fieldset>
       <legend className="text-lg font-semibold">
-        <span className="mr-2 text-slate-500">{number}.</span>
+        <span className="mr-2 text-ink-muted">{number}.</span>
         {question.prompt}
       </legend>
       {question.visual && (
@@ -41,10 +41,10 @@ export function MultipleChoice({ question, number, value, onChange, showResult }
           const option = question.options[optionIndex]
           const selected = value === optionIndex
           const isAnswer = optionIndex === question.answer
-          let style = 'border-slate-300 bg-white hover:bg-slate-50'
-          if (showResult && isAnswer) style = 'border-green-700 bg-green-50'
-          else if (showResult && selected) style = 'border-red-700 bg-red-50'
-          else if (selected) style = 'border-blue-700 bg-blue-50'
+          let style = 'border-line-strong bg-surface hover:bg-surface-muted'
+          if (showResult && isAnswer) style = 'border-success-line bg-success-soft'
+          else if (showResult && selected) style = 'border-danger-line bg-danger-soft'
+          else if (selected) style = 'border-info-line bg-info-soft'
           return (
             <label
               key={optionIndex}
@@ -57,12 +57,12 @@ export function MultipleChoice({ question, number, value, onChange, showResult }
                 checked={selected}
                 disabled={showResult}
                 onChange={() => onChange(optionIndex)}
-                className="mt-1 h-5 w-5 shrink-0 accent-blue-800"
+                className="mt-1 h-5 w-5 shrink-0 accent-primary"
               />
               <span>
                 {option}
-                {showResult && isAnswer && <span className="ml-2 font-semibold text-green-800">✓ Bonne réponse</span>}
-                {showResult && selected && !isAnswer && <span className="ml-2 font-semibold text-red-800">✗ Ta réponse</span>}
+                {showResult && isAnswer && <span className="ml-2 font-semibold text-success-ink">✓ Bonne réponse</span>}
+                {showResult && selected && !isAnswer && <span className="ml-2 font-semibold text-danger-ink">✗ Ta réponse</span>}
               </span>
             </label>
           )

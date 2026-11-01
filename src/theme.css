@@ -1,0 +1,229 @@
+/*
+ * Thème du site : toutes les couleurs passent par ces jetons sémantiques.
+ *
+ * Le bloc @theme contient les valeurs du mode clair et crée les utilitaires
+ * Tailwind (bg-surface, text-ink, border-line…). Le bloc prefers-color-scheme
+ * redéfinit les mêmes jetons pour le mode sombre : les composants n'ont donc
+ * jamais besoin de la variante dark:.
+ *
+ * Pour ajouter une couleur : ajouter le jeton dans les deux blocs.
+ * src/theme.test.ts vérifie les contrastes WCAG AA des deux thèmes.
+ */
+
+@theme {
+  /* Fonds et surfaces */
+  --color-page: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-sunken: #f1f5f9;
+  --color-surface-strong: #e2e8f0;
+  --color-track: #e2e8f0;
+
+  /* Bordures */
+  --color-line-subtle: #f1f5f9;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-control: #64748b;
+
+  /* Texte */
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-ink-muted: #475569;
+  --color-ink-faint: #64748b;
+
+  /* Actions et liens */
+  --color-primary: #1e40af;
+  --color-primary-hover: #1e3a8a;
+  --color-disabled: #94a3b8;
+  --color-link: #1e40af;
+  --color-link-hover: #172554;
+  --color-focus: #2563eb;
+
+  /* Texte sur fond coloré (boutons, en-tête, modules) */
+  --color-on-solid: #ffffff;
+  --color-on-solid-soft: #dbeafe;
+  --color-on-solid-muted: #bfdbfe;
+
+  /* En-tête et bandeau d'accueil */
+  --color-brand: #1e3a8a;
+  --color-brand-end: #1d4ed8;
+  --color-brand-hover: #1e40af;
+  --color-brand-line: #1e40af;
+  --color-brand-inset: #172554;
+
+  /* États */
+  --color-success: #15803d;
+  --color-success-hover: #166534;
+  --color-success-soft: #f0fdf4;
+  --color-success-line: #15803d;
+  --color-success-line-soft: #86efac;
+  --color-success-ink: #166534;
+
+  --color-danger-soft: #fef2f2;
+  --color-danger-line: #b91c1c;
+  --color-danger-line-soft: #fca5a5;
+  --color-danger-ink: #991b1b;
+
+  --color-warning-soft: #fffbeb;
+  --color-warning-tint: #fef3c7;
+  --color-warning-line: #d97706;
+  --color-warning-line-soft: #fcd34d;
+  --color-warning-ink: #92400e;
+
+  --color-info-soft: #eff6ff;
+  --color-info-tint: #dbeafe;
+  --color-info-line: #1d4ed8;
+  --color-info-line-soft: #bfdbfe;
+  --color-info-ink: #1e3a8a;
+
+  --color-highlight: #fef9c3;
+
+  /* Espaces Professeur et TA */
+  --color-teacher-soft: #ecfdf5;
+  --color-teacher-tint: #d1fae5;
+  --color-teacher-line: #6ee7b7;
+  --color-teacher-line-soft: #a7f3d0;
+  --color-teacher-ink: #064e3b;
+
+  --color-ta-soft: #eef2ff;
+  --color-ta-tint: #e0e7ff;
+  --color-ta-line: #a5b4fc;
+  --color-ta-line-soft: #c7d2fe;
+  --color-ta-ink: #312e81;
+
+  /* Étiquettes (compétences DELF, types de tâches) */
+  --color-tag-purple: #f3e8ff;
+  --color-tag-purple-ink: #581c87;
+  --color-tag-sky: #e0f2fe;
+  --color-tag-sky-ink: #0c4a6e;
+  --color-tag-sky-line: #7dd3fc;
+  --color-tag-emerald: #d1fae5;
+  --color-tag-emerald-ink: #064e3b;
+  --color-tag-emerald-line: #6ee7b7;
+  --color-tag-orange: #ffedd5;
+  --color-tag-orange-ink: #7c2d12;
+  --color-tag-yellow: #fef9c3;
+  --color-tag-yellow-ink: #713f12;
+  --color-tag-indigo: #e0e7ff;
+  --color-tag-indigo-ink: #312e81;
+  --color-tag-indigo-line: #a5b4fc;
+  --color-tag-amber: #fef3c7;
+  --color-tag-amber-ink: #78350f;
+  --color-tag-amber-line: #fcd34d;
+  --color-tag-rose: #ffe4e6;
+  --color-tag-rose-ink: #881337;
+  --color-tag-rose-line: #fda4af;
+
+  /* Couleur de chaque module (bandeaux et barres de progression) */
+  --color-module-0: #334155;
+  --color-module-1: #be123c;
+  --color-module-2: #b45309;
+  --color-module-3: #0f766e;
+  --color-module-4: #1d4ed8;
+  --color-module-5: #6d28d9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-page: #0f172a;
+    --color-surface: #1e293b;
+    --color-surface-muted: #172033;
+    --color-surface-sunken: #293548;
+    --color-surface-strong: #3b4a61;
+    --color-track: #0f172a;
+
+    --color-line-subtle: #2b384b;
+    --color-line: #334155;
+    --color-line-strong: #475569;
+    --color-control: #7c8aa0;
+
+    --color-ink: #f1f5f9;
+    --color-ink-soft: #cbd5e1;
+    --color-ink-muted: #a9b6c8;
+    --color-ink-faint: #94a3b8;
+
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-disabled: #475569;
+    --color-link: #93c5fd;
+    --color-link-hover: #bfdbfe;
+    --color-focus: #60a5fa;
+
+    --color-on-solid: #ffffff;
+    --color-on-solid-soft: #dbeafe;
+    --color-on-solid-muted: #bfdbfe;
+
+    --color-brand: #172554;
+    --color-brand-end: #1e3a8a;
+    --color-brand-hover: #1e3a8a;
+    --color-brand-line: #1e3a8a;
+    --color-brand-inset: #0b1437;
+
+    --color-success: #15803d;
+    --color-success-hover: #166534;
+    --color-success-soft: #132f22;
+    --color-success-line: #22c55e;
+    --color-success-line-soft: #1f6b3f;
+    --color-success-ink: #86efac;
+
+    --color-danger-soft: #3a1a20;
+    --color-danger-line: #f87171;
+    --color-danger-line-soft: #7f2d2d;
+    --color-danger-ink: #fca5a5;
+
+    --color-warning-soft: #33260f;
+    --color-warning-tint: #4a3610;
+    --color-warning-line: #fbbf24;
+    --color-warning-line-soft: #7a5a14;
+    --color-warning-ink: #fcd34d;
+
+    --color-info-soft: #172a4a;
+    --color-info-tint: #1e3a66;
+    --color-info-line: #60a5fa;
+    --color-info-line-soft: #2f5288;
+    --color-info-ink: #bfdbfe;
+
+    --color-highlight: #5c4a0f;
+
+    --color-teacher-soft: #10302a;
+    --color-teacher-tint: #134034;
+    --color-teacher-line: #2f7f68;
+    --color-teacher-line-soft: #235c4c;
+    --color-teacher-ink: #a7f3d0;
+
+    --color-ta-soft: #1f2447;
+    --color-ta-tint: #2a2f5e;
+    --color-ta-line: #5560b8;
+    --color-ta-line-soft: #3f477f;
+    --color-ta-ink: #c7d2fe;
+
+    --color-tag-purple: #3b2259;
+    --color-tag-purple-ink: #e9d5ff;
+    --color-tag-sky: #123a52;
+    --color-tag-sky-ink: #bae6fd;
+    --color-tag-sky-line: #2b7ea8;
+    --color-tag-emerald: #134034;
+    --color-tag-emerald-ink: #a7f3d0;
+    --color-tag-emerald-line: #2f7f68;
+    --color-tag-orange: #4a2a12;
+    --color-tag-orange-ink: #fed7aa;
+    --color-tag-yellow: #463a0e;
+    --color-tag-yellow-ink: #fef08a;
+    --color-tag-indigo: #2a2f5e;
+    --color-tag-indigo-ink: #c7d2fe;
+    --color-tag-indigo-line: #5560b8;
+    --color-tag-amber: #4a3610;
+    --color-tag-amber-ink: #fde68a;
+    --color-tag-amber-line: #a67c1c;
+    --color-tag-rose: #4a1c2a;
+    --color-tag-rose-ink: #fecdd3;
+    --color-tag-rose-line: #b24a62;
+
+    --color-module-0: #64748b;
+    --color-module-1: #e11d48;
+    --color-module-2: #b45309;
+    --color-module-3: #0f766e;
+    --color-module-4: #2563eb;
+    --color-module-5: #7c3aed;
+  }
+}

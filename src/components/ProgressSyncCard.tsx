@@ -98,31 +98,31 @@ export function ProgressSyncCard({
   }
 
   return (
-    <section aria-labelledby="sync-card-title" className="card border-2 border-blue-200 bg-white shadow-sm space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+    <section aria-labelledby="sync-card-title" className="card border-2 border-info-line-soft bg-surface shadow-sm space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3">
         <div>
-          <h2 id="sync-card-title" className="text-xl font-bold text-slate-900">
+          <h2 id="sync-card-title" className="text-xl font-bold text-ink">
             {title}
           </h2>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-ink-muted">
             Copiez-collez votre progression entre l’élève et le professeur sans avoir besoin de créer de compte.
           </p>
         </div>
-        <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-900">
+        <span className="rounded-full bg-info-tint px-3 py-1 text-xs font-bold text-info-ink">
           {lessonCount} leçon{lessonCount > 1 ? 's' : ''} commencée{lessonCount > 1 ? 's' : ''} · {examCount} examen{examCount > 1 ? 's' : ''}
         </span>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Colonne 1 : Pour l'Élève (Copier) */}
-        <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-4">
+        <div className="rounded-xl border border-line bg-surface-muted/60 p-4 space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl" aria-hidden="true">
               📤
             </span>
             <div>
-              <h3 className="font-bold text-slate-900">1. Pour l’élève : Envoyer ma progression</h3>
-              <p className="text-xs text-slate-600">
+              <h3 className="font-bold text-ink">1. Pour l’élève : Envoyer ma progression</h3>
+              <p className="text-xs text-ink-muted">
                 Copiez le texte et collez-le dans un courriel, un message ou un chat pour votre professeur.
               </p>
             </div>
@@ -134,21 +134,21 @@ export function ProgressSyncCard({
               onClick={handleCopy}
               className={`w-full min-h-12 rounded-lg px-4 py-2 text-sm font-bold shadow transition flex items-center justify-center gap-2 ${
                 copyStatus === 'copied'
-                  ? 'bg-green-700 text-white hover:bg-green-800'
-                  : 'bg-blue-800 text-white hover:bg-blue-900'
+                  ? 'bg-success text-on-solid hover:bg-success-hover'
+                  : 'bg-primary text-on-solid hover:bg-primary-hover'
               }`}
             >
               <span>{copyStatus === 'copied' ? '✅ Copié dans le presse-papiers !' : '📋 Copier ma progression'}</span>
             </button>
 
             {copyStatus === 'copied' && (
-              <p className="rounded-md bg-green-50 p-2 text-center text-xs font-semibold text-green-800 border border-green-200">
+              <p className="rounded-md bg-success-soft p-2 text-center text-xs font-semibold text-success-ink border border-success-line-soft">
                 Parfait ! Le texte est copié. Ouvre un message pour ton professeur et fais <em>Coller</em> (Ctrl+V ou Cmd+V).
               </p>
             )}
 
             {copyStatus === 'error' && (
-              <p className="rounded-md bg-amber-50 p-2 text-center text-xs font-semibold text-amber-800 border border-amber-200">
+              <p className="rounded-md bg-warning-soft p-2 text-center text-xs font-semibold text-warning-ink border border-warning-line-soft">
                 La copie automatique a échoué. Utilisez le bouton « Voir le texte » ci-dessous pour le copier manuellement.
               </p>
             )}
@@ -158,7 +158,7 @@ export function ProgressSyncCard({
             <button
               type="button"
               onClick={() => setShowRaw((v) => !v)}
-              className="text-xs font-semibold text-blue-800 underline hover:text-blue-950"
+              className="text-xs font-semibold text-link underline hover:text-link-hover"
             >
               {showRaw ? 'Masquer le texte' : 'Afficher / sélectionner le texte manuellement'}
             </button>
@@ -174,16 +174,16 @@ export function ProgressSyncCard({
                   rows={4}
                   value={exportProgress()}
                   onClick={(e) => (e.target as HTMLTextAreaElement).select()}
-                  className="w-full rounded border border-slate-300 bg-white p-2 font-mono text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full rounded border border-line-strong bg-surface p-2 font-mono text-xs text-ink-soft focus:outline-none focus:ring-2 focus:ring-focus"
                 />
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-ink-muted">
                   Cliquez dans la boîte pour tout sélectionner, puis faites Copier (Ctrl+C / Cmd+C).
                 </p>
               </div>
             )}
           </div>
 
-          <div className="pt-2 border-t border-slate-200 flex flex-wrap gap-2 text-xs">
+          <div className="pt-2 border-t border-line flex flex-wrap gap-2 text-xs">
             <button
               type="button"
               onClick={() =>
@@ -192,7 +192,7 @@ export function ProgressSyncCard({
                   exportProgress(),
                 )
               }
-              className="font-semibold text-slate-700 underline hover:text-slate-900"
+              className="font-semibold text-ink-soft underline hover:text-ink"
             >
               💾 Télécharger en fichier .json (sauvegarde)
             </button>
@@ -200,21 +200,21 @@ export function ProgressSyncCard({
         </div>
 
         {/* Colonne 2 : Pour le Professeur (Coller et charger) */}
-        <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-4">
+        <div className="rounded-xl border border-line bg-surface-muted/60 p-4 space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl" aria-hidden="true">
               📥
             </span>
             <div>
-              <h3 className="font-bold text-slate-900">2. Pour le professeur : Charger la progression</h3>
-              <p className="text-xs text-slate-600">
+              <h3 className="font-bold text-ink">2. Pour le professeur : Charger la progression</h3>
+              <p className="text-xs text-ink-muted">
                 Collez ici le texte que l’élève vous a envoyé pour voir son travail sur votre ordinateur.
               </p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="paste-import-text" className="block text-xs font-semibold text-slate-700">
+            <label htmlFor="paste-import-text" className="block text-xs font-semibold text-ink-soft">
               Coller le texte de progression ici :
             </label>
             <textarea
@@ -223,7 +223,7 @@ export function ProgressSyncCard({
               placeholder='Collez ici le texte reçu de l’élève (ex. {"version":1,...})'
               value={pasteText}
               onChange={(e) => setPasteText(e.target.value)}
-              className="w-full rounded border border-slate-300 bg-white p-2.5 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full rounded border border-line-strong bg-surface p-2.5 font-mono text-xs text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-focus"
             />
 
             <div className="flex flex-wrap items-center gap-2 pt-1">
@@ -263,8 +263,8 @@ export function ProgressSyncCard({
                 role="status"
                 className={`rounded-md p-2.5 text-xs font-semibold border ${
                   importStatus.ok
-                    ? 'bg-green-50 text-green-900 border-green-300'
-                    : 'bg-red-50 text-red-900 border-red-300'
+                    ? 'bg-success-soft text-success-ink border-success-line-soft'
+                    : 'bg-danger-soft text-danger-ink border-danger-line-soft'
                 }`}
               >
                 {importStatus.ok ? '✅ ' : '❌ '}
@@ -273,11 +273,11 @@ export function ProgressSyncCard({
             )}
           </div>
 
-          <div className="pt-2 border-t border-slate-200 text-right">
+          <div className="pt-2 border-t border-line text-right">
             <button
               type="button"
               onClick={handleReset}
-              className="text-xs font-semibold text-red-700 underline hover:text-red-900"
+              className="text-xs font-semibold text-danger-ink underline hover:text-danger-ink"
             >
               Effacer la progression sur cet appareil
             </button>

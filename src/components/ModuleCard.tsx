@@ -15,7 +15,7 @@ export function ModuleCard({ module: mod }: { module: Module }) {
   const count = isExams ? `${mockExams.length} examens` : `${mod.lessons.length} leçons`
   return (
     <li className="card relative flex flex-col overflow-hidden p-0">
-      <div className={`${mod.accent} px-5 py-3 text-white`}>
+      <div className={`${mod.accent} px-5 py-3 text-on-solid`}>
         <p className="text-sm font-semibold uppercase tracking-wide">Module {mod.number}</p>
         <h3 className="text-lg font-bold leading-snug">
           <Link to={`/module/${mod.id}`} className="after:absolute after:inset-0 hover:underline">
@@ -24,8 +24,8 @@ export function ModuleCard({ module: mod }: { module: Module }) {
         </h3>
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <p className="text-slate-700">{mod.subtitle}</p>
-        <p className="text-sm text-slate-600">
+        <p className="text-ink-soft">{mod.subtitle}</p>
+        <p className="text-sm text-ink-muted">
           Semaines {mod.weeks[0]} à {mod.weeks[1]} · {count}
         </p>
         <div className="mt-auto">

@@ -14,13 +14,13 @@ export function ScoreDisplay({ result, best }: { result: QuizResult; best?: numb
   return (
     <div
       role="status"
-      className={`rounded-xl border-2 p-5 ${good ? 'border-green-700 bg-green-50' : 'border-amber-600 bg-amber-50'}`}
+      className={`rounded-xl border-2 p-5 ${good ? 'border-success-line bg-success-soft' : 'border-warning-line bg-warning-soft'}`}
     >
-      <p className="text-sm font-semibold uppercase tracking-wide text-slate-700">Résultat</p>
+      <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">Résultat</p>
       <p className="mt-1 text-3xl font-bold">
-        {result.percent} % <span className="text-xl font-semibold text-slate-700">— {feedback.label}</span>
+        {result.percent} % <span className="text-xl font-semibold text-ink-soft">— {feedback.label}</span>
       </p>
-      <p className="mt-1 text-slate-800">
+      <p className="mt-1 text-ink">
         {result.points} / {result.max} points.
         {best !== undefined && best > result.percent && ` Ton meilleur score : ${best} %.`}
       </p>
@@ -39,7 +39,7 @@ export function DelfScoreDisplay({ scores }: { scores: Partial<Record<DelfSkill,
       <table className="mt-4 w-full text-left">
         <caption className="sr-only">Notes par épreuve et minimums exigés par Marianopolis</caption>
         <thead>
-          <tr className="border-b border-slate-300 text-sm text-slate-600">
+          <tr className="border-b border-line-strong text-sm text-ink-muted">
             <th scope="col" className="py-2">Épreuve</th>
             <th scope="col" className="py-2">Note</th>
             <th scope="col" className="py-2">Minimum Marianopolis</th>
@@ -50,11 +50,11 @@ export function DelfScoreDisplay({ scores }: { scores: Partial<Record<DelfSkill,
             const score = scores[s]
             const ok = score !== undefined && score >= MARIANOPOLIS_MINIMUMS[s]
             return (
-              <tr key={s} className="border-b border-slate-200">
+              <tr key={s} className="border-b border-line">
                 <th scope="row" className="py-2 font-medium">
                   {SKILL_LABELS[s]}
                 </th>
-                <td className={`py-2 font-semibold ${score === undefined ? 'text-slate-500' : ok ? 'text-green-800' : 'text-red-800'}`}>
+                <td className={`py-2 font-semibold ${score === undefined ? 'text-ink-muted' : ok ? 'text-success-ink' : 'text-danger-ink'}`}>
                   {score === undefined ? 'À noter' : `${score} / 25`}
                 </td>
                 <td className="py-2">{MARIANOPOLIS_MINIMUMS[s]} / 25</td>
@@ -73,7 +73,7 @@ export function DelfScoreDisplay({ scores }: { scores: Partial<Record<DelfSkill,
       <div
         role="status"
         className={`mt-4 rounded-lg p-4 ${
-          !evaluation.complete ? 'bg-slate-100' : evaluation.passedMarianopolis ? 'bg-green-50 text-green-900' : 'bg-amber-50 text-amber-900'
+          !evaluation.complete ? 'bg-surface-sunken' : evaluation.passedMarianopolis ? 'bg-success-soft text-success-ink' : 'bg-warning-soft text-warning-ink'
         }`}
       >
         {!evaluation.complete ? (

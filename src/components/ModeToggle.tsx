@@ -12,14 +12,14 @@ export function ModeToggle() {
   }, [mode])
 
   return (
-    <fieldset className="flex flex-wrap items-center gap-1 rounded-xl bg-blue-950/40 p-1">
+    <fieldset className="flex flex-wrap items-center gap-1 rounded-xl bg-brand-inset/40 p-1">
       <legend className="sr-only">Mode d’affichage</legend>
       {MODES.map((m) => (
         <label
           key={m.id}
           title={m.description}
-          className={`flex min-h-11 cursor-pointer items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-semibold has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-white ${
-            mode === m.id ? 'bg-white text-blue-900' : 'text-white hover:bg-blue-800'
+          className={`flex min-h-11 cursor-pointer items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-semibold has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-on-solid ${
+            mode === m.id ? 'bg-on-solid text-brand' : 'text-on-solid hover:bg-brand-hover'
           }`}
         >
           <input

@@ -117,7 +117,7 @@ export function QuizEngine({
                       />
                     )}
                     {submitted && q.explanation && (
-                      <p className="mt-3 rounded-md bg-slate-100 p-3 text-slate-800">
+                      <p className="mt-3 rounded-md bg-surface-sunken p-3 text-ink">
                         <strong>Explication : </strong>
                         {q.explanation}
                       </p>
@@ -146,7 +146,7 @@ export function QuizEngine({
               Vérifier mes réponses
             </button>
             {unanswered > 0 && (
-              <span className="text-slate-700">
+              <span className="text-ink-soft">
                 {unanswered} question{unanswered > 1 ? 's' : ''} sans réponse
               </span>
             )}

@@ -10,7 +10,7 @@ export const m3: Module = {
   immersion:
     'Le Centre universitaire de santé McGill (CUSM, ou MUHC en anglais) accueille des bénévoles dès 16 ans, et le bilinguisme est demandé. Ce module prépare une vraie candidature : à la fin, tu peux l’envoyer.',
   sources: [{ label: 'CUSM / MUHC — Bénévolat', url: 'https://muhc.ca/volunteering' }],
-  accent: 'bg-teal-700',
+  accent: 'bg-module-3',
   lessons: [
     // -----------------------------------------------------------------------
     {

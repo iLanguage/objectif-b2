@@ -81,6 +81,18 @@ module renvoie vers les sources authentiques (Radio-Canada, SAAQ, CUSM, McGill).
 reprennent celles de France Éducation international : vérifier la version la plus récente avant un
 examen officiel.
 
+## Thème clair et sombre
+
+Le site suit automatiquement le réglage clair ou sombre du système (`prefers-color-scheme`), sans
+recharger la page. Toutes les couleurs sont des jetons sémantiques définis dans `src/theme.css` :
+le bloc `@theme` contient les valeurs claires et crée les utilitaires Tailwind (`bg-surface`,
+`text-ink`, `border-line`…), et le bloc `prefers-color-scheme: dark` redéfinit les mêmes jetons.
+
+Dans les composants, utiliser ces jetons plutôt que la palette Tailwind (`bg-white`,
+`text-slate-700`…) ou la variante `dark:`. Pour une nouvelle couleur, ajouter le jeton dans les deux
+blocs. `src/theme.test.ts` vérifie ces règles et les contrastes WCAG AA des deux thèmes. Les
+panneaux routiers gardent volontairement leurs vraies couleurs.
+
 ## Progression et vie privée
 
 La progression (quiz, brouillons, notes) est enregistrée uniquement dans le `localStorage` du

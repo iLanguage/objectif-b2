@@ -23,8 +23,8 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
   if (compact) {
     const done = lessons.filter(({ lesson }) => lessonStatus(lesson, state.lessons[lesson.id]) === 'terminee').length
     return (
-      <section aria-labelledby="suivi" className="rounded-xl border-2 border-emerald-300 bg-emerald-50 p-5">
-        <h2 id="suivi" className="text-xl font-bold text-emerald-950">
+      <section aria-labelledby="suivi" className="rounded-xl border-2 border-teacher-line bg-teacher-soft p-5">
+        <h2 id="suivi" className="text-xl font-bold text-teacher-ink">
           👨‍🏫 Suivi de l’élève
         </h2>
         <p className="mt-2">
@@ -35,7 +35,7 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
           <ul className="mt-1 list-disc pl-6">
             {weak.map(({ lesson }) => (
               <li key={lesson.id}>
-                <Link to={`/lecon/${lesson.id}`} className="text-blue-800 underline">
+                <Link to={`/lecon/${lesson.id}`} className="text-link underline">
                   {lesson.id} {lesson.title}
                 </Link>{' '}
                 ({bestAttempt(state.lessons[lesson.id])?.percent} %)
@@ -54,7 +54,7 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-bold">Suivi de la progression</h1>
-        <p className="mt-2 max-w-3xl text-slate-700">
+        <p className="mt-2 max-w-3xl text-ink-soft">
           La progression est enregistrée dans le navigateur de l’élève. Pour la consulter sur un autre appareil, l’élève exporte un
           fichier et le professeur l’importe ici.
         </p>
@@ -69,7 +69,7 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
         <table className="mt-3 w-full min-w-[40rem] text-left">
           <caption className="sr-only">Statut, meilleur score et notes de chaque leçon</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Leçon</th>
               <th scope="col" className="py-2 pr-3">Statut</th>
               <th scope="col" className="py-2 pr-3">Meilleur score</th>
@@ -86,14 +86,14 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
                 .filter((s) => p?.grades?.[s])
                 .map((s) => `${s} ${grilleTotal(GRILLES[s], p?.grades?.[s])}/25`)
               return (
-                <tr key={lesson.id} className="border-b border-slate-100">
+                <tr key={lesson.id} className="border-b border-line-subtle">
                   <th scope="row" className="py-2 pr-3 font-normal">
-                    <Link to={`/lecon/${lesson.id}`} className="text-blue-800 underline">
+                    <Link to={`/lecon/${lesson.id}`} className="text-link underline">
                       {lesson.id} {lesson.title}
                     </Link>
                   </th>
                   <td className={`py-2 pr-3 font-semibold ${status.className}`}>{status.label}</td>
-                  <td className={`py-2 pr-3 ${best && best.percent < PASSING_PERCENT ? 'font-semibold text-red-800' : ''}`}>
+                  <td className={`py-2 pr-3 ${best && best.percent < PASSING_PERCENT ? 'font-semibold text-danger-ink' : ''}`}>
                     {best ? `${best.percent} %` : '—'}
                   </td>
                   <td className="py-2 pr-3">{p?.attempts.length ?? 0}</td>
@@ -112,7 +112,7 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
         <table className="mt-3 w-full min-w-[36rem] text-left">
           <caption className="sr-only">Notes des examens blancs sur 25 par épreuve</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Examen</th>
               <th scope="col" className="py-2 pr-3">CO</th>
               <th scope="col" className="py-2 pr-3">CE</th>
@@ -126,9 +126,9 @@ export function ProgressOverview({ compact = false }: { compact?: boolean }) {
               const scores = examScores(exam, state.exams[exam.id])
               const evaluation = evaluateDelf(scores)
               return (
-                <tr key={exam.id} className="border-b border-slate-100">
+                <tr key={exam.id} className="border-b border-line-subtle">
                   <th scope="row" className="py-2 pr-3 font-normal">
-                    <Link to={`/examen/${exam.id}`} className="text-blue-800 underline">
+                    <Link to={`/examen/${exam.id}`} className="text-link underline">
                       {exam.title}
                     </Link>
                   </th>

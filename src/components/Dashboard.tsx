@@ -31,12 +31,12 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
 
   return (
     <div className="space-y-10">
-      <section aria-labelledby="titre" className="rounded-2xl bg-gradient-to-br from-blue-900 to-blue-700 p-6 text-white shadow-md sm:p-8">
-        <p className="font-semibold text-blue-100">{formatDate(today)}</p>
+      <section aria-labelledby="titre" className="rounded-2xl bg-gradient-to-br from-brand to-brand-end p-6 text-on-solid shadow-md sm:p-8">
+        <p className="font-semibold text-on-solid-soft">{formatDate(today)}</p>
         <h1 id="titre" className="mt-1 text-3xl font-bold sm:text-4xl">
           Objectif B2
         </h1>
-        <p className="mt-2 max-w-2xl text-lg text-blue-50">
+        <p className="mt-2 max-w-2xl text-lg text-on-solid-soft">
           Le français est la clé qui ouvre la porte : médecine, conduite, travail, bénévolat. Chaque leçon te rapproche de Marianopolis
           et du programme Med-P.
         </p>
@@ -50,11 +50,11 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
         {upcoming.length > 0 && (
           <ul className="mt-4 grid gap-3 sm:grid-cols-3" aria-label="Prochaines échéances">
             {upcoming.map((m) => (
-              <li key={m.label} className="rounded-xl bg-white/15 p-3">
+              <li key={m.label} className="rounded-xl bg-on-solid/15 p-3">
                 <p className="text-3xl font-bold">
                   {m.days} <span className="text-base font-semibold">jour{m.days > 1 ? 's' : ''}</span>
                 </p>
-                <p className="text-sm text-blue-50">{m.label}</p>
+                <p className="text-sm text-on-solid-soft">{m.label}</p>
               </li>
             ))}
           </ul>
@@ -66,17 +66,17 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
           <h2 id="semaine" className="sr-only">
             Cette semaine
           </h2>
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-600">Cette semaine</p>
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-ink-muted">Cette semaine</p>
           <WeekPlanView plan={weekPlan(currentWeek)} />
-          <div className="mt-4 flex flex-wrap gap-4 pt-2 border-t border-slate-100">
+          <div className="mt-4 flex flex-wrap gap-4 pt-2 border-t border-line-subtle">
             <Link
               to={`/planning?semaine=${currentWeek}`}
-              className="inline-flex items-center gap-1.5 font-bold text-blue-900 hover:text-blue-700"
+              className="inline-flex items-center gap-1.5 font-bold text-link hover:text-link-hover"
             >
               <span>🎧 Planning détaillé de la semaine (médias & devoirs)</span>
               <span aria-hidden="true">→</span>
             </Link>
-            <Link to="/syllabus" className="font-semibold text-slate-600 hover:text-slate-900 underline text-sm">
+            <Link to="/syllabus" className="font-semibold text-ink-muted hover:text-ink underline text-sm">
               Voir tout le syllabus
             </Link>
           </div>
@@ -85,22 +85,22 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
           <h2 id="progression" className="text-lg font-bold">
             Ma progression
           </h2>
-          <ProgressBar value={overall} label="Parcours complet" color="bg-green-700" />
+          <ProgressBar value={overall} label="Parcours complet" color="bg-success" />
           {modules
             .filter((m) => m.lessons.length > 0)
             .map((m) => (
               <ProgressBar key={m.id} value={completionPercent(m.lessons, state)} label={`Module ${m.number}`} color={m.accent} />
             ))}
 
-          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-2 border-t border-line-subtle flex flex-col gap-2">
             <button
               type="button"
               onClick={() => setShowSync((v) => !v)}
-              className="text-xs font-bold text-blue-900 underline hover:text-blue-700 text-left"
+              className="text-xs font-bold text-link underline hover:text-link-hover text-left"
             >
               {showSync ? '▲ Masquer la synchronisation' : '📋 Envoyer ma progression au professeur →'}
             </button>
-            <Link to="/progression" className="text-xs text-slate-600 hover:text-slate-900 underline">
+            <Link to="/progression" className="text-xs text-ink-muted hover:text-ink underline">
               Voir le tableau de suivi complet
             </Link>
           </div>
@@ -131,12 +131,12 @@ export function Dashboard({ today = new Date() }: { today?: Date }) {
         <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {GUIDE_LINKS.map((g) => (
             <li key={g.to}>
-              <Link to={g.to} className="card flex h-full flex-col hover:border-blue-400 hover:bg-blue-50">
+              <Link to={g.to} className="card flex h-full flex-col hover:border-info-line hover:bg-info-soft">
                 <span className="text-lg font-bold">
                   <span aria-hidden="true">{g.icon} </span>
                   {g.label}
                 </span>
-                <span className="text-slate-700">{g.text}</span>
+                <span className="text-ink-soft">{g.text}</span>
               </Link>
             </li>
           ))}

@@ -54,14 +54,14 @@ export function VocabularyPage() {
         {entries.length > 0 && (
           <CopyButton text={vocabularyPrompt(entries.slice(0, 40))} label="Réviser ces mots avec Gemini" />
         )}
-        {entries.length > 40 && <span className="text-sm text-slate-600">(les 40 premiers mots)</span>}
+        {entries.length > 40 && <span className="text-sm text-ink-muted">(les 40 premiers mots)</span>}
       </div>
 
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[32rem] text-left">
           <caption className="sr-only">Vocabulaire filtré</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Français</th>
               <th scope="col" className="py-2 pr-3">Anglais / note</th>
               <th scope="col" className="py-2">Leçon</th>
@@ -69,16 +69,16 @@ export function VocabularyPage() {
           </thead>
           <tbody>
             {entries.map((e) => (
-              <tr key={`${e.lessonId}-${e.fr}`} className="border-b border-slate-100 align-top">
+              <tr key={`${e.lessonId}-${e.fr}`} className="border-b border-line-subtle align-top">
                 <th scope="row" className="py-2 pr-3 font-semibold" lang="fr">
                   {e.fr}
                 </th>
                 <td className="py-2 pr-3">
                   {e.en && <span lang="en">{e.en}</span>}
-                  {e.note && <span className="block text-sm text-slate-600">{e.note}</span>}
+                  {e.note && <span className="block text-sm text-ink-muted">{e.note}</span>}
                 </td>
                 <td className="py-2">
-                  <Link to={`/lecon/${e.lessonId}`} className="text-blue-800 underline">
+                  <Link to={`/lecon/${e.lessonId}`} className="text-link underline">
                     {e.lessonId}
                   </Link>
                 </td>

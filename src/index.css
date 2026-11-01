@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./theme.css";
 
 @theme {
   --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -6,16 +7,18 @@
 
 /* Taille minimale de 16 px et focus toujours visible (accessibilité). */
 html {
+  /* Barres de défilement et contrôles natifs suivent le thème du système. */
+  color-scheme: light dark;
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-page text-ink antialiased;
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-blue-600);
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -30,16 +33,16 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-blue-800 px-4 py-2 font-semibold text-white hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-slate-400;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 font-semibold text-on-solid hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-disabled;
   }
   .btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-400 bg-white px-4 py-2 font-semibold text-slate-800 hover:bg-slate-100 disabled:cursor-not-allowed disabled:text-slate-400;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-control bg-surface px-4 py-2 font-semibold text-ink hover:bg-surface-sunken disabled:cursor-not-allowed disabled:text-ink-faint;
   }
   .card {
-    @apply rounded-xl border border-slate-200 bg-white p-5 shadow-sm;
+    @apply rounded-xl border border-line bg-surface p-5 shadow-sm;
   }
   .field {
-    @apply rounded-md border border-slate-400 bg-white px-3 py-2 text-base text-slate-900;
+    @apply rounded-md border border-control bg-surface px-3 py-2 text-base text-ink;
   }
   .prose-lesson p + p {
     @apply mt-3;

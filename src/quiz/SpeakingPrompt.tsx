@@ -17,7 +17,7 @@ export function SpeakingPrompt({ task, checked, onCheckedChange, revealFollowUps
   return (
     <section className="space-y-4" aria-label={`Production orale : ${task.title}`}>
       <div className="card">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">
           Préparation {task.prepMinutes} min · Passage {task.speakMinutes} min
         </p>
         <h3 className="mt-1 text-xl font-bold">{task.title}</h3>
@@ -37,7 +37,7 @@ export function SpeakingPrompt({ task, checked, onCheckedChange, revealFollowUps
 
       <div className="card">
         <h4 className="text-lg font-semibold">Questions possibles pendant le débat</h4>
-        <p className="text-slate-700">
+        <p className="text-ink-soft">
           Ne les regarde pas avant de faire ton exposé ! Demande à ton professeur — ou à Gemini en mode vocal — de te les poser.
         </p>
         <button
@@ -65,7 +65,7 @@ export function SpeakingPrompt({ task, checked, onCheckedChange, revealFollowUps
               <label className="flex min-h-11 cursor-pointer items-start gap-3">
                 <input
                   type="checkbox"
-                  className="mt-1 h-5 w-5 shrink-0 accent-blue-800"
+                  className="mt-1 h-5 w-5 shrink-0 accent-primary"
                   checked={checked.includes(item)}
                   onChange={(e) =>
                     onCheckedChange(e.target.checked ? [...checked, item] : checked.filter((c) => c !== item))

@@ -13,7 +13,7 @@ export const m4: Module = {
     { label: 'SAAQ — Test de connaissances (pratique)', url: 'https://testdeconnaissances.saaq.gouv.qc.ca/' },
     { label: 'SAAQ — Obtenir un permis de conduire', url: 'https://saaq.gouv.qc.ca/permis-conduire' },
   ],
-  accent: 'bg-blue-700',
+  accent: 'bg-module-4',
   lessons: [
     // -----------------------------------------------------------------------
     {

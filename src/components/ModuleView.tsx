@@ -20,11 +20,11 @@ function ExamList() {
           return (
             <li key={exam.id} className="card">
               <h2 className="text-xl font-bold">
-                <Link to={`/examen/${exam.id}`} className="text-blue-800 underline">
+                <Link to={`/examen/${exam.id}`} className="text-link underline">
                   {exam.title} — {exam.theme}
                 </Link>
               </h2>
-              <p className="mt-1 text-slate-700">
+              <p className="mt-1 text-ink-soft">
                 Semaine {exam.week} · CO {exam.co.minutes} min · CE {exam.ce.minutes} min · PE {exam.pe.minutes} min · PO{' '}
                 {exam.po.prepMinutes} min de préparation + {exam.po.task.speakMinutes} min
               </p>
@@ -40,13 +40,13 @@ function ExamList() {
         })}
       </ul>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Link to="/guides/oral" className="card hover:bg-blue-50">
+        <Link to="/guides/oral" className="card hover:bg-info-soft">
           <span className="text-lg font-bold">🎤 Guide de l’oral</span>
-          <span className="block text-slate-700">Fiches : structurer un exposé B2 et réussir le débat.</span>
+          <span className="block text-ink-soft">Fiches : structurer un exposé B2 et réussir le débat.</span>
         </Link>
-        <Link to="/grilles" className="card hover:bg-blue-50">
+        <Link to="/grilles" className="card hover:bg-info-soft">
           <span className="text-lg font-bold">📋 Grilles d’évaluation</span>
-          <span className="block text-slate-700">Grilles DELF B2 pour le professeur (écrit et oral).</span>
+          <span className="block text-ink-soft">Grilles DELF B2 pour le professeur (écrit et oral).</span>
         </Link>
       </div>
     </>
@@ -67,7 +67,7 @@ export function ModuleView() {
         </Link>{' '}
         › <span aria-current="page">Module {mod.number}</span>
       </nav>
-      <header className={`rounded-2xl ${mod.accent} p-6 text-white`}>
+      <header className={`rounded-2xl ${mod.accent} p-6 text-on-solid`}>
         <p className="font-semibold uppercase tracking-wide">
           Module {mod.number} · Semaines {mod.weeks[0]} à {mod.weeks[1]}
         </p>
@@ -87,7 +87,7 @@ export function ModuleView() {
               {mod.sources.map((s) =>
                 s.url ? (
                   <li key={s.label}>
-                    <a href={s.url} target="_blank" rel="noreferrer" className="text-blue-800 underline">
+                    <a href={s.url} target="_blank" rel="noreferrer" className="text-link underline">
                       {s.label}
                       <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
                     </a>
@@ -126,7 +126,7 @@ export function ModuleView() {
                         {lesson.id} — {lesson.title}
                       </Link>
                     </h3>
-                    <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-slate-700">
+                    <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-ink-soft">
                       <SkillBadge skill={lesson.skill} />
                       <span>
                         Semaine {lesson.week}

@@ -12,7 +12,7 @@ export function GuideLayout({ title, intro, children }: { title: string; intro: 
       </nav>
       <header>
         <h1 className="text-3xl font-bold">{title}</h1>
-        <div className="mt-3 max-w-3xl text-lg text-slate-700">{intro}</div>
+        <div className="mt-3 max-w-3xl text-lg text-ink-soft">{intro}</div>
       </header>
       {children}
     </article>

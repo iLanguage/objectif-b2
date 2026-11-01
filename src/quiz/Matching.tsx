@@ -19,7 +19,7 @@ export function Matching({ question, number, value, onChange, showResult }: Matc
   return (
     <div role="group" aria-labelledby={labelId}>
       <p id={labelId} className="text-lg font-semibold">
-        <span className="mr-2 text-slate-500">{number}.</span>
+        <span className="mr-2 text-ink-muted">{number}.</span>
         {question.prompt}
       </p>
       <ul className="mt-3 space-y-3">
@@ -30,7 +30,7 @@ export function Matching({ question, number, value, onChange, showResult }: Matc
             <li
               key={pair.left}
               className={`flex flex-col gap-2 rounded-lg border-2 p-3 sm:flex-row sm:items-center sm:justify-between ${
-                showResult ? (correct ? 'border-green-700 bg-green-50' : 'border-red-700 bg-red-50') : 'border-slate-200 bg-white'
+                showResult ? (correct ? 'border-success-line bg-success-soft' : 'border-danger-line bg-danger-soft') : 'border-line bg-surface'
               }`}
             >
               <label htmlFor={selectId} className="font-medium">
@@ -52,7 +52,7 @@ export function Matching({ question, number, value, onChange, showResult }: Matc
                   ))}
                 </select>
                 {showResult && !correct && (
-                  <span className="mt-1 text-sm text-red-800">
+                  <span className="mt-1 text-sm text-danger-ink">
                     Bonne réponse : <strong>{pair.right}</strong>
                   </span>
                 )}

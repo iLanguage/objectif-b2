@@ -28,7 +28,7 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
         <table className="mt-3 w-full min-w-[36rem] text-left">
           <caption className="sr-only">Phases du parcours</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Phase</th>
               <th scope="col" className="py-2 pr-3">Semaines</th>
               <th scope="col" className="py-2 pr-3">Niveau</th>
@@ -37,7 +37,7 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
           </thead>
           <tbody>
             {PHASES.map((p) => (
-              <tr key={p.id} className="border-b border-slate-100 align-top">
+              <tr key={p.id} className="border-b border-line-subtle align-top">
                 <th scope="row" className="py-2 pr-3 font-semibold">
                   {p.id}. {p.title}
                 </th>
@@ -67,7 +67,7 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
         <table className="mt-3 w-full min-w-[40rem] text-left">
           <caption className="sr-only">Exemple de semaine type</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Jour</th>
               <th scope="col" className="py-2 pr-3">Durée</th>
               <th scope="col" className="py-2 pr-3">Activité</th>
@@ -77,9 +77,9 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
           </thead>
           <tbody>
             {TYPICAL_WEEK.map((d) => (
-              <tr key={d.day} className="border-b border-slate-100">
+              <tr key={d.day} className="border-b border-line-subtle">
                 <th scope="row" className="py-2 pr-3 font-semibold">
-                  {d.day} <span className="font-normal text-slate-600">({d.where.toLowerCase()})</span>
+                  {d.day} <span className="font-normal text-ink-muted">({d.where.toLowerCase()})</span>
                 </th>
                 <td className="py-2 pr-3">{formatMinutes(d.minutes)}</td>
                 <td className="py-2 pr-3">{d.activity}</td>
@@ -99,14 +99,14 @@ export function SyllabusPage({ today = new Date() }: { today?: Date }) {
           {allWeeks().map((plan) => (
             <li
               key={plan.week}
-              className={`card flex flex-col justify-between ${plan.week === current ? 'border-2 border-blue-700' : ''}`}
+              className={`card flex flex-col justify-between ${plan.week === current ? 'border-2 border-info-line' : ''}`}
               aria-current={plan.week === current ? 'date' : undefined}
             >
               <WeekPlanView plan={plan} />
-              <div className="mt-3 border-t border-slate-100 pt-2 text-right">
+              <div className="mt-3 border-t border-line-subtle pt-2 text-right">
                 <Link
                   to={`/planning?semaine=${plan.week}`}
-                  className="text-sm font-semibold text-blue-800 underline hover:text-blue-950"
+                  className="text-sm font-semibold text-link underline hover:text-link-hover"
                 >
                   Médias & devoirs de la semaine →
                 </Link>

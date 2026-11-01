@@ -13,7 +13,7 @@ export const m0: Module = {
     { label: 'Le Conjugueur', url: 'https://leconjugueur.lefigaro.fr/' },
     { label: 'Banque de dépannage linguistique (OQLF)', url: 'https://vitrinelinguistique.oqlf.gouv.qc.ca/' },
   ],
-  accent: 'bg-slate-700',
+  accent: 'bg-module-0',
   lessons: [
     // -----------------------------------------------------------------------
     {

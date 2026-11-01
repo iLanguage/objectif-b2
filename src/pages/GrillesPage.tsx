@@ -6,13 +6,13 @@ function GrilleTable({ grille }: { grille: Grille }) {
   return (
     <section aria-labelledby={`grille-${grille.skill}`} className="card overflow-x-auto">
       <h2 id={`grille-${grille.skill}`} className="text-2xl font-bold">
-        {grille.title} <span className="font-normal text-slate-600">(/{grilleMax(grille)})</span>
+        {grille.title} <span className="font-normal text-ink-muted">(/{grilleMax(grille)})</span>
       </h2>
       {grille.groups.map((g) => (
         <table key={g.title} className="mt-4 w-full min-w-[32rem] text-left">
-          <caption className="text-left font-semibold text-slate-800">{g.title}</caption>
+          <caption className="text-left font-semibold text-ink">{g.title}</caption>
           <thead>
-            <tr className="border-b border-slate-300 text-sm text-slate-600">
+            <tr className="border-b border-line-strong text-sm text-ink-muted">
               <th scope="col" className="py-2 pr-3">Critère</th>
               <th scope="col" className="py-2 pr-3">Ce qu’on évalue</th>
               <th scope="col" className="py-2">Points</th>
@@ -20,7 +20,7 @@ function GrilleTable({ grille }: { grille: Grille }) {
           </thead>
           <tbody>
             {g.criteria.map((c) => (
-              <tr key={c.id} className="border-b border-slate-100 align-top">
+              <tr key={c.id} className="border-b border-line-subtle align-top">
                 <th scope="row" className="py-2 pr-3 font-semibold">
                   {c.label}
                 </th>

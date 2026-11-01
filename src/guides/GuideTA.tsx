@@ -19,7 +19,7 @@ export function GuideTA() {
         <ol className="list-decimal space-y-2 pl-6">
           <li>
             Sur un ordinateur, ouvre{' '}
-            <a href="https://gemini.google.com" target="_blank" rel="noreferrer" className="text-blue-800 underline">
+            <a href="https://gemini.google.com" target="_blank" rel="noreferrer" className="text-link underline">
               gemini.google.com
               <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
             </a>{' '}
@@ -35,8 +35,8 @@ export function GuideTA() {
           <CopyButton text={generalSystemPrompt} label="Copier le prompt général" />
         </div>
         <details>
-          <summary className="cursor-pointer font-semibold text-blue-900">Voir le prompt général</summary>
-          <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-slate-50 p-4 font-sans text-sm">{generalSystemPrompt}</pre>
+          <summary className="cursor-pointer font-semibold text-link">Voir le prompt général</summary>
+          <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-surface-muted p-4 font-sans text-sm">{generalSystemPrompt}</pre>
         </details>
       </GuideSection>
 
@@ -79,14 +79,14 @@ export function GuideTA() {
         <ul className="grid gap-1 sm:grid-cols-2">
           {allLessons.map((l) => (
             <li key={l.id}>
-              <Link to={`/lecon/${l.id}`} className="text-blue-800 underline">
+              <Link to={`/lecon/${l.id}`} className="text-link underline">
                 {l.id} — {l.title}
               </Link>
             </li>
           ))}
           {mockExams.map((e) => (
             <li key={e.id}>
-              <Link to={`/examen/${e.id}`} className="text-blue-800 underline">
+              <Link to={`/examen/${e.id}`} className="text-link underline">
                 {e.title} — {e.theme}
               </Link>
             </li>

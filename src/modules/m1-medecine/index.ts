@@ -15,7 +15,7 @@ export const m1: Module = {
     { label: 'Radio-Canada Info — Santé', url: 'https://ici.radio-canada.ca/sante' },
     { label: 'McGill — Admissions en médecine (Med-P)', url: 'https://www.mcgill.ca/medadmissions/' },
   ],
-  accent: 'bg-rose-700',
+  accent: 'bg-module-1',
   lessons: [
     // -----------------------------------------------------------------------
     {

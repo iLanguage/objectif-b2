@@ -15,7 +15,7 @@ export const m2: Module = {
       url: 'https://creperiemaisonbagatelle.shop',
     },
   ],
-  accent: 'bg-amber-700',
+  accent: 'bg-module-2',
   lessons: [
     // -----------------------------------------------------------------------
     {

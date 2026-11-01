@@ -13,7 +13,7 @@ export const m5: Module = {
     { label: 'France Éducation international — DELF B2 (exemples d’épreuves)', url: 'https://www.france-education-international.fr/diplome/delf-tout-public/niveau-b2' },
     { label: 'Alliance française de Montréal — sessions d’examen', url: 'https://www.afmontreal.ca/' },
   ],
-  accent: 'bg-violet-700',
+  accent: 'bg-module-5',
   lessons: [],
 }
 

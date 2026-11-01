@@ -43,7 +43,7 @@ export function LessonView() {
   return (
     <article className="space-y-8">
       <nav aria-label="Fil d’Ariane" className="text-sm">
-        <ol className="flex flex-wrap gap-1 text-slate-700">
+        <ol className="flex flex-wrap gap-1 text-ink-soft">
           <li>
             <Link to="/" className="underline">
               Tableau de bord
@@ -63,14 +63,14 @@ export function LessonView() {
       </nav>
 
       <header>
-        <p className="font-semibold text-slate-600">
+        <p className="font-semibold text-ink-muted">
           Leçon {lesson.id} · Semaine {lesson.week}
           {lesson.untilWeek ? ` à ${lesson.untilWeek}` : ''}
         </p>
         <h1 className="mt-1 text-3xl font-bold leading-tight">{lesson.title}</h1>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <SkillBadge skill={lesson.skill} />
-          <span className="text-slate-700">Évaluation : {lesson.quizLabel}</span>
+          <span className="text-ink-soft">Évaluation : {lesson.quizLabel}</span>
           <span className={`font-semibold ${status.className}`}>
             <span aria-hidden="true">{status.icon} </span>
             {status.label}
@@ -163,12 +163,12 @@ export function LessonView() {
             ) : null,
           )}
           {progress?.teacherComment && (
-            <aside className="card border-emerald-300" aria-label="Commentaire du professeur">
+            <aside className="card border-teacher-line" aria-label="Commentaire du professeur">
               <h2 className="font-bold">💬 Commentaire du professeur</h2>
               <p className="mt-1 whitespace-pre-wrap">{progress.teacherComment}</p>
             </aside>
           )}
-          <aside className="rounded-xl border border-indigo-200 bg-indigo-50 p-4" aria-label="Pratiquer avec Gemini">
+          <aside className="rounded-xl border border-ta-line-soft bg-ta-soft p-4" aria-label="Pratiquer avec Gemini">
             <p>
               <span aria-hidden="true">🤖 </span>
               Envie de pratiquer davantage ? Le mode TA te donne un prompt prêt à coller dans Gemini
@@ -186,7 +186,7 @@ export function LessonView() {
           <label className="flex min-h-11 cursor-pointer items-center gap-3 font-semibold">
             <input
               type="checkbox"
-              className="h-5 w-5 accent-blue-800"
+              className="h-5 w-5 accent-primary"
               checked={progress?.done ?? false}
               onChange={(e) => setLessonDone(lesson.id, e.target.checked)}
             />
@@ -197,7 +197,7 @@ export function LessonView() {
 
       {mode === 'professeur' && <TeacherPanel key={lesson.id} lesson={lesson} progress={progress} />}
 
-      <nav aria-label="Leçons voisines" className="flex flex-wrap justify-between gap-3 border-t border-slate-200 pt-6">
+      <nav aria-label="Leçons voisines" className="flex flex-wrap justify-between gap-3 border-t border-line pt-6">
         {previous ? (
           <Link to={`/lecon/${previous.id}`} className="btn-secondary">
             ← {previous.id} {previous.title}

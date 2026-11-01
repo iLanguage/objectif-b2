@@ -53,7 +53,7 @@ function ModeBanner() {
   if (mode === 'eleve') return null
   const info = MODES.find((m) => m.id === mode)
   return (
-    <div className={`${mode === 'professeur' ? 'bg-emerald-100 text-emerald-950' : 'bg-indigo-100 text-indigo-950'} px-4 py-2 text-center`}>
+    <div className={`${mode === 'professeur' ? 'bg-teacher-tint text-teacher-ink' : 'bg-ta-tint text-ta-ink'} px-4 py-2 text-center`}>
       <p>
         <span aria-hidden="true">{info?.icon} </span>
         Mode {info?.label} — {info?.description}.
@@ -68,19 +68,19 @@ function Layout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col">
       <button
         type="button"
-        className="sr-only z-50 rounded bg-white px-4 py-2 font-semibold text-blue-900 focus:not-sr-only focus:fixed focus:left-2 focus:top-2"
+        className="sr-only z-50 rounded bg-surface px-4 py-2 font-semibold text-link focus:not-sr-only focus:fixed focus:left-2 focus:top-2"
         onClick={() => main.current?.focus()}
       >
         Aller au contenu principal
       </button>
-      <header className="bg-blue-900 text-white">
+      <header className="bg-brand text-on-solid">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between">
           <Link to="/" className="text-2xl font-bold tracking-tight">
-            Objectif B2 <span className="text-base font-normal text-blue-200">· Français pour la médecine</span>
+            Objectif B2 <span className="text-base font-normal text-on-solid-muted">· Français pour la médecine</span>
           </Link>
           <ModeToggle />
         </div>
-        <nav aria-label="Navigation principale" className="border-t border-blue-800">
+        <nav aria-label="Navigation principale" className="border-t border-brand-line">
           <ul className="mx-auto flex max-w-6xl flex-wrap gap-x-1 px-2">
             {NAV.map((n) => (
               <li key={n.to}>
@@ -88,7 +88,7 @@ function Layout({ children }: { children: ReactNode }) {
                   to={n.to}
                   end={n.end}
                   className={({ isActive }) =>
-                    `inline-flex min-h-11 items-center px-3 font-semibold ${isActive ? 'border-b-4 border-white' : 'text-blue-100 hover:text-white'}`
+                    `inline-flex min-h-11 items-center px-3 font-semibold ${isActive ? 'border-b-4 border-on-solid' : 'text-on-solid-soft hover:text-on-solid'}`
                   }
                 >
                   {n.label}
@@ -102,8 +102,8 @@ function Layout({ children }: { children: ReactNode }) {
       <main ref={main} tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 focus:outline-none">
         {children}
       </main>
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-600">
+      <footer className="border-t border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-ink-muted">
           <p>
             Objectif B2 — préparation au DELF B2 par l’immersion. Les documents d’entraînement sont rédigés pour ce cours ; les liens
             mènent vers les sources authentiques (Radio-Canada, SAAQ, CUSM, McGill).

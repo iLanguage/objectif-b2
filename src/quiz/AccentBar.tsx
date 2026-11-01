@@ -15,7 +15,7 @@ export function AccentBar({ onInsert, disabled }: { onInsert: (char: string) => 
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => onInsert(c)}
           aria-label={`Insérer ${c}`}
-          className="min-h-9 min-w-9 rounded border border-slate-300 bg-white px-2 font-mono text-lg hover:bg-slate-100 disabled:opacity-50"
+          className="min-h-9 min-w-9 rounded border border-line-strong bg-surface px-2 font-mono text-lg hover:bg-surface-sunken disabled:opacity-50"
         >
           {c}
         </button>

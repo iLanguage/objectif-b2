@@ -25,7 +25,7 @@ export function WritingPrompt({ task, text, onTextChange, checked, onCheckedChan
   return (
     <section className="space-y-4" aria-label={`Production écrite : ${task.title}`}>
       <div className="card">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">
           {task.genre} · {task.minWords} mots minimum
         </p>
         <h3 className="mt-1 text-xl font-bold">{task.title}</h3>
@@ -42,7 +42,7 @@ export function WritingPrompt({ task, text, onTextChange, checked, onCheckedChan
         <label htmlFor={textareaId} className="text-lg font-semibold">
           Ton texte
         </label>
-        <p className="text-sm text-slate-600">Ton brouillon est enregistré automatiquement sur cet appareil.</p>
+        <p className="text-sm text-ink-muted">Ton brouillon est enregistré automatiquement sur cet appareil.</p>
         <div className="mt-2">
           <AccentBar onInsert={(c) => onTextChange(insertAtCursor(area.current, text, c))} />
         </div>
@@ -58,7 +58,7 @@ export function WritingPrompt({ task, text, onTextChange, checked, onCheckedChan
           className="field mt-2 w-full leading-relaxed"
         />
         <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-          <p id={countId} className={`font-semibold ${enough ? 'text-green-800' : 'text-slate-700'}`}>
+          <p id={countId} className={`font-semibold ${enough ? 'text-success-ink' : 'text-ink-soft'}`}>
             {words} mot{words > 1 ? 's' : ''} / {task.minWords} minimum {enough ? '✓' : ''}
           </p>
           <CopyButton text={text} label="Copier mon texte (pour Gemini)" />
@@ -73,7 +73,7 @@ export function WritingPrompt({ task, text, onTextChange, checked, onCheckedChan
               <label className="flex min-h-11 cursor-pointer items-start gap-3">
                 <input
                   type="checkbox"
-                  className="mt-1 h-5 w-5 shrink-0 accent-blue-800"
+                  className="mt-1 h-5 w-5 shrink-0 accent-primary"
                   checked={checked.includes(item)}
                   onChange={(e) =>
                     onCheckedChange(e.target.checked ? [...checked, item] : checked.filter((c) => c !== item))

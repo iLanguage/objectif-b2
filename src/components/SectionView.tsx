@@ -22,8 +22,8 @@ export function SectionView({ section }: { section: LessonSection }) {
       return (
         <section className="card">
           <h3 className="text-xl font-bold">📰 {section.title}</h3>
-          {section.source && <p className="mt-1 text-sm italic text-slate-600">{section.source}</p>}
-          <article className="prose-lesson mt-4 border-l-4 border-slate-300 pl-4 text-lg leading-relaxed" lang="fr">
+          {section.source && <p className="mt-1 text-sm italic text-ink-muted">{section.source}</p>}
+          <article className="prose-lesson mt-4 border-l-4 border-line-strong pl-4 text-lg leading-relaxed" lang="fr">
             {section.paragraphs.map((p, i) => (
               <p key={i}>
                 <RichText text={p} />
@@ -38,15 +38,15 @@ export function SectionView({ section }: { section: LessonSection }) {
       return (
         <section className="card">
           <h3 className="mb-3 text-xl font-bold">{section.title ?? 'Vocabulaire'}</h3>
-          <dl className="divide-y divide-slate-100">
+          <dl className="divide-y divide-line-subtle">
             {section.items.map((item) => (
               <div key={item.fr} className="grid gap-1 py-2 sm:grid-cols-[1fr_1fr]">
                 <dt className="font-semibold" lang="fr">
                   {item.fr}
                 </dt>
-                <dd className="text-slate-700">
+                <dd className="text-ink-soft">
                   {item.en && <span lang="en">{item.en}</span>}
-                  {item.note && <span className="block text-sm text-slate-600">{item.note}</span>}
+                  {item.note && <span className="block text-sm text-ink-muted">{item.note}</span>}
                 </dd>
               </div>
             ))}
@@ -65,7 +65,7 @@ export function SectionView({ section }: { section: LessonSection }) {
             ))}
           </ul>
           <h4 className="mt-4 font-semibold">Exemples</h4>
-          <ul className="mt-2 space-y-1 rounded-lg bg-blue-50 p-4">
+          <ul className="mt-2 space-y-1 rounded-lg bg-info-soft p-4">
             {section.examples.map((ex, i) => (
               <li key={i}>
                 <RichText text={ex} />
@@ -76,7 +76,7 @@ export function SectionView({ section }: { section: LessonSection }) {
       )
     case 'tip':
       return (
-        <aside className="rounded-xl border-l-4 border-amber-500 bg-amber-50 p-4" aria-label="Astuce">
+        <aside className="rounded-xl border-l-4 border-warning-line bg-warning-soft p-4" aria-label="Astuce">
           <p>
             <span aria-hidden="true">💡 </span>
             <RichText text={section.text} />
@@ -90,11 +90,11 @@ export function SectionView({ section }: { section: LessonSection }) {
           <ul className="space-y-2">
             {section.links.map((l) => (
               <li key={l.url}>
-                <a href={l.url} target="_blank" rel="noreferrer" className="font-semibold text-blue-800 underline">
+                <a href={l.url} target="_blank" rel="noreferrer" className="font-semibold text-link underline">
                   {l.label}
                   <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
                 </a>
-                {l.description && <span className="block text-slate-700">{l.description}</span>}
+                {l.description && <span className="block text-ink-soft">{l.description}</span>}
               </li>
             ))}
           </ul>

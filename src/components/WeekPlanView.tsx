@@ -13,7 +13,7 @@ function LessonLink({ lesson }: { lesson: Lesson }) {
       <span className={status.className} aria-label={status.label} role="img">
         {status.icon}
       </span>
-      <Link to={`/lecon/${lesson.id}`} className="font-medium text-blue-800 underline">
+      <Link to={`/lecon/${lesson.id}`} className="font-medium text-link underline">
         {lesson.id} — {lesson.title}
       </Link>
       <SkillBadge skill={lesson.skill} />
@@ -27,15 +27,15 @@ export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headi
   return (
     <div>
       <Heading className="text-lg font-bold">
-        Semaine {plan.week} <span className="font-normal text-slate-600">· du {formatDate(plan.start)}</span>
+        Semaine {plan.week} <span className="font-normal text-ink-muted">· du {formatDate(plan.start)}</span>
       </Heading>
       {plan.phase && (
-        <p className="text-sm text-slate-700">
+        <p className="text-sm text-ink-soft">
           Phase {plan.phase.id} ({plan.phase.level}) : {plan.phase.title}
         </p>
       )}
       {plan.milestones.map((m) => (
-        <p key={m.label} className="mt-2 rounded-md bg-red-50 px-3 py-2 font-semibold text-red-900">
+        <p key={m.label} className="mt-2 rounded-md bg-danger-soft px-3 py-2 font-semibold text-danger-ink">
           📌 {m.label} — {formatDate(new Date(`${m.date}T12:00:00`))}
         </p>
       ))}
@@ -49,14 +49,14 @@ export function WeekPlanView({ plan, headingLevel = 3 }: { plan: WeekPlan; headi
         {plan.exams.map((e) => (
           <li key={e.id}>
             <span aria-hidden="true">⏱️ </span>
-            <Link to={`/examen/${e.id}`} className="font-medium text-blue-800 underline">
+            <Link to={`/examen/${e.id}`} className="font-medium text-link underline">
               {e.title} — {e.theme}
             </Link>
           </li>
         ))}
       </ul>
       {empty && (
-        <p className="mt-2 text-slate-700">
+        <p className="mt-2 text-ink-soft">
           Pas de nouvelle leçon : semaine de révision. Refais les quiz sous 70 % et pratique avec Gemini.
         </p>
       )}
