@@ -21,6 +21,7 @@ const METHOD: LessonSection = {
   paragraphs: [
     '**Fais 3 expressions par jour, à voix haute.** L’exercice se déroule tout seul : tu entends la phrase trois fois (une fois à vitesse normale, deux fois plus lentement), puis tu construis l’expression en commençant par la fin.',
     'Pour chaque morceau : tu essaies de le dire, tu écoutes le modèle, puis tu répètes. Commencer par la fin garde l’intonation naturelle, parce que la phrase finit toujours sur un morceau que tu connais déjà.',
+    '**Enregistre-toi.** Après l’exercice, enregistre la phrase, réécoute ta voix, puis compare-la au modèle. Cherche une seule chose à améliorer et recommence.',
     '**Les voix sont synthétiques.** Elles donnent le rythme et les sons, mais écoute aussi l’épisode pour entendre de vraies personnes.',
   ],
 }

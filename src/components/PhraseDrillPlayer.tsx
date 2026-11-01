@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import type { PhraseDrill } from '../types'
 import { drillSteps, speakingPause, NORMAL_RATE, SLOW_RATE } from '../lib/drill'
 import { speak, speechSupported } from '../lib/speech'
+import { claimAudio, ownsAudio, releaseAudio, stopAudio } from '../lib/audioFocus'
 import { RichText } from './RichText'
+import { VoiceRecorder } from './VoiceRecorder'
 import { REGISTER_LABELS } from './labels'
 
 interface PhraseDrillPlayerProps {
@@ -10,9 +12,6 @@ interface PhraseDrillPlayerProps {
   practised: boolean
   onPractisedChange: (practised: boolean) => void
 }
-
-// Un seul exercice à la fois : en lancer un autre arrête celui en cours.
-let stopActive: (() => void) | null = null
 
 const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms))
 
@@ -27,21 +26,20 @@ export function PhraseDrillPlayer({ drill, practised, onPractisedChange }: Phras
     run.current += 1
     window.speechSynthesis.cancel()
     setCurrent(null)
-    if (stopActive === stopRef.current) stopActive = null
+    releaseAudio(stopRef.current)
   })
   const stop = stopRef.current
 
   // Quitter la page arrête la voix.
   useEffect(
     () => () => {
-      if (stopActive === stopRef.current) stopRef.current()
+      if (ownsAudio(stopRef.current)) stopRef.current()
     },
     [],
   )
 
   const start = async () => {
-    stopActive?.()
-    stopActive = stop
+    claimAudio(stop)
     const token = ++run.current
     for (let i = 0; i < steps.length; i++) {
       if (token !== run.current) return
@@ -53,13 +51,13 @@ export function PhraseDrillPlayer({ drill, practised, onPractisedChange }: Phras
     }
     if (token === run.current) {
       setCurrent(null)
-      stopActive = null
+      releaseAudio(stop)
       onPractisedChange(true)
     }
   }
 
   const hear = (text: string, rate: number) => {
-    stopActive?.()
+    stopAudio()
     void speak(text, rate)
   }
 
@@ -137,6 +135,8 @@ export function PhraseDrillPlayer({ drill, practised, onPractisedChange }: Phras
           </li>
         </ol>
       </div>
+
+      <VoiceRecorder label={drill.phrase} />
 
       <label className="flex min-h-11 cursor-pointer items-center gap-3">
         <input
